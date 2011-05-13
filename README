@@ -1,1 +1,25 @@
-StrawberryEMU and StrawberryDB.
+||  StrawberryCore Repository ||
+________________________________
+
+This Repo include my private work on cores for different versions.
+
+Supported WoW versions:
+
+WoW Classic   - (1.12),   Not added yet. Comming soon.
+WoW TBC       - (2.4.3),  Not added yet. Comming soon.
+WoW WotLK     - (3.3.5a), Added, In Development
+WoW Cataclysm - (4.0.6a), Added, In Development
+WoW Cataclysm - (4.1.0a), Development Stopped. Next will be 4.2.0(a)
+WoW Cataclysm - (4.2.0),  Not added yet. It's PTR...
+
+StrawberryCore use the following libs:
+
+- ACE (ADAPTIVE Communication Environment), 6.0.1
+- bzip2, 1.0.6
+- G3D, 9.00 B02
+- jemalloc, 2.2.1
+- libmpq, 20110418 (date)
+- MySql, 6.0.2
+- utf8-cpp, 2.3.1
+- zlib, 1.2.5
+- gSoap2, 2.8.2
