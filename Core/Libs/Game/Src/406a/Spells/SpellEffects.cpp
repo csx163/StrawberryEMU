@@ -788,6 +788,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffectEntry const* effect)
             damage = m_originalCaster->SpellDamageBonus(unitTarget, m_spellInfo, (uint32)damage, SPELL_DIRECT_DAMAGE);
 
         m_damage += damage;
+        m_originalCaster->CombatStart(unitTarget, true);
     }
 }
 
@@ -3124,7 +3125,7 @@ void Spell::EffectSummonType(SpellEffectEntry const* effect)
                         properties->Id == 2081)     // Mechanical Dragonling, Arcanite Dragonling, Mithril Dragonling TODO: Research on meaning of basepoints
                          amount = 1;
 
-					TempSummonType summonType = (duration == 0) ? TEMPSUMMON_DEAD_DESPAWN : TEMPSUMMON_TIMED_DESPAWN;
+                    TempSummonType summonType = (duration == 0) ? TEMPSUMMON_DEAD_DESPAWN : TEMPSUMMON_TIMED_DESPAWN;
 
                     for (uint32 count = 0; count < amount; ++count)
                     {

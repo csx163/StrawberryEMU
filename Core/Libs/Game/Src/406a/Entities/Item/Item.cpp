@@ -99,8 +99,8 @@ void AddItemsSetItem(Player* player,Item* item)
                 SpellEntry const* spellInfo = sSpellStore.LookupEntry(set->spells[x]);
                 if (!spellInfo)
                 {
-					sLog->outError("WORLD: unknown spell id %u in items set %u effects", set->spells[x], setid);
-					break;
+                    sLog->outError("WORLD: unknown spell id %u in items set %u effects", set->spells[x], setid);
+                    break;
                 }
 
                 // spell casted only if fit form requirement, in other case will casted at form change
