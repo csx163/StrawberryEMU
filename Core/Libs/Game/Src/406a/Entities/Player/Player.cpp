@@ -16430,8 +16430,8 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     //"resettalents_time, trans_x, trans_y, trans_z, trans_o, transguid, extra_flags, stable_slots, at_login, zone, online, death_expire_time, taxi_path, instance_mode_mask,"
     // 39           40                41                 42                    43          44          45              46           47               48              49
     //"arenaPoints, totalHonorPoints, todayHonorPoints, yesterdayHonorPoints, totalKills, todayKills, yesterdayKills, chosenTitle, knownCurrencies, watchedFaction, drunk,"
-    // 50      51      52      53      54      55      56      57      58      59      60       61       62            63        64          65             66              67      68           69                 70
-    //"health, power1, power2, power3, power4, power5, power6, power7, power8, power9, power10, power11, instance_id, speccount, activespec, exploredZones, equipmentCache, ammoId, knownTitles, achievementPoints, actionBars FROM characters WHERE guid = '%u'", guid);
+    // 50      51      52      53      54      55      56      57      58      59      60       61       62            63        64          65             66              67           68                 69
+    //"health, power1, power2, power3, power4, power5, power6, power7, power8, power9, power10, power11, instance_id, speccount, activespec, exploredZones, equipmentCache, knownTitles, achievementPoints, actionBars FROM characters WHERE guid = '%u'", guid);
     PreparedQueryResult result = holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADFROM);
 
     if (!result)
@@ -16490,8 +16490,8 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
     SetUInt32Value(UNIT_FIELD_LEVEL, fields[6].GetUInt8());
     SetUInt32Value(PLAYER_XP, fields[7].GetUInt32());
 
-    //_LoadIntoDataField(fields[65].GetCString(), PLAYER_EXPLORED_ZONES_1, PLAYER_EXPLORED_ZONES_SIZE);
-    //_LoadIntoDataField(fields[68].GetCString(), PLAYER__FIELD_KNOWN_TITLES, KNOWN_TITLES_SIZE * 2);
+    _LoadIntoDataField(fields[65].GetCString(), PLAYER_EXPLORED_ZONES_1, PLAYER_EXPLORED_ZONES_SIZE);
+    _LoadIntoDataField(fields[67].GetCString(), PLAYER__FIELD_KNOWN_TITLES, KNOWN_TITLES_SIZE * 2);
 
     SetFloatValue(UNIT_FIELD_BOUNDINGRADIUS, DEFAULT_WORLD_OBJECT_SIZE);
     SetFloatValue(UNIT_FIELD_COMBATREACH, 1.5f);
@@ -16513,10 +16513,8 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 
     //SetUInt64Value(PLAYER_FIELD_KNOWN_CURRENCIES, fields[47].GetUInt64());
 
-    //SetUInt32Value(PLAYER_AMMO_ID, fields[63].GetUInt32());
-
     // set which actionbars the client has active - DO NOT REMOVE EVER AGAIN (can be changed though, if it does change fieldwise)
-    SetByteValue(PLAYER_FIELD_BYTES, 2, uint8(fields[69].GetUInt64()));
+    SetByteValue(PLAYER_FIELD_BYTES, 2, fields[68].GetUInt8());
 
     InitDisplayIds();
 

@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : Local
-Source Server Version : 60011
+Source Server Version : 50508
 Source Host           : localhost:3306
 Source Database       : chardb
 
 Target Server Type    : MYSQL
-Target Server Version : 60011
+Target Server Version : 50508
 File Encoding         : 65001
 
-Date: 2011-04-25 21:35:15
+Date: 2011-05-15 15:04:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -203,7 +203,7 @@ CREATE TABLE `characters` (
   `position_x` float NOT NULL DEFAULT '0',
   `position_y` float NOT NULL DEFAULT '0',
   `position_z` float NOT NULL DEFAULT '0',
-  `map` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Map Identifier',
+  `map` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Map Identifier',
   `instance_id` int(10) unsigned NOT NULL DEFAULT '0',
   `instance_mode_mask` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `orientation` float NOT NULL DEFAULT '0',
