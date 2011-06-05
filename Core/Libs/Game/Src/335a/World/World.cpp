@@ -1252,11 +1252,6 @@ void World::SetInitialWorldSettings()
     stmt->setUInt32(0, 3 * DAY);
     CharDB.Execute(stmt);
 
-    ///- Load the DBC files
-    sLog->outString("Initialize data stores...");
-    LoadDBCStores(m_dataPath);
-    DetectDBCLang();
-
     sData->LoadAchievementData();
     sData->LoadAchievementCategoryData();
     sData->LoadAchievementCriteriaData();
@@ -1266,6 +1261,11 @@ void World::SetInitialWorldSettings()
     sData->LoadAreaGroupData();
     sData->LoadAreaPoiData();
     sData->LoadAreaTableData();
+
+    ///- Load the DBC files
+    sLog->outString("Initialize data stores...");
+    LoadDBCStores(m_dataPath);
+    DetectDBCLang();
 
     sLog->outString("Loading Script Names...");
     sObjectMgr->LoadScriptNames();

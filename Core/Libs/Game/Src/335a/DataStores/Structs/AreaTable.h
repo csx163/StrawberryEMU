@@ -28,10 +28,18 @@ struct AreaTableData
     uint32 ZoneId;
     uint32 ExploreFlag;
     uint32 Flags;
+    uint32 SoundProvider;
+    uint32 SoundProviderUw;
+    uint32 AmbienceId;
+    uint32 ZoneMusicId;
+    uint32 IntroId;
     int32 AreaLevel;
     std::string AreaName;
     uint32 NameFlags;
     uint32 TeamId;
+    uint32 LiquidTypeId;
+    float MinElevation;
+    float AmbientMultiplier;
 
     bool IsSanctuary() const
     {
@@ -41,9 +49,6 @@ struct AreaTableData
         return (Flags & AREA_FLAG_SANCTUARY);
     }
 };
-
-AreaTableData const* GetAreaEntryByAreaID(uint32 area_id);
-AreaTableData const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag, uint32 map_id);
 
 typedef UNORDERED_MAP<uint32, AreaTableData> AreaTableDataContainer;
 

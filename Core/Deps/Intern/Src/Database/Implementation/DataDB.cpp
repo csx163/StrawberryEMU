@@ -36,9 +36,10 @@ void DataDBConnection::DoPrepareStatements()
     PREPARE_STATEMENT(DATA_LOAD_AREAGROUP_DATA_DBC, "SELECT AreaGroupId, AreaId, AreaId1, AreaId2, AreaId3, AreaId4, AreaId5, NextGroup FROM AreaGroup", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_AREAPOI_DATA_DBC, "SELECT Id, Icon, Icon1, Icon2, Icon3, Icon4, Icon5, Icon6, Icon7, Icon8, Icon9, Icon10, X, Y, Z, MapId, FactionId, "
-                                                  "ZoneId, Name, NameFlag, Description, Flags, WorldState, WorldMapLink FROM AreaPoi", CONNECTION_SYNCH);
+                                                  "ZoneId, Name, WorldStateId, WorldMapLink FROM AreaPoi", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_AREATABLE_DATA_DBC, "SELECT Id, MapId, ZoneId, ExploreFlag, Flags, AreaLevel, AreaName, NameFlags, TeamId FROM AreaTable", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_AREATABLE_DATA_DBC, "SELECT Id, MapId, ZoneId, ExploreFlag, Flags, SoundProvider, SoundProviderUw, AmbienceId, ZoneMusicId, IntroId, AreaLevel, "
+                                                    "AreaName, NameFlags, TeamId, LiquidTypeId, MinElevation, AmbientMultiplier FROM AreaTable", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_AREATRIGGER_DATA_DBC, "SELECT Id, MapId, X, Y, Z, Radius, BoxLength_X, BoxLength_Y, BoxLength_Z, BoxOrientation FROM AreaTrigger", CONNECTION_SYNCH);
 }

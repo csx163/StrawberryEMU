@@ -1080,7 +1080,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
         }
         case CONDITION_ZONEID:
         {
-            AreaTableData const* areaEntry = GetAreaEntryByAreaID(cond->mConditionValue1);
+            AreaTableData const* areaEntry = sObjectMgr->GetAreaTableData(cond->mConditionValue1);
             if (!areaEntry)
             {
                 sLog->outErrorDb("Zone condition has non existing area (%u), skipped", cond->mConditionValue1);

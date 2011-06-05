@@ -31,10 +31,7 @@ struct AreaPoiData
     uint32 FactionId;
     uint32 ZoneId;
     std::string Name;
-    uint32 NameFlag;
-    std::string Description;
-    uint32 Flags;
-    uint32 WorldState;
+    uint32 WorldStateId;
     uint32 WorldMapLink;
 };
 

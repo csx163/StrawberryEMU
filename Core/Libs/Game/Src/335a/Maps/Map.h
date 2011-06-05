@@ -343,6 +343,7 @@ class Map : public GridRefManager<NGridType>
             return GetZoneIdByAreaFlag(GetAreaFlag(x, y, z), GetId());
         }
 
+
         void GetZoneAndAreaId(uint32& zoneid, uint32& areaid, float x, float y, float z) const
         {
             GetZoneAndAreaIdByAreaFlag(zoneid, areaid, GetAreaFlag(x, y, z), GetId());

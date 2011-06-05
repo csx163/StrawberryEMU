@@ -158,8 +158,8 @@ bool ChatHandler::HandleGPSCommand(const char* args)
     obj->GetZoneAndAreaId(zone_id, area_id);
 
     MapEntry const* mapEntry = sMapStore.LookupEntry(obj->GetMapId());
-    AreaTableData const* zoneEntry = GetAreaEntryByAreaID(zone_id);
-    AreaTableData const* areaEntry = GetAreaEntryByAreaID(area_id);
+    AreaTableData const* zoneEntry = sObjectMgr->GetAreaTableData(zone_id);
+    AreaTableData const* areaEntry = sObjectMgr->GetAreaTableData(area_id);
 
     float zone_x = obj->GetPositionX();
     float zone_y = obj->GetPositionY();

@@ -423,7 +423,7 @@ public:
 
         uint32 areaid = cAreaId ? (uint32)atoi(cAreaId) : _player->GetZoneId();
 
-        AreaTableData const* areaEntry = GetAreaEntryByAreaID(areaid);
+        AreaTableData const* areaEntry = sObjectMgr->GetAreaTableData(areaid);
 
         if (x < 0 || x > 100 || y < 0 || y > 100 || !areaEntry)
         {
@@ -433,7 +433,7 @@ public:
         }
 
         // update to parent zone if exist (client map show only zones without parents)
-        AreaTableData const* zoneEntry = areaEntry->ZoneId ? GetAreaEntryByAreaID(areaEntry->ZoneId) : areaEntry;
+        AreaTableData const* zoneEntry = areaEntry->ZoneId ? sObjectMgr->GetAreaTableData(areaEntry->ZoneId) : areaEntry;
 
         Map const *map = sMapMgr->CreateBaseMap(zoneEntry->MapId);
 

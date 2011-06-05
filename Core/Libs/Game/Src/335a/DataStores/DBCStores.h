@@ -26,6 +26,7 @@
 #include "DBCStructure.h"
 
 #include <list>
+#include "AreaTable.h"
 
 typedef std::list<uint32> SimpleFactionsList;
 SimpleFactionsList const* GetFactionTeamList(uint32 faction);
@@ -40,6 +41,9 @@ uint32 GetAreaFlagByMapId(uint32 mapid);
 WMOAreaTableEntry const* GetWMOAreaTableEntryByTripple(int32 rootid, int32 adtid, int32 groupid);
 
 uint32 GetVirtualMapForMapAndZone(uint32 mapid, uint32 zoneId);
+
+AreaTableData const* GetAreaEntryByAreaID(uint32 area_id);
+AreaTableData const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag, uint32 map_id);
 
 enum ContentLevels
 {

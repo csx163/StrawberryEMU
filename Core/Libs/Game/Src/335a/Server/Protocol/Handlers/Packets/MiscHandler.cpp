@@ -312,7 +312,7 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
             continue;
 
         std::string aname;
-        if (AreaTableData const* areaEntry = GetAreaEntryByAreaID(itr->second->GetZoneId()))
+        if (AreaTableData const* areaEntry = sObjectMgr->GetAreaTableData(itr->second->GetZoneId()))
             aname = areaEntry->AreaName[GetSessionDbcLocale()];
 
         bool s_show = true;
@@ -1730,7 +1730,7 @@ void WorldSession::HandleHearthAndResurrect(WorldPacket& /*recv_data*/)
     if (_player->isInFlight())
         return;
 
-    AreaTableData const *atEntry = GetAreaEntryByAreaID(_player->GetAreaId());
+    AreaTableData const *atEntry = sObjectMgr->GetAreaTableData(_player->GetAreaId());
     if (!atEntry || !(atEntry->Flags & AREA_FLAG_WINTERGRASP_2))
         return;
 

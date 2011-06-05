@@ -186,7 +186,7 @@ bool AchievementCriteriaData2::IsValid(AchievementCriteriaData const* criteria)
             return true;
         }
         case ACHIEVEMENT_CRITERIA_DATA_TYPE_S_AREA:
-            if (!GetAreaEntryByAreaID(area.id))
+            if (!sObjectMgr->GetAreaTableData(area.id))
             {
                 sLog->outErrorDb("Table `achievement_criteria_data` (Entry: %u Type: %u) for data type ACHIEVEMENT_CRITERIA_DATA_TYPE_S_AREA (%u) has wrong area id in value1 (%u), ignored.",
                     criteria->Id, criteria->RequiredType, dataType, area.id);

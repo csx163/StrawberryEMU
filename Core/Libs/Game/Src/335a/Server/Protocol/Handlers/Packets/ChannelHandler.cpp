@@ -37,7 +37,7 @@ void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
         if (!channel)
             return;
 
-        AreaTableData const* current_zone = GetAreaEntryByAreaID(_player->GetZoneId());
+        AreaTableData const* current_zone = sObjectMgr->GetAreaTableData(_player->GetZoneId());
         if (!current_zone)
             return;
 

@@ -5461,7 +5461,7 @@ void Player::RepopAtGraveyard()
     // note: this can be called also when the player is alive
     // for example from WorldSession::HandleMovementOpcodes
 
-    AreaTableData const *zone = GetAreaEntryByAreaID(GetAreaId());
+    AreaTableData const *zone = sObjectMgr->GetAreaTableData(GetAreaId());
 
     // Such zones are considered unreachable as a ghost and the player must be automatically revived
     if ((!isAlive() && zone && zone->Flags & AREA_FLAG_NEED_FLY) || GetTransport() || GetPositionZ() < -500.0f)
@@ -5543,7 +5543,7 @@ void Player::UpdateLocalChannels(uint32 newZone)
     if (GetSession()->PlayerLoading() && !IsBeingTeleportedFar())
         return;                                              // The client handles it automatically after loading, but not after teleporting
 
-    AreaTableData const* current_zone = GetAreaEntryByAreaID(newZone);
+    AreaTableData const* current_zone = sObjectMgr->GetAreaTableData(newZone);
     if (!current_zone)
         return;
 
@@ -7348,7 +7348,7 @@ void Player::UpdateArea(uint32 newArea)
     // so apply them accordingly
     m_areaUpdateId    = newArea;
 
-    AreaTableData const* area = GetAreaEntryByAreaID(newArea);
+    AreaTableData const* area = sObjectMgr->GetAreaTableData(newArea);
     pvpInfo.inFFAPvPArea = area && (area->Flags & AREA_FLAG_ARENA);
     UpdatePvPState(true);
 
@@ -7381,7 +7381,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
     // zone changed, so area changed as well, update it
     UpdateArea(newArea);
 
-    AreaTableData const* zone = GetAreaEntryByAreaID(newZone);
+    AreaTableData const* zone = sObjectMgr->GetAreaTableData(newZone);
     if (!zone)
         return;
 

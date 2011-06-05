@@ -279,11 +279,8 @@ void Data::LoadAreaPoiData()
                 areaPoiData.FactionId    = TableFields[16].GetUInt32();
                 areaPoiData.ZoneId       = TableFields[17].GetUInt32();
                 areaPoiData.Name         = TableFields[18].GetString();
-                areaPoiData.NameFlag     = TableFields[19].GetUInt32();
-                areaPoiData.Description  = TableFields[20].GetString();
-                areaPoiData.Flags        = TableFields[21].GetUInt32();
-                areaPoiData.WorldState   = TableFields[22].GetUInt32();
-                areaPoiData.WorldMapLink = TableFields[23].GetUInt32();
+                areaPoiData.WorldStateId = TableFields[19].GetUInt32();
+                areaPoiData.WorldMapLink = TableFields[20].GetUInt32();
 
                 AreaPoiDataTable[areaPoiData.Id] = areaPoiData;
 
@@ -319,15 +316,23 @@ void Data::LoadAreaTableData()
                 Field* TableFields = AreaTableDataResult->Fetch();
                 AreaTableData areaTableData;
 
-                areaTableData.Id          = TableFields[0].GetUInt32();
-                areaTableData.MapId       = TableFields[1].GetUInt32();
-                areaTableData.ZoneId      = TableFields[2].GetUInt32();
-                areaTableData.ExploreFlag = TableFields[3].GetUInt32();
-                areaTableData.Flags       = TableFields[4].GetUInt32();
-                areaTableData.AreaLevel   = TableFields[5].GetInt32();
-                areaTableData.AreaName    = TableFields[6].GetString();
-                areaTableData.NameFlags   = TableFields[7].GetUInt32();
-                areaTableData.TeamId      = TableFields[8].GetUInt32();
+                areaTableData.Id                = TableFields[0].GetUInt32();
+                areaTableData.MapId             = TableFields[1].GetUInt32();
+                areaTableData.ZoneId            = TableFields[2].GetUInt32();
+                areaTableData.ExploreFlag       = TableFields[3].GetUInt32();
+                areaTableData.Flags             = TableFields[4].GetUInt32();
+                areaTableData.SoundProvider     = TableFields[5].GetUInt32();
+                areaTableData.SoundProviderUw   = TableFields[6].GetUInt32();
+                areaTableData.AmbienceId        = TableFields[7].GetUInt32();
+                areaTableData.ZoneMusicId       = TableFields[8].GetUInt32();
+                areaTableData.IntroId           = TableFields[9].GetUInt32();
+                areaTableData.AreaLevel         = TableFields[10].GetInt32();
+                areaTableData.AreaName          = TableFields[11].GetString();
+                areaTableData.NameFlags         = TableFields[12].GetUInt32();
+                areaTableData.TeamId            = TableFields[13].GetUInt32();
+                areaTableData.LiquidTypeId      = TableFields[14].GetUInt32();
+                areaTableData.MinElevation      = TableFields[15].GetFloat();
+                areaTableData.AmbientMultiplier = TableFields[16].GetFloat();
 
                 AreaTableDataTable[areaTableData.Id] = areaTableData;
 
