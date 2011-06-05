@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -102,7 +104,7 @@ void UnitAI::DoAddAuraToAllHostilePlayers(uint32 spellid)
         std::list<HostileReference*>& threatlist = me->getThreatManager().getThreatList();
         for (std::list<HostileReference*>::iterator itr = threatlist.begin(); itr != threatlist.end(); ++itr)
         {
-            if (Unit *pTemp = Unit::GetUnit(*me,(*itr)->getUnitGuid()))
+            if (Unit *pTemp = Unit::GetUnit(*me, (*itr)->getUnitGuid()))
                 if (pTemp->GetTypeId() == TYPEID_PLAYER)
                     me->AddAura(spellid, pTemp);
         }
@@ -117,7 +119,7 @@ void UnitAI::DoCastToAllHostilePlayers(uint32 spellid, bool triggered)
         std::list<HostileReference*>& threatlist = me->getThreatManager().getThreatList();
         for (std::list<HostileReference*>::iterator itr = threatlist.begin(); itr != threatlist.end(); ++itr)
         {
-            if (Unit *pTemp = Unit::GetUnit(*me,(*itr)->getUnitGuid()))
+            if (Unit *pTemp = Unit::GetUnit(*me, (*itr)->getUnitGuid()))
                 if (pTemp->GetTypeId() == TYPEID_PLAYER)
                     me->CastSpell(pTemp, spellid, triggered);
         }

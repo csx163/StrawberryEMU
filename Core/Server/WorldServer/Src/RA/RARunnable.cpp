@@ -77,7 +77,7 @@ void RARunnable::run()
         return;
     }
 
-    sLog->outString("Starting Trinity RA on port %d on %s", raport, stringip.c_str());
+    sLog->outString("Starting RA on port %d on %s", raport, stringip.c_str());
 
     while (!World::IsStopped())
     {

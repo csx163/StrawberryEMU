@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -242,7 +244,7 @@ class Field
         #if defined(__GNUC__)
         #pragma pack(1)
         #else
-        #pragma pack(push,1)
+        #pragma pack(push, 1)
         #endif
         struct
         {

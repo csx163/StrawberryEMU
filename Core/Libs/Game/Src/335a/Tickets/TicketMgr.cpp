@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -19,12 +21,9 @@
 #include "Common.h"
 #include "TicketMgr.h"
 #include "DatabaseEnv.h"
-#include "SQLStorage.h"
-#include "SQLStorageImpl.h"
 #include "Log.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
-#include "ServerOpcodeHandler.h"
 #include "Chat.h"
 #include "World.h"
 
@@ -103,7 +102,7 @@ void GmTicket::SaveToDB(SQLTransaction& trans) const
     CharDB.ExecuteOrAppend(trans, stmt);
 }
 
-void GmTicket::DeleteFromDB(SQLTransaction& trans)
+void GmTicket::DeleteFromDB()
 {
     PreparedStatement* stmt = CharDB.GetPreparedStatement(CHAR_DEL_GM_TICKET);
     stmt->setUInt32(0, _id);
@@ -199,7 +198,7 @@ void GmTicket::TeleportTo(Player* player) const
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Ticket manager
-TicketMgr::TicketMgr() : _lastTicketId(0), _lastSurveyId(0), _openTicketCount(0), _lastChange(time(NULL)), _status(true) { }
+TicketMgr::TicketMgr() : _status(true), _lastTicketId(0), _lastSurveyId(0), _openTicketCount(0), _lastChange(time(NULL)) { }
 
 void TicketMgr::Initialize() { SetStatus(sWorld->getBoolConfig(CONFIG_ALLOW_TICKETS)); }
 
@@ -289,8 +288,7 @@ void TicketMgr::RemoveTicket(uint32 ticketId)
 {
     if (GmTicket* ticket = GetTicket(ticketId))
     {
-        SQLTransaction trans = SQLTransaction(NULL);
-        ticket->DeleteFromDB(trans);
+        ticket->DeleteFromDB();
         _ticketList.erase(ticketId);
     }
 }

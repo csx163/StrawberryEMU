@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -42,9 +44,13 @@
 #  ifndef DECLSPEC_NORETURN
 #    define DECLSPEC_NORETURN __declspec(noreturn)
 #  endif //DECLSPEC_NORETURN
+#  ifndef DECLSPEC_DEPRECATED
+#    define DECLSPEC_DEPRECATED __declspec(deprecated)
+#  endif //DECLSPEC_DEPRECATED
 #else //PLATFORM != PLATFORM_WINDOWS
 #  define STRAWBERRY_PATH_MAX PATH_MAX
 #  define DECLSPEC_NORETURN
+#  define DECLSPEC_DEPRECATED
 #endif //PLATFORM
 
 #if !defined(COREDEBUG)
@@ -58,10 +64,12 @@
 
 #if COMPILER == COMPILER_GNU
 #  define ATTR_NORETURN __attribute__((noreturn))
-#  define ATTR_PRINTF(F,V) __attribute__ ((format (printf, F, V)))
+#  define ATTR_PRINTF(F, V) __attribute__ ((format (printf, F, V)))
+#  define ATTR_DEPRECATED __attribute__((deprecated))
 #else //COMPILER != COMPILER_GNU
 #  define ATTR_NORETURN
-#  define ATTR_PRINTF(F,V)
+#  define ATTR_PRINTF(F, V)
+#  define ATTR_DEPRECATED
 #endif //COMPILER == COMPILER_GNU
 
 typedef ACE_INT64 int64;
@@ -72,20 +80,5 @@ typedef ACE_UINT64 uint64;
 typedef ACE_UINT32 uint32;
 typedef ACE_UINT16 uint16;
 typedef ACE_UINT8 uint8;
-
-enum
-{
-    FT_NA='x',                                              //not used or unknown, 4 byte size
-    FT_NA_BYTE='X',                                         //not used or unknown, byte
-    FT_STRING='s',                                          //char*
-    FT_FLOAT='f',                                           //float
-    FT_INT='i',                                             //uint32
-    FT_BYTE='b',                                            //uint8
-    FT_SORT='d',                                            //sorted by this field, field is not included
-    FT_IND='n',                                             //the same,but parsed to data
-    FT_LOGIC='l',                                           //Logical (boolean)
-    FT_SQL_PRESENT='p',                                     //Used in sql format to mark column present in sql dbc
-    FT_SQL_ABSENT='a'                                       //Used in sql format to mark column absent in sql dbc
-};
 
 #endif //STRAWBERRY_DEFINE_H

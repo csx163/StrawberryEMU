@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -32,12 +34,12 @@
 #define SCR_REG_LST(T) ScriptRegistry<T>::ScriptPointerList
 
 // Utility macros for looping over scripts.
-#define FOR_SCRIPTS(T,C,E) \
+#define FOR_SCRIPTS(T, C, E) \
     if (SCR_REG_LST(T).empty()) \
         return; \
     for (SCR_REG_ITR(T) C = SCR_REG_LST(T).begin(); \
         C != SCR_REG_LST(T).end(); ++C)
-#define FOR_SCRIPTS_RET(T,C,E,R) \
+#define FOR_SCRIPTS_RET(T, C, E, R) \
     if (SCR_REG_LST(T).empty()) \
         return R; \
     for (SCR_REG_ITR(T) C = SCR_REG_LST(T).begin(); \
@@ -47,11 +49,11 @@
     itr->second
 
 // Utility macros for finding specific scripts.
-#define GET_SCRIPT(T,I,V) \
+#define GET_SCRIPT(T, I, V) \
     T* V = ScriptRegistry<T>::GetScriptById(I); \
     if (!V) \
         return;
-#define GET_SCRIPT_RET(T,I,V,R) \
+#define GET_SCRIPT_RET(T, I, V, R) \
     T* V = ScriptRegistry<T>::GetScriptById(I); \
     if (!V) \
         return R;
@@ -78,7 +80,7 @@ void DoScriptText(int32 iTextEntry, WorldObject* pSource, Unit* pTarget)
         return;
     }
 
-    sLog->outDebug(LOG_FILTER_SSCR, "TSCR: DoScriptText: text entry=%i, Sound=%u, Type=%u, Language=%u, Emote=%u", iTextEntry, pData->uiSoundId, pData->uiType, pData->uiLanguage, pData->uiEmote);
+    sLog->outDebug(LOG_FILTER_TSCR, "TSCR: DoScriptText: text entry=%i, Sound=%u, Type=%u, Language=%u, Emote=%u", iTextEntry, pData->uiSoundId, pData->uiType, pData->uiLanguage, pData->uiEmote);
 
     if (pData->uiSoundId)
     {
@@ -463,7 +465,7 @@ void ScriptMgr::OnGroupRateCalculation(float& rate, uint32 count, bool isRaid)
     FOREACH_SCRIPT(FormulaScript)->OnGroupRateCalculation(rate, count, isRaid);
 }
 
-#define SCR_MAP_BGN(M,V,I,E,C,T) \
+#define SCR_MAP_BGN(M, V, I, E, C, T) \
     if (V->GetEntry()->T()) \
     { \
         FOR_SCRIPTS(M, I, E) \
@@ -643,7 +645,7 @@ bool ScriptMgr::OnItemUse(Player* player, Item* item, SpellCastTargets const& ta
     return tmpscript->OnUse(player, item, targets);
 }
 
-bool ScriptMgr::OnItemExpire(Player* player, ItemPrototype const* proto)
+bool ScriptMgr::OnItemExpire(Player* player, ItemTemplate const* proto)
 {
     ASSERT(player);
     ASSERT(proto);
@@ -856,12 +858,12 @@ bool ScriptMgr::OnDummyEffect(Unit* caster, uint32 spellId, SpellEffIndex effInd
     return tmpscript->OnDummyEffect(caster, spellId, effIndex, target);
 }
 
-bool ScriptMgr::OnAreaTrigger(Player* player, AreaTriggerEntry const* trigger)
+bool ScriptMgr::OnAreaTrigger(Player* player, AreaTriggerData const* trigger)
 {
     ASSERT(player);
     ASSERT(trigger);
 
-    GET_SCRIPT_RET(AreaTriggerScript, sObjectMgr->GetAreaTriggerScriptId(trigger->id), tmpscript, false);
+    GET_SCRIPT_RET(AreaTriggerScript, sObjectMgr->GetAreaTriggerScriptId(trigger->Id), tmpscript, false);
     return tmpscript->OnTrigger(player, trigger);
 }
 
@@ -1064,7 +1066,7 @@ void ScriptMgr::OnShutdown()
     FOREACH_SCRIPT(WorldScript)->OnShutdown();
 }
 
-bool ScriptMgr::OnCriteriaCheck(AchievementCriteriaData const* data, Player* source, Unit* target)
+bool ScriptMgr::OnCriteriaCheck(AchievementCriteriaData2 const* data, Player* source, Unit* target)
 {
     ASSERT(source);
     // target can be NULL.
@@ -1089,9 +1091,9 @@ void ScriptMgr::OnPlayerKilledByCreature(Creature *killer, Player *killed)
     FOREACH_SCRIPT(PlayerScript)->OnPlayerKilledByCreature(killer, killed);
 }
 
-void ScriptMgr::OnPlayerLevelChanged(Player *player, uint8 newLevel)
+void ScriptMgr::OnPlayerLevelChanged(Player *player, uint8 oldLevel)
 {
-    FOREACH_SCRIPT(PlayerScript)->OnLevelChanged(player, newLevel);
+    FOREACH_SCRIPT(PlayerScript)->OnLevelChanged(player, oldLevel);
 }
 
 void ScriptMgr::OnPlayerFreeTalentPointsChanged(Player *player, uint32 points)

@@ -5,13 +5,10 @@
 #ifndef SC_SCRIPTLOADER_H
 #define SC_SCRIPTLOADER_H
 
-// Enable Commands
 void AddScripts();
-void AddCommandScripts();
-
-// Disable Scripts
-/*
+void AddExampleScripts();
 void AddSpellScripts();
+void AddCommandScripts();
 void AddWorldScripts();
 void AddEasternKingdomsScripts();
 void AddKalimdorScripts();
@@ -19,6 +16,6 @@ void AddOutlandScripts();
 void AddNorthrendScripts();
 void AddBattlegroundScripts();
 void AddOutdoorPvPScripts();
-void AddCustomScripts();*/
+void AddCustomScripts();
 
 #endif

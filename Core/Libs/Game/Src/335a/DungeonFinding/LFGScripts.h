@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -39,7 +41,7 @@ class LFGScripts: public GroupScript, public PlayerScript
         void OnInviteMember(Group* group, uint64 guid);
 
         // Player Hooks
-        void OnLevelChanged(Player* player, uint8 newLevel);
+        void OnLevelChanged(Player* player, uint8 oldLevel);
         void OnLogout(Player* player);
         void OnLogin(Player* player);
         void OnBindToInstance(Player* player, Difficulty difficulty, uint32 mapId, bool permanent);

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -63,7 +65,7 @@ class WorldObject;
 struct AchievementCriteriaData;
 struct AuctionEntry;
 struct Condition;
-struct ItemPrototype;
+struct ItemTemplate;
 struct OutdoorPvPData;
 
 #define VISIBLE_RANGE       (166.0f)                        //MAX visible range (size of grid)
@@ -238,7 +240,7 @@ class ServerScript : public ScriptObject
         virtual void OnUnknownPacketReceive(WorldSocket* /*socket*/, WorldPacket& /*packet*/) { }
 };
 
-class WorldScript : public ScriptObject, public UpdatableScript<void>
+class WorldScript : public ScriptObject
 {
     protected:
 
@@ -389,7 +391,7 @@ class ItemScript : public ScriptObject
         virtual bool OnUse(Player* /*player*/, Item* /*item*/, SpellCastTargets const& /*targets*/) { return false; }
 
         // Called when the item expires (is destroyed).
-        virtual bool OnExpire(Player* /*player*/, ItemPrototype const* /*proto*/) { return false; }
+        virtual bool OnExpire(Player* /*player*/, ItemTemplate const* /*proto*/) { return false; }
 };
 
 class CreatureScript : public ScriptObject, public UpdatableScript<Creature>
@@ -481,7 +483,7 @@ class AreaTriggerScript : public ScriptObject
         bool IsDatabaseBound() const { return true; }
 
         // Called when the area trigger is activated by a player.
-        virtual bool OnTrigger(Player* /*player*/, AreaTriggerEntry const* /*trigger*/) { return false; }
+        virtual bool OnTrigger(Player* /*player*/, AreaTriggerData const* /*trigger*/) { return false; }
 };
 
 class BattlegroundScript : public ScriptObject
@@ -776,7 +778,7 @@ class ScriptMgr
         void LoadDatabase();
         void FillSpellSummary();
 
-        const char* ScriptsVersion() const { return "Integrated Strawberry Scripts"; }
+        const char* ScriptsVersion() const { return "Strawberry Script r1"; }
 
         void IncrementScriptCount() { ++_scriptCount; }
         uint32 GetScriptCount() const { return _scriptCount; }
@@ -840,7 +842,7 @@ class ScriptMgr
         bool OnDummyEffect(Unit* caster, uint32 spellId, SpellEffIndex effIndex, Item* target);
         bool OnQuestAccept(Player* player, Item* item, Quest const* quest);
         bool OnItemUse(Player* player, Item* item, SpellCastTargets const& targets);
-        bool OnItemExpire(Player* player, ItemPrototype const* proto);
+        bool OnItemExpire(Player* player, ItemTemplate const* proto);
 
     public: /* CreatureScript */
 
@@ -871,7 +873,7 @@ class ScriptMgr
 
     public: /* AreaTriggerScript */
 
-        bool OnAreaTrigger(Player* player, AreaTriggerEntry const* trigger);
+        bool OnAreaTrigger(Player* player, AreaTriggerData const* trigger);
 
     public: /* BattlegroundScript */
 
@@ -924,14 +926,14 @@ class ScriptMgr
 
     public: /* AchievementCriteriaScript */
 
-        bool OnCriteriaCheck(AchievementCriteriaData const* data, Player* source, Unit* target);
+        bool OnCriteriaCheck(AchievementCriteriaData2 const* data, Player* source, Unit* target);
 
     public: /* PlayerScript */
 
         void OnPVPKill(Player *killer, Player *killed);
         void OnCreatureKill(Player *killer, Creature *killed);
         void OnPlayerKilledByCreature(Creature *killer, Player *killed);
-        void OnPlayerLevelChanged(Player *player, uint8 newLevel);
+        void OnPlayerLevelChanged(Player *player, uint8 oldLevel);
         void OnPlayerFreeTalentPointsChanged(Player *player, uint32 newPoints);
         void OnPlayerTalentsReset(Player *player, bool no_cost);
         void OnPlayerMoneyChanged(Player *player, int32& amount);

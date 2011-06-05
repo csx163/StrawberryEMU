@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -36,9 +38,9 @@ void WorldSession::HandleAttackSwingOpcode(WorldPacket & recv_data)
     if (!pEnemy)
     {
         if (!IS_UNIT_GUID(guid))
-            sLog->outError("WORLD: Object %u (TypeID: %u) isn't player, pet or creature",GUID_LOPART(guid),GuidHigh2TypeId(GUID_HIPART(guid)));
+            sLog->outError("WORLD: Object %u (TypeID: %u) isn't player, pet or creature", GUID_LOPART(guid), GuidHigh2TypeId(GUID_HIPART(guid)));
         else
-            sLog->outError("WORLD: Enemy %s %u not found",GetLogNameForGuid(guid),GUID_LOPART(guid));
+            sLog->outError("WORLD: Enemy %s %u not found", GetLogNameForGuid(guid), GUID_LOPART(guid));
 
         // stop attack state at client
         SendAttackStop(NULL);
@@ -52,7 +54,7 @@ void WorldSession::HandleAttackSwingOpcode(WorldPacket & recv_data)
         return;
     }
 
-    _player->Attack(pEnemy,true);
+    _player->Attack(pEnemy, true);
 }
 
 void WorldSession::HandleAttackStopOpcode(WorldPacket & /*recv_data*/)
@@ -69,7 +71,7 @@ void WorldSession::HandleSetSheathedOpcode(WorldPacket & recv_data)
 
     if (sheathed >= MAX_SHEATH_STATE)
     {
-        sLog->outError("Unknown sheath state %u ??",sheathed);
+        sLog->outError("Unknown sheath state %u ??", sheathed);
         return;
     }
 

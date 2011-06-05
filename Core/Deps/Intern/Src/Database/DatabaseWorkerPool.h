@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -370,6 +372,9 @@ class DatabaseWorkerPool
                 }
             }
 
+            // Clean up now.
+            transaction->Cleanup();
+
             con->Unlock();
         }
 
@@ -411,7 +416,7 @@ class DatabaseWorkerPool
                 return;
 
             char* buf = new char[str.size()*2+1];
-            escape_string(buf,str.c_str(),str.size());
+            escape_string(buf, str.c_str(), str.size());
             str = buf;
             delete[] buf;
         }

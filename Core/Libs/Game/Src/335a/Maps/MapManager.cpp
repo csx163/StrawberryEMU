@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -151,7 +153,7 @@ bool MapManager::CanPlayerEnter(uint32 mapid, Player* player, bool loginCheck)
     if (!entry->IsDungeon())
         return true;
 
-    InstanceTemplate const* instance = ObjectMgr::GetInstanceTemplate(mapid);
+    InstanceTemplate const* instance = sObjectMgr->GetInstanceTemplate(mapid);
     if (!instance)
         return false;
 
@@ -184,7 +186,7 @@ bool MapManager::CanPlayerEnter(uint32 mapid, Player* player, bool loginCheck)
         {
             // probably there must be special opcode, because client has this string constant in GlobalStrings.lua
             // TODO: this is not a good place to send the message
-            player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetStrawberryString(LANG_INSTANCE_RAID_GROUP_ONLY), mapName);
+            player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetString(LANG_INSTANCE_RAID_GROUP_ONLY), mapName);
             sLog->outDebug(LOG_FILTER_MAPS, "MAP: Player '%s' must be in a raid group to enter instance '%s'", player->GetName(), mapName);
             return false;
         }
@@ -201,8 +203,8 @@ bool MapManager::CanPlayerEnter(uint32 mapid, Player* player, bool loginCheck)
                 if (corpseMap == mapid)
                     break;
 
-                InstanceTemplate const* instance = ObjectMgr::GetInstanceTemplate(corpseMap);
-                corpseMap = instance ? instance->parent : 0;
+                InstanceTemplate const* instance = sObjectMgr->GetInstanceTemplate(corpseMap);
+                corpseMap = instance ? instance->Parent : 0;
             } while (corpseMap);
 
             if (!corpseMap)
@@ -288,20 +290,25 @@ void MapManager::DoDelayedMovesAndRemoves()
 {
 }
 
-bool MapManager::ExistMapAndVMap(uint32 mapid, float x,float y)
+bool MapManager::ExistMapAndVMap(uint32 mapid, float x, float y)
 {
-    GridPair p = Strawberry::ComputeGridPair(x,y);
+    GridPair p = Strawberry::ComputeGridPair(x, y);
 
     int gx=63-p.x_coord;
     int gy=63-p.y_coord;
 
-    return Map::ExistMap(mapid,gx,gy) && Map::ExistVMap(mapid,gx,gy);
+    return Map::ExistMap(mapid, gx, gy) && Map::ExistVMap(mapid, gx, gy);
 }
 
-bool MapManager::IsValidMAP(uint32 mapid)
+bool MapManager::IsValidMAP(uint32 mapid, bool startUp)
 {
     MapEntry const* mEntry = sMapStore.LookupEntry(mapid);
-    return mEntry && (!mEntry->IsDungeon() || ObjectMgr::GetInstanceTemplate(mapid));
+
+    if (startUp)
+        return mEntry ? true : false;
+    else
+        return mEntry && (!mEntry->IsDungeon() || sObjectMgr->GetInstanceTemplate(mapid));
+
     // TODO: add check for battleground template
 }
 

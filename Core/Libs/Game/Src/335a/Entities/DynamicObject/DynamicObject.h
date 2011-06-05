@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_DYNAMICOBJECT_H
-#define STRAWBERRY_DYNAMICOBJECT_H
+#ifndef STRAWBERRYCORE_DYNAMICOBJECT_H
+#define STRAWBERRYCORE_DYNAMICOBJECT_H
 
 #include "Object.h"
 
@@ -61,7 +63,7 @@ class DynamicObject : public WorldObject, public GridObject<DynamicObject>
         void Say(int32 textId, uint32 language, uint64 targetGuid) { MonsterSay(textId, language, targetGuid); }
         void Yell(int32 textId, uint32 language, uint64 targetGuid) { MonsterYell(textId, language, targetGuid); }
         void TextEmote(int32 textId, uint64 targetGuid) { MonsterTextEmote(textId, targetGuid); }
-        void Whisper(int32 textId,uint64 receiver) { MonsterWhisper(textId, receiver); }
+        void Whisper(int32 textId, uint64 receiver) { MonsterWhisper(textId, receiver); }
         void YellToZone(int32 textId, uint32 language, uint64 targetGuid) { MonsterYellToZone(textId, language, targetGuid); }
 
     protected:

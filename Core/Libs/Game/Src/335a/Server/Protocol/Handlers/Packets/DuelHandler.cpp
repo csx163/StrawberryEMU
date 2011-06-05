@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -42,8 +44,8 @@ void WorldSession::HandleDuelAcceptedOpcode(WorldPacket& recvPacket)
         return;
 
     //sLog->outDebug(LOG_FILTER_PACKETIO, "WORLD: Received CMSG_DUEL_ACCEPTED");
-    sLog->outStaticDebug("Player 1 is: %u (%s)", pl->GetGUIDLow(),pl->GetName());
-    sLog->outStaticDebug("Player 2 is: %u (%s)", plTarget->GetGUIDLow(),plTarget->GetName());
+    sLog->outStaticDebug("Player 1 is: %u (%s)", pl->GetGUIDLow(), pl->GetName());
+    sLog->outStaticDebug("Player 2 is: %u (%s)", plTarget->GetGUIDLow(), plTarget->GetName());
 
     time_t now = time(NULL);
     pl->duel->startTimer = now;
@@ -78,5 +80,5 @@ void WorldSession::HandleDuelCancelledOpcode(WorldPacket& recvPacket)
     uint64 guid;
     recvPacket >> guid;
 
-    GetPlayer()->DuelComplete(DUEL_INTERUPTED);
+    GetPlayer()->DuelComplete(DUEL_INTERRUPTED);
 }

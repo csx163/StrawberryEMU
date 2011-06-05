@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -15,19 +17,19 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITYCORE_CHATLINK_H
-#define TRINITYCORE_CHATLINK_H
+#ifndef STRAWBERRYCORE_CHATLINK_H
+#define STRAWBERRYCORE_CHATLINK_H
 
 #include "SharedDefines.h"
 #include <sstream>
 #include <list>
 
 struct ItemLocale;
-struct ItemPrototype;
+struct ItemTemplate;
 struct ItemRandomSuffixEntry;
 struct ItemRandomPropertiesEntry;
 struct SpellEntry;
-struct AchievementEntry;
+struct AchievementData;
 struct GlyphPropertiesEntry;
 class Quest;
 
@@ -37,6 +39,7 @@ class ChatLink
 {
 public:
     ChatLink() : _color(0), _startPos(0), _endPos(0) { }
+    virtual ~ChatLink() { }
     void SetColor(uint32 color) { _color = color; }
     // This will allow to extract the whole link string from the message, if necessary.
     void SetBounds(std::istringstream::pos_type startPos, std::istringstream::pos_type endPos) { _startPos = startPos; _endPos = endPos; }
@@ -62,7 +65,7 @@ public:
 protected:
     std::string FormatName(uint8 index, ItemLocale const* locale, char* const* suffixStrings) const;
 
-    ItemPrototype const* _item;
+    ItemTemplate const* _item;
     int32 _data[8];
     ItemRandomSuffixEntry const* _suffix;
     ItemRandomPropertiesEntry const* _property;
@@ -103,7 +106,7 @@ public:
 
 protected:
     uint32 _guid;
-    AchievementEntry const* _achievement;
+    AchievementData const* _achievement;
     uint32 _data[8];
 };
 
@@ -144,7 +147,7 @@ public:
 class GlyphChatLink : public SpellChatLink
 {
 public:
-    GlyphChatLink() : SpellChatLink(), _glyph(NULL), _slotId(0) { }
+    GlyphChatLink() : SpellChatLink(), _slotId(0), _glyph(NULL) { }
     virtual bool Initialize(std::istringstream& iss);
 private:
     uint32 _slotId;
@@ -166,4 +169,4 @@ private:
 };
 
 
-#endif // TRINITYCORE_CHATLINK_H
+#endif // STRAWBERRYCORE_CHATLINK_H

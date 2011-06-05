@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -25,7 +27,6 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "ObjectMgr.h"
 #include "Chat.h"
-#include "ServerOpcodeHandler.h"
 
 class gm_commandscript : public CommandScript
 {
@@ -154,7 +155,7 @@ public:
     static bool HandleGMListFullCommand(ChatHandler* handler, const char* /*args*/)
     {
         ///- Get the accounts with GM Level >0
-        QueryResult result = RealmDB.Query("SELECT a.username,aa.gmlevel FROM account a, account_access aa WHERE a.id=aa.id AND aa.gmlevel > 0");
+        QueryResult result = RealmDB.Query("SELECT a.username, aa.gmlevel FROM account a, account_access aa WHERE a.id=aa.id AND aa.gmlevel > 0");
         if (result)
         {
             handler->SendSysMessage(LANG_GMLIST);
@@ -188,7 +189,7 @@ public:
     {
         if (!*args)
         {
-            handler->PSendSysMessage(LANG_YOU_ARE, handler->GetSession()->GetPlayer()->isGMVisible() ?  handler->GetStrawberryString(LANG_VISIBLE) : handler->GetStrawberryString(LANG_INVISIBLE));
+            handler->PSendSysMessage(LANG_YOU_ARE, handler->GetSession()->GetPlayer()->isGMVisible() ?  handler->GetString(LANG_VISIBLE) : handler->GetString(LANG_INVISIBLE));
             return true;
         }
 

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -26,6 +28,7 @@
 #include "GossipDef.h"
 #include "World.h"
 #include "ObjectMgr.h"
+#include "GuildMgr.h"
 #include "WorldSession.h"
 #include "BigNumber.h"
 #include "SHA1.h"
@@ -71,7 +74,7 @@ void WorldSession::HandleRepopRequestOpcode(WorldPacket & recv_data)
     }
 
     //this is spirit release confirm?
-    GetPlayer()->RemovePet(NULL,PET_SAVE_NOT_IN_SLOT, true);
+    GetPlayer()->RemovePet(NULL, PET_SAVE_NOT_IN_SLOT, true);
     GetPlayer()->BuildPlayerRepop();
     GetPlayer()->RepopAtGraveyard();
 }
@@ -87,7 +90,7 @@ void WorldSession::HandleGossipSelectOptionOpcode(WorldPacket & recv_data)
 
     recv_data >> guid >> menuId >> gossipListId;
 
-    if (_player->PlayerTalkClass->GossipOptionCoded(gossipListId))
+    if (_player->PlayerTalkClass->IsGossipOptionCoded(gossipListId))
         recv_data >> code;
 
     Creature *unit = NULL;
@@ -127,7 +130,7 @@ void WorldSession::HandleGossipSelectOptionOpcode(WorldPacket & recv_data)
             unit->LastUsedScriptID = unit->GetCreatureInfo()->ScriptID;
         if (go)
             go->LastUsedScriptID = go->GetGOInfo()->ScriptId;
-        _player->PlayerTalkClass->CloseGossip();
+        _player->PlayerTalkClass->SendCloseGossip();
         return;
     }
     if (!code.empty())
@@ -135,13 +138,13 @@ void WorldSession::HandleGossipSelectOptionOpcode(WorldPacket & recv_data)
         if (unit)
         {
             unit->AI()->sGossipSelectCode(_player, menuId, gossipListId, code.c_str());
-            if (!sScriptMgr->OnGossipSelectCode(_player, unit, _player->PlayerTalkClass->GossipOptionSender(gossipListId), _player->PlayerTalkClass->GossipOptionAction(gossipListId), code.c_str()))
+            if (!sScriptMgr->OnGossipSelectCode(_player, unit, _player->PlayerTalkClass->GetGossipOptionSender(gossipListId), _player->PlayerTalkClass->GetGossipOptionAction(gossipListId), code.c_str()))
                 _player->OnGossipSelect(unit, gossipListId, menuId);
         }
         else
         {
             go->AI()->GossipSelectCode(_player, menuId, gossipListId, code.c_str());
-            sScriptMgr->OnGossipSelectCode(_player, go, _player->PlayerTalkClass->GossipOptionSender(gossipListId), _player->PlayerTalkClass->GossipOptionAction(gossipListId), code.c_str());
+            sScriptMgr->OnGossipSelectCode(_player, go, _player->PlayerTalkClass->GetGossipOptionSender(gossipListId), _player->PlayerTalkClass->GetGossipOptionAction(gossipListId), code.c_str());
         }
     }
     else
@@ -149,13 +152,13 @@ void WorldSession::HandleGossipSelectOptionOpcode(WorldPacket & recv_data)
         if (unit)
         {
             unit->AI()->sGossipSelect(_player, menuId, gossipListId);
-            if (!sScriptMgr->OnGossipSelect(_player, unit, _player->PlayerTalkClass->GossipOptionSender(gossipListId), _player->PlayerTalkClass->GossipOptionAction(gossipListId)))
+            if (!sScriptMgr->OnGossipSelect(_player, unit, _player->PlayerTalkClass->GetGossipOptionSender(gossipListId), _player->PlayerTalkClass->GetGossipOptionAction(gossipListId)))
                 _player->OnGossipSelect(unit, gossipListId, menuId);
         }
         else
         {
             go->AI()->GossipSelect(_player, menuId, gossipListId);
-            sScriptMgr->OnGossipSelect(_player, go, _player->PlayerTalkClass->GossipOptionSender(gossipListId), _player->PlayerTalkClass->GossipOptionAction(gossipListId));
+            sScriptMgr->OnGossipSelect(_player, go, _player->PlayerTalkClass->GetGossipOptionSender(gossipListId), _player->PlayerTalkClass->GetGossipOptionAction(gossipListId));
         }
     }
 }
@@ -205,7 +208,7 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
         std::string temp;
         recv_data >> temp;                                  // user entered string, it used as universal search pattern(guild+player name)?
 
-        if (!Utf8toWStr(temp,str[i]))
+        if (!Utf8toWStr(temp, str[i]))
             continue;
 
         wstrToLower(str[i]);
@@ -220,7 +223,7 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
     wstrToLower(wplayer_name);
     wstrToLower(wguild_name);
 
-    // client send in case not set max level value 100 but Trinity supports 255 max level,
+    // client send in case not set max level value 100 but we supports 255 max level,
     // update it to show GMs with characters after 100 level
     if (level_max >= MAX_LEVEL)
         level_max = STRONG_MAX_LEVEL;
@@ -292,16 +295,16 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
 
         std::string pname = itr->second->GetName();
         std::wstring wpname;
-        if (!Utf8toWStr(pname,wpname))
+        if (!Utf8toWStr(pname, wpname))
             continue;
         wstrToLower(wpname);
 
         if (!(wplayer_name.empty() || wpname.find(wplayer_name) != std::wstring::npos))
             continue;
 
-        std::string gname = sObjectMgr->GetGuildNameById(itr->second->GetGuildId());
+        std::string gname = sGuildMgr->GetGuildNameById(itr->second->GetGuildId());
         std::wstring wgname;
-        if (!Utf8toWStr(gname,wgname))
+        if (!Utf8toWStr(gname, wgname))
             continue;
         wstrToLower(wgname);
 
@@ -309,8 +312,8 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
             continue;
 
         std::string aname;
-        if (AreaTableEntry const* areaEntry = GetAreaEntryByAreaID(itr->second->GetZoneId()))
-            aname = areaEntry->area_name[GetSessionDbcLocale()];
+        if (AreaTableData const* areaEntry = GetAreaEntryByAreaID(itr->second->GetZoneId()))
+            aname = areaEntry->AreaName[GetSessionDbcLocale()];
 
         bool s_show = true;
         for (uint32 i = 0; i < str_count; ++i)
@@ -483,9 +486,9 @@ void WorldSession::HandleZoneUpdateOpcode(WorldPacket & recv_data)
 
     // use server size data
     uint32 newzone, newarea;
-    GetPlayer()->GetZoneAndAreaId(newzone,newarea);
-    GetPlayer()->UpdateZone(newzone,newarea);
-    //GetPlayer()->SendInitWorldStates(true,newZone);
+    GetPlayer()->GetZoneAndAreaId(newzone, newarea);
+    GetPlayer()->UpdateZone(newzone, newarea);
+    //GetPlayer()->SendInitWorldStates(true, newZone);
 }
 
 void WorldSession::HandleSetTargetOpcode(WorldPacket & recv_data)
@@ -542,7 +545,7 @@ void WorldSession::HandleAddFriendOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Received CMSG_ADD_FRIEND");
 
-    std::string friendName = GetStrawberryString(LANG_FRIEND_IGNORE_UNKNOWN);
+    std::string friendName = GetString(LANG_FRIEND_IGNORE_UNKNOWN);
     std::string friendNote;
 
     recv_data >> friendName;
@@ -634,7 +637,7 @@ void WorldSession::HandleAddIgnoreOpcode(WorldPacket & recv_data)
 {
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Received CMSG_ADD_IGNORE");
 
-    std::string IgnoreName = GetStrawberryString(LANG_FRIEND_IGNORE_UNKNOWN);
+    std::string IgnoreName = GetString(LANG_FRIEND_IGNORE_UNKNOWN);
 
     recv_data >> IgnoreName;
 
@@ -729,7 +732,7 @@ void WorldSession::HandleBugOpcode(WorldPacket & recv_data)
 
     CharDB.escape_string(type);
     CharDB.escape_string(content);
-    CharDB.PExecute ("INSERT INTO bugreport (type,content) VALUES('%s', '%s')", type.c_str(), content.c_str());
+    CharDB.PExecute ("INSERT INTO bugreport (type, content) VALUES('%s', '%s')", type.c_str(), content.c_str());
 }
 
 void WorldSession::HandleReclaimCorpseOpcode(WorldPacket &recv_data)
@@ -817,24 +820,24 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket & recv_data)
     uint32 Trigger_ID;
 
     recv_data >> Trigger_ID;
-    sLog->outDebug(LOG_FILTER_NETWORKIO, "Trigger ID:%u",Trigger_ID);
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "Trigger ID:%u", Trigger_ID);
 
     if (GetPlayer()->isInFlight())
     {
-        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) in flight, ignore Area Trigger ID:%u",GetPlayer()->GetName(),GetPlayer()->GetGUIDLow(), Trigger_ID);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) in flight, ignore Area Trigger ID:%u", GetPlayer()->GetName(), GetPlayer()->GetGUIDLow(), Trigger_ID);
         return;
     }
 
-    AreaTriggerEntry const* atEntry = sAreaTriggerStore.LookupEntry(Trigger_ID);
+    AreaTriggerData const* atEntry = sObjectMgr->GetAreaTriggerData(Trigger_ID);
     if (!atEntry)
     {
-        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) send unknown (by DBC) Area Trigger ID:%u",GetPlayer()->GetName(),GetPlayer()->GetGUIDLow(), Trigger_ID);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) send unknown (by DBC) Area Trigger ID:%u", GetPlayer()->GetName(), GetPlayer()->GetGUIDLow(), Trigger_ID);
         return;
     }
 
-    if (GetPlayer()->GetMapId() != atEntry->mapid)
+    if (GetPlayer()->GetMapId() != atEntry->MapId)
     {
-        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) too far (trigger map: %u player map: %u), ignore Area Trigger ID: %u", GetPlayer()->GetName(), atEntry->mapid, GetPlayer()->GetMapId(), GetPlayer()->GetGUIDLow(), Trigger_ID);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) too far (trigger map: %u player map: %u), ignore Area Trigger ID: %u", GetPlayer()->GetName(), atEntry->MapId, GetPlayer()->GetMapId(), GetPlayer()->GetGUIDLow(), Trigger_ID);
         return;
     }
 
@@ -843,14 +846,14 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket & recv_data)
     // check if player in the range of areatrigger
     Player* pl = GetPlayer();
 
-    if (atEntry->radius > 0)
+    if (atEntry->Radius > 0)
     {
         // if we have radius check it
-        float dist = pl->GetDistance(atEntry->x,atEntry->y,atEntry->z);
-        if (dist > atEntry->radius + delta)
+        float dist = pl->GetDistance(atEntry->X, atEntry->Y, atEntry->Z);
+        if (dist > atEntry->Radius + delta)
         {
             sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) too far (radius: %f distance: %f), ignore Area Trigger ID: %u",
-                pl->GetName(), pl->GetGUIDLow(), atEntry->radius, dist, Trigger_ID);
+                pl->GetName(), pl->GetGUIDLow(), atEntry->Radius, dist, Trigger_ID);
             return;
         }
     }
@@ -862,26 +865,26 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket & recv_data)
         // is-in-cube check and we have to calculate only one point instead of 4
 
         // 2PI = 360°, keep in mind that ingame orientation is counter-clockwise
-        double rotation = 2*M_PI-atEntry->box_orientation;
+        double rotation = 2 * M_PI-atEntry->BoxOrientation;
         double sinVal = sin(rotation);
         double cosVal = cos(rotation);
 
-        float playerBoxDistX = pl->GetPositionX() - atEntry->x;
-        float playerBoxDistY = pl->GetPositionY() - atEntry->y;
+        float playerBoxDistX = pl->GetPositionX() - atEntry->X;
+        float playerBoxDistY = pl->GetPositionY() - atEntry->Y;
 
-        float rotPlayerX = (float)(atEntry->x + playerBoxDistX * cosVal - playerBoxDistY*sinVal);
-        float rotPlayerY = (float)(atEntry->y + playerBoxDistY * cosVal + playerBoxDistX*sinVal);
+        float rotPlayerX = (float)(atEntry->X + playerBoxDistX * cosVal - playerBoxDistY * sinVal);
+        float rotPlayerY = (float)(atEntry->Y + playerBoxDistY * cosVal + playerBoxDistX * sinVal);
 
-        // box edges are parallel to coordiante axis, so we can treat every dimension independently :D
-        float dz = pl->GetPositionZ() - atEntry->z;
-        float dx = rotPlayerX - atEntry->x;
-        float dy = rotPlayerY - atEntry->y;
-        if ((fabs(dx) > atEntry->box_x/2 + delta) ||
-            (fabs(dy) > atEntry->box_y/2 + delta) ||
-            (fabs(dz) > atEntry->box_z/2 + delta))
+        // box edges are parallel to coordinate axis, so we can treat every dimension independently :D
+        float dz = pl->GetPositionZ() - atEntry->Z;
+        float dx = rotPlayerX - atEntry->X;
+        float dy = rotPlayerY - atEntry->Y;
+        if ((fabs(dx) > atEntry->BoxLength_X / 2 + delta) ||
+            (fabs(dy) > atEntry->BoxLength_Y / 2 + delta) ||
+            (fabs(dz) > atEntry->BoxLength_Z / 2 + delta))
         {
             sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) too far (1/2 box X: %f 1/2 box Y: %f 1/2 box Z: %f rotatedPlayerX: %f rotatedPlayerY: %f dZ:%f), ignore Area Trigger ID: %u",
-                pl->GetName(), pl->GetGUIDLow(), atEntry->box_x/2, atEntry->box_y/2, atEntry->box_z/2, rotPlayerX, rotPlayerY, dz, Trigger_ID);
+                pl->GetName(), pl->GetGUIDLow(), atEntry->BoxLength_X / 2, atEntry->BoxLength_Y / 2, atEntry->BoxLength_Z / 2, rotPlayerX, rotPlayerY, dz, Trigger_ID);
             return;
         }
     }
@@ -907,7 +910,7 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket & recv_data)
     {
         // set resting flag we are in the inn
         GetPlayer()->SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_RESTING);
-        GetPlayer()->InnEnter(time(NULL), atEntry->mapid, atEntry->x, atEntry->y, atEntry->z);
+        GetPlayer()->InnEnter(time(NULL), atEntry->MapId, atEntry->X, atEntry->Y, atEntry->Z);
         GetPlayer()->SetRestType(REST_TYPE_IN_TAVERN);
 
         if (sWorld->IsFFAPvPRealm())
@@ -946,7 +949,7 @@ void WorldSession::HandleAreaTriggerOpcode(WorldPacket & recv_data)
     if (GetPlayer()->GetGroup() && GetPlayer()->GetGroup()->isLFGGroup() && GetPlayer()->GetMap()->IsDungeon() && at->target_mapId != GetPlayer()->GetMapId())
         GetPlayer()->TeleportToBGEntryPoint();
     else
-        GetPlayer()->TeleportTo(at->target_mapId,at->target_X,at->target_Y,at->target_Z,at->target_Orientation,TELE_TO_NOT_LEAVE_TRANSPORT);
+        GetPlayer()->TeleportTo(at->target_mapId, at->target_X, at->target_Y, at->target_Z, at->target_Orientation, TELE_TO_NOT_LEAVE_TRANSPORT);
 }
 
 void WorldSession::HandleUpdateAccountData(WorldPacket &recv_data)
@@ -1183,7 +1186,7 @@ void WorldSession::HandleSetActionBarToggles(WorldPacket& recv_data)
     if (!GetPlayer())                                        // ignore until not logged (check needed because STATUS_AUTHED)
     {
         if (ActionBar != 0)
-            sLog->outError("WorldSession::HandleSetActionBarToggles in not logged state with value: %u, ignored",uint32(ActionBar));
+            sLog->outError("WorldSession::HandleSetActionBarToggles in not logged state with value: %u, ignored", uint32(ActionBar));
         return;
     }
 
@@ -1196,7 +1199,7 @@ void WorldSession::HandleWardenDataOpcode(WorldPacket& recv_data)
     /*
         uint8 tmp;
         recv_data >> tmp;
-        sLog->outDebug("Received opcode CMSG_WARDEN_DATA, not resolve.uint8 = %u",tmp);
+        sLog->outDebug("Received opcode CMSG_WARDEN_DATA, not resolve.uint8 = %u", tmp);
     */
 }
 
@@ -1290,14 +1293,14 @@ void WorldSession::HandleWorldTeleportOpcode(WorldPacket& recv_data)
     //sLog->outDebug("Received opcode CMSG_WORLD_TELEPORT");
     if (GetPlayer()->isInFlight())
     {
-        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) in flight, ignore worldport command.",GetPlayer()->GetName(),GetPlayer()->GetGUIDLow());
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Player '%s' (GUID: %u) in flight, ignore worldport command.", GetPlayer()->GetName(), GetPlayer()->GetGUIDLow());
         return;
     }
 
     sLog->outStaticDebug("Time %u sec, map=%u, x=%f, y=%f, z=%f, orient=%f", time/1000, mapid, PositionX, PositionY, PositionZ, Orientation);
 
     if (GetSecurity() >= SEC_ADMINISTRATOR)
-        GetPlayer()->TeleportTo(mapid,PositionX,PositionY,PositionZ,Orientation);
+        GetPlayer()->TeleportTo(mapid, PositionX, PositionY, PositionZ, Orientation);
     else
         SendNotification(LANG_YOU_NOT_HAVE_PERMISSION);
     sLog->outDebug(LOG_FILTER_NETWORKIO, "Received worldport command from player %s", GetPlayer()->GetName());
@@ -1331,7 +1334,7 @@ void WorldSession::HandleWhoisOpcode(WorldPacket& recv_data)
 
     uint32 accid = plr->GetSession()->GetAccountId();
 
-    QueryResult result = RealmDB.PQuery("SELECT username,email,last_ip FROM account WHERE id=%u", accid);
+    QueryResult result = RealmDB.PQuery("SELECT username, email, last_ip FROM account WHERE id=%u", accid);
     if (!result)
     {
         SendNotification(LANG_ACCOUNT_FOR_PLAYER_NOT_FOUND, charname.c_str());
@@ -1496,7 +1499,7 @@ void WorldSession::HandleResetInstancesOpcode(WorldPacket & /*recv_data*/)
         if (pGroup->IsLeader(_player->GetGUID()))
         {
             pGroup->ResetInstances(INSTANCE_RESET_ALL, false, _player);
-            pGroup->ResetInstances(INSTANCE_RESET_ALL, true,_player);
+            pGroup->ResetInstances(INSTANCE_RESET_ALL, true, _player);
         }
     }
     else
@@ -1727,8 +1730,8 @@ void WorldSession::HandleHearthAndResurrect(WorldPacket& /*recv_data*/)
     if (_player->isInFlight())
         return;
 
-    AreaTableEntry const *atEntry = GetAreaEntryByAreaID(_player->GetAreaId());
-    if (!atEntry || !(atEntry->flags & AREA_FLAG_OUTDOOR_PVP2))
+    AreaTableData const *atEntry = GetAreaEntryByAreaID(_player->GetAreaId());
+    if (!atEntry || !(atEntry->Flags & AREA_FLAG_WINTERGRASP_2))
         return;
 
     _player->BuildPlayerRepop();

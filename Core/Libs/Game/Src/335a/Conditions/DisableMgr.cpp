@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -43,7 +45,7 @@ void DisableMgr::LoadDisables()
 
     m_DisableMap.clear();
 
-    QueryResult result = WorldDB.Query("SELECT sourceType,entry,flags,params_0,params_1 FROM disables");
+    QueryResult result = WorldDB.Query("SELECT sourceType, entry, flags, params_0, params_1 FROM disables");
 
     uint32 total_count = 0;
 
@@ -162,7 +164,7 @@ void DisableMgr::LoadDisables()
                     sLog->outErrorDb("Disable flags specified for outdoor PvP %u, useless data.", entry);
                 break;
             case DISABLE_TYPE_ACHIEVEMENT_CRITERIA:
-                if (!sAchievementCriteriaStore.LookupEntry(entry))
+                if (!sObjectMgr->GetAchievementCriteriaData(entry))
                 {
                     sLog->outErrorDb("Achievement Criteria entry %u from `disables` doesn't exist in dbc, skipped.", entry);
                     continue;

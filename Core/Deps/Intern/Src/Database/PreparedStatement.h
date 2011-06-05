@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -75,7 +77,7 @@ class PreparedStatement
         explicit PreparedStatement(uint32 index);
         ~PreparedStatement();
 
-        void setBool(const uint8 index,const bool value);
+        void setBool(const uint8 index, const bool value);
         void setUInt8(const uint8 index, const uint8 value);
         void setUInt16(const uint8 index, const uint16 value);
         void setUInt32(const uint8 index, const uint32 value);
@@ -109,7 +111,7 @@ class MySQLPreparedStatement
         MySQLPreparedStatement(MYSQL_STMT* stmt);
         ~MySQLPreparedStatement();
 
-        void setBool(const uint8 index,const bool value);
+        void setBool(const uint8 index, const bool value);
         void setUInt8(const uint8 index, const uint8 value);
         void setUInt16(const uint8 index, const uint16 value);
         void setUInt32(const uint8 index, const uint32 value);

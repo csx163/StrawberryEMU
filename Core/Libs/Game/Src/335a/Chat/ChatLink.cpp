@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -37,7 +39,7 @@
 // |color|Hquest:quest_id:quest_level|h[name]|h|r                         - client, quest list name shift-click
 // |color|Hskill:skill_id|h[name]|h|r
 // |color|Hspell:spell_id|h[name]|h|r                                     - client, spellbook spell icon shift-click
-// |color|Htalent:talent_id,rank|h[name]|h|r                              - client, talent icon shift-click
+// |color|Htalent:talent_id, rank|h[name]|h|r                              - client, talent icon shift-click
 // |color|Htaxinode:id|h[name]|h|r
 // |color|Htele:id|h[name]|h|r
 // |color|Htitle:id|h[name]|h|r
@@ -84,7 +86,7 @@ inline bool ReadHex(std::istringstream& iss, uint32& res, uint32 length)
 {
     std::istringstream::pos_type pos = iss.tellg();
     iss >> std::hex >> res;
-    uint32 size = uint32(iss.gcount());
+    //uint32 size = uint32(iss.gcount());
     if (length && uint32(iss.tellg() - pos) != length)
         return false;
     return !iss.fail() && !iss.eof();
@@ -93,7 +95,7 @@ inline bool ReadHex(std::istringstream& iss, uint32& res, uint32 length)
 #define DELIMITER ':'
 #define PIPE_CHAR '|'
 
-bool ChatLink::ValidateName(char* buffer, const char* context)
+bool ChatLink::ValidateName(char* buffer, const char* /*context*/)
 {
     _name = buffer;
     return true;
@@ -111,7 +113,7 @@ bool ItemChatLink::Initialize(std::istringstream& iss)
         return false;
     }
     // Validate item
-    _item = ObjectMgr::GetItemPrototype(itemEntry);
+    _item = sObjectMgr->GetItemTemplate(itemEntry);
     if (!_item)
     {
         sLog->outDebug(LOG_FILTER_CHATSYS, "ChatHandler::isValidChatMessage('%s'): got invalid itemEntry %u in |item command", iss.str().c_str(), itemEntry);
@@ -343,7 +345,7 @@ bool AchievementChatLink::Initialize(std::istringstream& iss)
         return false;
     }
     // Validate achievement
-    _achievement = sAchievementStore.LookupEntry(achievementId);
+    _achievement = sObjectMgr->GetAchievementData(achievementId);
     if (!_achievement)
     {
         sLog->outDebug(LOG_FILTER_CHATSYS, "ChatHandler::isValidChatMessage('%s'): got invalid achivement id %u in |achievement command", iss.str().c_str(), achievementId);
@@ -380,14 +382,14 @@ bool AchievementChatLink::ValidateName(char* buffer, const char* context)
 
     bool res = false;
     for (uint8 i = 0; i < TOTAL_LOCALES; ++i)
-        if (*_achievement->name[i] && strcmp(_achievement->name[i], buffer) == 0)
+        if (_achievement->Name[i] == 0)
         {
             res = true;
             break;
         }
 
     if (!res)
-        sLog->outDebug(LOG_FILTER_CHATSYS, "ChatHandler::isValidChatMessage('%s'): linked achievement (id: %u) name wasn't found in any localization", context, _achievement->ID);
+        sLog->outDebug(LOG_FILTER_CHATSYS, "ChatHandler::isValidChatMessage('%s'): linked achievement (id: %u) name wasn't found in any localization", context, _achievement->Id);
     return res;
 }
 

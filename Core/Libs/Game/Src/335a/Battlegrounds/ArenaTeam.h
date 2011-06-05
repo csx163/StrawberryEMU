@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,10 +18,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_ARENATEAM_H
-#define STRAWBERRY_ARENATEAM_H
+#ifndef STRAWBERRYCORE_ARENATEAM_H
+#define STRAWBERRYCORE_ARENATEAM_H
 
 #include "QueryResult.h"
+#include "Player.h"
+#include "ObjectMgr.h"
 
 class WorldSession;
 

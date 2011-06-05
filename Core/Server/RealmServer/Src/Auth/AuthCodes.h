@@ -71,7 +71,7 @@ enum AcceptedClientBuilds
     BC_ACCEPTED_CLIENT_BUILD = 0x219E,    // 2.4.3  (8606),  The Burning Crusade
     LK_ACCEPTED_CLIENT_BUILD = 0x3034,    // 3.3.5a (12340), Wrath of the Lich King
     CT_ACCEPTED_CLIENT_BUILD = 0x3537,    // 4.0.6a (13623), Cataclysm
-    LT_ACCEPTED_CLIENT_BUILD = 0x365A,    // 4.1.0  (13914), Cataclysm[Latest]
+    LT_ACCEPTED_CLIENT_BUILD = 0x3777,    // 4.2.0  (14199), Cataclysm[Latest]
 };
 
 enum ExpansionFlags

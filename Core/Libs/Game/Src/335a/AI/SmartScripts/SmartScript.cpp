@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -16,7 +18,6 @@
  */
 
 #include "DatabaseEnv.h"
-#include "SQLStorage.h"
 #include "ObjectMgr.h"
 #include "ObjectDefines.h"
 #include "GridDefines.h"
@@ -156,7 +157,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
             mUseTextTimer = true;
             sCreatureTextMgr->SendChat(talker, uint8(e.action.talk.textGroupID), mTextGUID);
             sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction: SMART_ACTION_TALK: talker: %s (GuidLow: %u), textGuid: %u",
-                talker->GetName(), talker->GetGUIDLow(), mTextGUID);
+                talker->GetName(), talker->GetGUIDLow(), GUID_LOPART(mTextGUID));
             break;
         }
         case SMART_ACTION_SIMPLE_TALK:
@@ -171,7 +172,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                     else if (IsPlayer((*itr)))
                     {
                         Unit* templastInvoker = GetLastInvoker();
-                        sCreatureTextMgr->SendChat(me, uint8(e.action.talk.textGroupID), IsPlayer(templastInvoker) ? templastInvoker->GetGUID() : 0, CHAT_TYPE_END, LANG_ADDON, TEXT_RANGE_NORMAL, 0, TEAM_OTHER, false, (*itr)->ToPlayer());
+                        sCreatureTextMgr->SendChat(me, uint8(e.action.talk.textGroupID), IsPlayer(templastInvoker) ? templastInvoker->GetGUID() : 0, CHAT_MSG_ADDON, LANG_ADDON, TEXT_RANGE_NORMAL, 0, TEAM_OTHER, false, (*itr)->ToPlayer());
                     }
                     sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction:: SMART_ACTION_SIMPLE_TALK: talker: %s (GuidLow: %u), textGroupId: %u",
                         (*itr)->GetName(), (*itr)->GetGUIDLow(), uint8(e.action.talk.textGroupID));
@@ -207,7 +208,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                 {
                     if (IsCreature((*itr)))
                     {
-                        sCreatureTextMgr->SendSound((*itr)->ToCreature(), e.action.sound.sound, CHAT_TYPE_SAY, 0, TextRange(e.action.sound.range), Team(0), false);
+                        sCreatureTextMgr->SendSound((*itr)->ToCreature(), e.action.sound.sound, CHAT_MSG_MONSTER_SAY, 0, TextRange(e.action.sound.range), Team(0), false);
                         sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction:: SMART_ACTION_SOUND: source: %s (GuidLow: %u), sound: %u, range: %u",
                             (*itr)->GetName(), (*itr)->GetGUIDLow(), e.action.sound.sound, e.action.sound.range);
                     }
@@ -234,7 +235,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                         }
                         else
                         {
-                            if (CreatureInfo const* ci = ObjectMgr::GetCreatureTemplate((*itr)->ToCreature()->GetEntry()))
+                            if (CreatureTemplate const* ci = sObjectMgr->GetCreatureTemplate((*itr)->ToCreature()->GetEntry()))
                             {
                                 if ((*itr)->ToCreature()->getFaction() != ci->faction_A)
                                 {
@@ -266,7 +267,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                     //set model based on entry from creature_template
                     if (e.action.morphOrMount.creature)
                     {
-                        if (CreatureInfo const* ci = ObjectMgr::GetCreatureTemplate(e.action.morphOrMount.creature))
+                        if (CreatureTemplate const* ci = sObjectMgr->GetCreatureTemplate(e.action.morphOrMount.creature))
                         {
                             uint32 display_id = sObjectMgr->ChooseDisplayId(0, ci);
                             (*itr)->ToCreature()->SetDisplayId(display_id);
@@ -450,7 +451,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                 {
                     (*itr)->ToPlayer()->CastedCreatureOrGO(e.action.castedCreatureOrGO.creature, GetBaseObject()->GetGUID(), e.action.castedCreatureOrGO.spell);
                     sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction:: SMART_ACTION_SEND_CASTCREATUREORGO: Player guidLow %u.org Creature: %u, BaseObject GUID: "UI64FMTD" , Spell: %u",
-                        e.action.castedCreatureOrGO.creature, GetBaseObject()->GetGUID(), e.action.castedCreatureOrGO.spell);
+                        (*itr)->GetGUIDLow(), e.action.castedCreatureOrGO.creature, GetBaseObject()->GetGUID(), e.action.castedCreatureOrGO.spell);
                 }
             }
 
@@ -500,8 +501,8 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                         tempLastInvoker->InterruptNonMeleeSpells(false);
 
                     tempLastInvoker->CastSpell((*itr)->ToUnit(), e.action.cast.spell, (e.action.cast.flags & SMARTCAST_TRIGGERED) ? true : false);
-                    sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction:: SMART_ACTION_INVOKER_CAST: Invoker %u casts spell % on target %u with castflags %u",
-                        tempLastInvoker->GetGUIDLow(), (*itr)->GetGUIDLow(), e.action.cast.spell, e.action.cast.flags);
+                    sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction:: SMART_ACTION_INVOKER_CAST: Invoker %u casts spell %u on target %u with castflags %u",
+                        tempLastInvoker->GetGUIDLow(), e.action.cast.spell, (*itr)->GetGUIDLow(), e.action.cast.flags);
                 }
             }
 
@@ -743,7 +744,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                     CAST_AI(SmartAI, me->AI())->SetFollow((*itr)->ToUnit(), (float)e.action.follow.dist, (float)e.action.follow.angle, e.action.follow.credit, e.action.follow.entry, e.action.follow.creditType);
                     sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction: SMART_ACTION_FOLLOW: Creature %u following target %u",
                         me->GetGUIDLow(), (*itr)->GetGUIDLow());
-                    return;
+                    break;
                 }
             }
 
@@ -874,7 +875,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
 
             me->UpdateEntry(e.action.updateTemplate.creature, e.action.updateTemplate.team ? HORDE : ALLIANCE);
             sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::ProcessAction: SMART_ACTION_UPDATE_TEMPLATE: Creature %u, Template: %u, Team: %u",
-                me->GetGUIDLow(), e.action.updateTemplate.team ? HORDE : ALLIANCE);
+                me->GetGUIDLow(), me->GetEntry(), e.action.updateTemplate.team ? HORDE : ALLIANCE);
             break;
         }
         case SMART_ACTION_DIE:
@@ -940,7 +941,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                 {
                     if (e.action.morphOrMount.creature > 0)
                     {
-                        if (CreatureInfo const* cInfo = ObjectMgr::GetCreatureTemplate(e.action.morphOrMount.creature))
+                        if (CreatureTemplate const* cInfo = sObjectMgr->GetCreatureTemplate(e.action.morphOrMount.creature))
                         {
                             uint32 display_id = sObjectMgr->ChooseDisplayId(0, cInfo);
                             (*itr)->ToUnit()->Mount(display_id);
@@ -1018,17 +1019,14 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                 if (IsUnit(*itr))
                 {
                     me->AI()->AttackStart((*itr)->ToUnit());
-                    delete targets;
-                    return;
+                    break;
                 }
             }
+            delete targets;
             break;
         }
         case SMART_ACTION_SUMMON_CREATURE:
         {
-            WorldObject* obj = GetBaseObject();
-            if (!obj)
-                obj = unit;
             float x, y, z, o;
             ObjectList* targets = GetTargets(e, unit);
             if (targets)
@@ -1298,7 +1296,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
 
             for (ObjectList::const_iterator itr = targets->begin(); itr != targets->end(); ++itr)
                 if (IsPlayer(*itr))
-                    (*itr)->ToPlayer()->PlayerTalkClass->CloseGossip();
+                    (*itr)->ToPlayer()->PlayerTalkClass->SendCloseGossip();
 
             delete targets;
             break;
@@ -1323,9 +1321,9 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                             return;
                         }
                         npc->SetCurrentEquipmentId(e.action.equip.entry);
-                        slot[0] = einfo->equipentry[0];
-                        slot[1] = einfo->equipentry[1];
-                        slot[2] = einfo->equipentry[2];
+                        slot[0] = einfo->ItemEntry[0];
+                        slot[1] = einfo->ItemEntry[1];
+                        slot[2] = einfo->ItemEntry[2];
                     }
                     else
                     {
@@ -1357,6 +1355,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
             ne.minMaxRepeat.repeatMin = e.action.timeEvent.repeatMin;
             ne.minMaxRepeat.repeatMax = e.action.timeEvent.repeatMax;
 
+            ne.event_flags = 0;
             if (!ne.minMaxRepeat.repeatMin && !ne.minMaxRepeat.repeatMax)
                 ne.event_flags |= SMART_EVENT_FLAG_NOT_REPEATABLE;
 
@@ -1396,9 +1395,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                         goOrigGUID = go ? go->GetGUID() : 0;
                     go = NULL;
                     me = (*itr)->ToCreature();
-
-                    delete targets;
-                    return;
+                    break;
                 }
                 else if (IsGameObject(*itr))
                 {
@@ -1408,9 +1405,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                         goOrigGUID = go ? go->GetGUID() : 0;
                     go = (*itr)->ToGameObject();
                     me = NULL;
-
-                    delete targets;
-                    return;
+                    break;
                 }
             }
 
@@ -1533,7 +1528,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
                     if (e.action.cast.flags & SMARTCAST_INTERRUPT_PREVIOUS)
                         (*itr)->ToUnit()->InterruptNonMeleeSpells(false);
 
-                    for (ObjectList::const_iterator it = targets->begin(); it != targets->end(); it++)
+                    for (ObjectList::const_iterator it = targets->begin(); it != targets->end(); ++it)
                         if (IsUnit(*it))
                             (*itr)->ToUnit()->CastSpell((*it)->ToUnit(), e.action.cast.spell, (e.action.cast.flags & SMARTCAST_TRIGGERED) ? true : false);
                 }
@@ -1709,7 +1704,7 @@ void SmartScript::ProcessAction(SmartScriptHolder& e, Unit* unit, uint32 var0, u
     }
 }
 
-void SmartScript::InstallTemplate(SmartScriptHolder e)
+void SmartScript::InstallTemplate(SmartScriptHolder const& e)
 {
     if (!GetBaseObject())
         return;
@@ -1815,7 +1810,7 @@ SmartScriptHolder SmartScript::CreateEvent(SMART_EVENT e, uint32 event_flags, ui
     return script;
 }
 
-ObjectList* SmartScript::GetTargets(SmartScriptHolder e, Unit* invoker)
+ObjectList* SmartScript::GetTargets(SmartScriptHolder const& e, Unit* invoker /*= NULL*/)
 {
     Unit* trigger = NULL;
     if (invoker)
@@ -2635,14 +2630,14 @@ void SmartScript::OnUpdate(uint32 const diff)
     }
 }
 
-void SmartScript::FillScript(SmartAIEventList e, WorldObject* obj, AreaTriggerEntry const* at)
+void SmartScript::FillScript(SmartAIEventList e, WorldObject* obj, AreaTriggerData const* at)
 {
     if (e.empty())
     {
         if (obj)
             sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript: EventMap for Entry %u is empty but is using SmartScript.", obj->GetEntry());
         if (at)
-            sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript: EventMap for AreaTrigger %u is empty but is using SmartScript.", at->id);
+            sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript: EventMap for AreaTrigger %u is empty but is using SmartScript.", at->Id);
         return;
     }
     for (SmartAIEventList::iterator i = e.begin(); i != e.end(); ++i)
@@ -2668,7 +2663,7 @@ void SmartScript::FillScript(SmartAIEventList e, WorldObject* obj, AreaTriggerEn
     if (mEvents.empty() && obj)
         sLog->outErrorDb("SmartScript: Entry %u has events but no events added to list because of instance flags.", obj->GetEntry());
     if (mEvents.empty() && at)
-        sLog->outErrorDb("SmartScript: AreaTrigger %u has events but no events added to list because of instance flags. NOTE: triggers can not handle any instance flags.", at->id);
+        sLog->outErrorDb("SmartScript: AreaTrigger %u has events but no events added to list because of instance flags. NOTE: triggers can not handle any instance flags.", at->Id);
 }
 
 void SmartScript::GetScript()
@@ -2690,12 +2685,12 @@ void SmartScript::GetScript()
     }
     else if (trigger)
     {
-        e = sSmartScriptMgr->GetScript((int32)trigger->id, mScriptType);
+        e = sSmartScriptMgr->GetScript((int32)trigger->Id, mScriptType);
         FillScript(e, NULL, trigger);
     }
 }
 
-void SmartScript::OnInitialize(WorldObject* obj, AreaTriggerEntry const* at)
+void SmartScript::OnInitialize(WorldObject* obj, AreaTriggerData const* at)
 {
     if (obj)//handle object based scripts
     {
@@ -2715,11 +2710,12 @@ void SmartScript::OnInitialize(WorldObject* obj, AreaTriggerEntry const* at)
                 sLog->outError("SmartScript::OnInitialize: Unhandled TypeID !WARNING!");
                 return;
         }
-    } else if (at)
+    }
+    else if (at)
     {
         mScriptType = SMART_SCRIPT_TYPE_AREATRIGGER;
         trigger = at;
-        sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::OnInitialize: source is AreaTrigger %u", trigger->id);
+        sLog->outDebug(LOG_FILTER_DATABASE_AI, "SmartScript::OnInitialize: source is AreaTrigger %u", trigger->Id);
     }
     else
     {

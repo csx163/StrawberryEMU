@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -20,12 +22,11 @@
 #define STRAWBERRYCORE_COMMON_H
 
 // config.h needs to be included 1st
-// TODO this thingy looks like hack ,but its not, need to
+// TODO this thingy looks like hack , but its not, need to
 // make separate header however, because It makes mess here.
 #ifdef HAVE_CONFIG_H
 // Remove Some things that we will define
 // This is in case including another config.h
-// before trinity config.h
 #ifdef PACKAGE
 #undef PACKAGE
 #endif //PACKAGE
@@ -183,14 +184,9 @@ const LocaleConstant DEFAULT_LOCALE = LOCALE_enUS;
 #define MAX_ACCOUNT_TUTORIAL_VALUES 8
 
 extern char const* localeNames[TOTAL_LOCALES];
-struct LocaleNameStr
-{
-    char const* name;
-    LocaleConstant locale;
-};
 
 LocaleConstant GetLocaleByName(const std::string& name);
-extern LocaleNameStr const fullLocaleNameList[];
+
 typedef std::vector<std::string> StringVector;
 
 // we always use stdlibc++ std::max/std::min, undefine some not C++ standard defines (Win API and some other platforms)

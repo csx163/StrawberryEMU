@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -76,7 +78,7 @@ Channel::Channel(const std::string& name, uint32 channel_id, uint32 Team)
                         uint64 banned_guid = atol(*iter);
                         if (banned_guid)
                         {
-                            sLog->outDebug(LOG_FILTER_CHATSYS,"Channel(%s) loaded banned guid:" UI64FMTD "",name.c_str(), banned_guid);
+                            sLog->outDebug(LOG_FILTER_CHATSYS, "Channel(%s) loaded banned guid:" UI64FMTD "", name.c_str(), banned_guid);
                             banned.insert(banned_guid);
                         }
                     }
@@ -88,7 +90,7 @@ Channel::Channel(const std::string& name, uint32 channel_id, uint32 Team)
                 stmt->setString(0, name);
                 stmt->setUInt32(1, m_Team);
                 CharDB.Execute(stmt);
-                sLog->outDebug(LOG_FILTER_CHATSYS,"Channel(%s) saved in database", name.c_str());
+                sLog->outDebug(LOG_FILTER_CHATSYS, "Channel(%s) saved in database", name.c_str());
             }
 
             m_IsSaved = true;
@@ -116,7 +118,7 @@ void Channel::UpdateChannelInDB() const
         stmt->setUInt32(5, m_Team);
         CharDB.Execute(stmt);
 
-        sLog->outDebug(LOG_FILTER_CHATSYS,"Channel(%s) updated in database", m_name.c_str());
+        sLog->outDebug(LOG_FILTER_CHATSYS, "Channel(%s) updated in database", m_name.c_str());
     }
 
 }
@@ -137,7 +139,7 @@ void Channel::CleanOldChannelsInDB()
         stmt->setUInt32(0, sWorld->getIntConfig(CONFIG_PRESERVE_CUSTOM_CHANNEL_DURATION) * DAY);
         CharDB.Execute(stmt);
 
-        sLog->outDebug(LOG_FILTER_CHATSYS,"Cleaned out unused custom chat channels.");
+        sLog->outDebug(LOG_FILTER_CHATSYS, "Cleaned out unused custom chat channels.");
     }
 }
 
@@ -576,7 +578,7 @@ void Channel::List(Player* player)
             }
         }
 
-        data.put<uint32>(pos,count);
+        data.put<uint32>(pos, count);
 
         SendToOne(&data, p);
     }

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_PET_H
-#define STRAWBERRY_PET_H
+#ifndef STRAWBERRYCORE_PET_H
+#define STRAWBERRYCORE_PET_H
 
 #include "ObjectDefines.h"
 #include "Unit.h"
@@ -138,9 +140,9 @@ class Pet : public Guardian
 
         bool Create (uint32 guidlow, Map *map, uint32 phaseMask, uint32 Entry, uint32 pet_number);
         bool CreateBaseAtCreature(Creature* creature);
-        bool CreateBaseAtCreatureInfo(CreatureInfo const* cinfo,Unit * owner);
-        bool CreateBaseAtTamed(CreatureInfo const * cinfo, Map * map, uint32 phaseMask);
-        bool LoadPetFromDB(Player* owner,uint32 petentry = 0,uint32 petnumber = 0, bool current = false);
+        bool CreateBaseAtCreatureInfo(CreatureTemplate const* cinfo, Unit * owner);
+        bool CreateBaseAtTamed(CreatureTemplate const * cinfo, Map * map, uint32 phaseMask);
+        bool LoadPetFromDB(Player* owner, uint32 petentry = 0, uint32 petnumber = 0, bool current = false);
         bool isBeingLoaded() const { return m_loading;}
         void SavePetToDB(PetSaveMode mode);
         void Remove(PetSaveMode mode, bool returnreagent = false);
@@ -163,7 +165,7 @@ class Pet : public Guardian
         void GivePetXP(uint32 xp);
         void GivePetLevel(uint8 level);
         void SynchronizeLevelWithOwner();
-        bool HaveInDiet(ItemPrototype const* item) const;
+        bool HaveInDiet(ItemTemplate const* item) const;
         uint32 GetCurrentFoodBenefitLevel(uint32 itemlevel);
         void SetDuration(int32 dur) { m_duration = dur; }
 
@@ -195,7 +197,7 @@ class Pet : public Guardian
         void _LoadSpells();
         void _SaveSpells(SQLTransaction& trans);
 
-        bool addSpell(uint32 spell_id,ActiveStates active = ACT_DECIDE, PetSpellState state = PETSPELL_NEW, PetSpellType type = PETSPELL_NORMAL);
+        bool addSpell(uint32 spell_id, ActiveStates active = ACT_DECIDE, PetSpellState state = PETSPELL_NEW, PetSpellType type = PETSPELL_NORMAL);
         bool learnSpell(uint32 spell_id);
         void learnSpellHighRank(uint32 spellid);
         void InitLevelupSpellsForLevel();
@@ -208,17 +210,14 @@ class Pet : public Guardian
 
         void InitPetCreateSpells();
 
-        bool resetTalents(bool no_cost = false);
+        bool resetTalents();
         static void resetTalentsForAllPetsOf(Player* owner, Pet* online_pet = NULL);
-        uint32 resetTalentsCost() const;
         void InitTalentForLevel();
 
         uint8 GetMaxTalentPointsForLevel(uint8 level);
         uint8 GetFreeTalentPoints() { return GetByteValue(UNIT_FIELD_BYTES_1, 1); }
         void SetFreeTalentPoints(uint8 points) { SetByteValue(UNIT_FIELD_BYTES_1, 1, points); }
 
-        uint32  m_resetTalentsCost;
-        time_t  m_resetTalentsTime;
         uint32  m_usedTalentCount;
 
         const uint64& GetAuraUpdateMaskForRaid() const { return m_auraRaidUpdateMask; }

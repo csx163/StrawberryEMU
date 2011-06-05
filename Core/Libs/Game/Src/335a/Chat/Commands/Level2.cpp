@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -48,7 +50,7 @@ bool ChatHandler::HandleMuteCommand(const char* args)
 {
     char* nameStr;
     char* delayStr;
-    extractOptFirstArg((char*)args,&nameStr,&delayStr);
+    extractOptFirstArg((char*)args, &nameStr, &delayStr);
     if (!delayStr)
         return false;
 
@@ -60,7 +62,7 @@ bool ChatHandler::HandleMuteCommand(const char* args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if (!extractPlayerTarget(nameStr,&target,&target_guid,&target_name))
+    if (!extractPlayerTarget(nameStr, &target, &target_guid, &target_name))
         return false;
 
     uint32 account_id = target ? target->GetSession()->GetAccountId() : sObjectMgr->GetPlayerAccountIdByGUID(target_guid);
@@ -73,7 +75,7 @@ bool ChatHandler::HandleMuteCommand(const char* args)
     uint32 notspeaktime = (uint32) atoi(delayStr);
 
     // must have strong lesser security level
-    if (HasLowerSecurity (target,target_guid,true))
+    if (HasLowerSecurity (target, target_guid, true))
         return false;
 
     time_t mutetime = time(NULL) + notspeaktime*60;
@@ -81,7 +83,7 @@ bool ChatHandler::HandleMuteCommand(const char* args)
     if (target)
         target->GetSession()->m_muteTime = mutetime;
 
-    RealmDB.PExecute("UPDATE account SET mutetime = " UI64FMTD " WHERE id = '%u'",uint64(mutetime), account_id);
+    RealmDB.PExecute("UPDATE account SET mutetime = " UI64FMTD " WHERE id = '%u'", uint64(mutetime), account_id);
 
     if (target)
         ChatHandler(target).PSendSysMessage(LANG_YOUR_CHAT_DISABLED, notspeaktime, mutereasonstr.c_str());
@@ -99,7 +101,7 @@ bool ChatHandler::HandleUnmuteCommand(const char* args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if (!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if (!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     uint32 account_id = target ? target->GetSession()->GetAccountId() : sObjectMgr->GetPlayerAccountIdByGUID(target_guid);
@@ -110,7 +112,7 @@ bool ChatHandler::HandleUnmuteCommand(const char* args)
             target = session->GetPlayer();
 
     // must have strong lesser security level
-    if (HasLowerSecurity (target,target_guid,true))
+    if (HasLowerSecurity (target, target_guid, true))
         return false;
 
     if (target)
@@ -236,7 +238,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if (!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if (!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     uint32 accId = 0;
@@ -246,6 +248,8 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
     uint32 latency = 0;
     uint8 race;
     uint8 Class;
+    int64 muteTime = 0;
+    int64 banTime = -1;
 
     // get additional information from Player object
     if (target)
@@ -261,6 +265,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         latency = target->GetSession()->GetLatency();
         race = target->getRace();
         Class = target->getClass();
+        muteTime = target->GetSession()->m_muteTime;
     }
     // get additional information from DB
     else
@@ -283,23 +288,24 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         Class = fields[5].GetUInt8();
     }
 
-    std::string username = GetStrawberryString(LANG_ERROR);
-    std::string email = GetStrawberryString(LANG_ERROR);
-    std::string last_ip = GetStrawberryString(LANG_ERROR);
+    std::string username = GetString(LANG_ERROR);
+    std::string email = GetString(LANG_ERROR);
+    std::string last_ip = GetString(LANG_ERROR);
     uint32 security = 0;
-    std::string last_login = GetStrawberryString(LANG_ERROR);
+    std::string last_login = GetString(LANG_ERROR);
 
-    QueryResult result = RealmDB.PQuery("SELECT a.username,aa.gmlevel,a.email,a.last_ip,a.last_login "
+    QueryResult result = RealmDB.PQuery("SELECT a.username, aa.gmlevel, a.email, a.last_ip, a.last_login, a.mutetime "
                                                 "FROM account a "
                                                 "LEFT JOIN account_access aa "
                                                 "ON (a.id = aa.id) "
-                                                "WHERE a.id = '%u'",accId);
+                                                "WHERE a.id = '%u'", accId);
     if (result)
     {
         Field* fields = result->Fetch();
         username = fields[0].GetString();
         security = fields[1].GetUInt32();
         email = fields[2].GetString();
+        muteTime = fields[5].GetUInt64();
 
         if (email.empty())
             email = "-";
@@ -318,7 +324,22 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
 
     std::string nameLink = playerLink(target_name);
 
-    PSendSysMessage(LANG_PINFO_ACCOUNT, (target?"":GetStrawberryString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
+    PSendSysMessage(LANG_PINFO_ACCOUNT, (target?"":GetString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
+
+    if (QueryResult result = RealmDB.PQuery("SELECT unbandate, bandate = unbandate FROM account_banned WHERE id = '%u' AND active ORDER BY bandate ASC LIMIT 1", accId))
+    {
+        Field * fields = result->Fetch();
+        banTime = fields[1].GetBool() ? 0 : fields[0].GetUInt64();
+    }
+    else if (QueryResult result = CharDB.PQuery("SELECT unbandate, bandate = unbandate FROM character_banned WHERE guid = '%u' AND active ORDER BY bandate ASC LIMIT 1", GUID_LOPART(target_guid)))
+    {
+        Field * fields = result->Fetch();
+        banTime = fields[1].GetBool() ? 0 : fields[0].GetUInt64();
+    }
+
+    muteTime = muteTime - time(NULL);
+    if (muteTime > 0 || banTime >= 0)
+        PSendSysMessage(LANG_PINFO_MUTE_BAN, muteTime > 0 ? secsToTimeString(muteTime, true).c_str() : "---", !banTime ? "perm." : (banTime > 0 ? secsToTimeString(banTime - time(NULL), true).c_str() : "---"));
 
     std::string race_s, Class_s;
     switch(race)
@@ -348,7 +369,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         case CLASS_DRUID:           Class_s = "Druid";          break;
     }
 
-    std::string timeStr = secsToTimeString(total_player_time,true,true);
+    std::string timeStr = secsToTimeString(total_player_time, true, true);
     uint32 gold = money /GOLD;
     uint32 silv = (money % GOLD) / SILVER;
     uint32 copp = (money % GOLD) % SILVER;
@@ -363,7 +384,7 @@ bool ChatHandler::HandleCharacterRenameCommand(const char* args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if (!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if (!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     if (target)
@@ -396,7 +417,7 @@ bool ChatHandler::HandleCharacterCustomizeCommand(const char* args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if (!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if (!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     if (target)
@@ -422,7 +443,7 @@ bool ChatHandler::HandleCharacterChangeFactionCommand(const char * args)
     uint64 target_guid;
     std::string target_name;
 
-    if(!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if(!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     if(target)
@@ -449,7 +470,7 @@ bool ChatHandler::HandleCharacterChangeRaceCommand(const char * args)
     Player* target;
     uint64 target_guid;
     std::string target_name;
-    if(!extractPlayerTarget((char*)args,&target,&target_guid,&target_name))
+    if(!extractPlayerTarget((char*)args, &target, &target_guid, &target_name))
         return false;
 
     if(target)
@@ -474,7 +495,7 @@ bool ChatHandler::HandleCharacterChangeRaceCommand(const char * args)
 bool ChatHandler::HandleCharacterReputationCommand(const char* args)
 {
     Player* target;
-    if (!extractPlayerTarget((char*)args,&target))
+    if (!extractPlayerTarget((char*)args, &target))
         return false;
 
     LocaleConstant loc = GetSessionDbcLocale();
@@ -485,7 +506,7 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         FactionEntry const *factionEntry = sFactionStore.LookupEntry(itr->second.ID);
         char const* factionName = factionEntry ? factionEntry->name[loc] : "#Not found#";
         ReputationRank rank = target->GetReputationMgr().GetRank(factionEntry);
-        std::string rankName = GetStrawberryString(ReputationRankStrIndex[rank]);
+        std::string rankName = GetString(ReputationRankStrIndex[rank]);
         std::ostringstream ss;
         if (m_session)
             ss << itr->second.ID << " - |cffffffff|Hfaction:" << itr->second.ID << "|h[" << factionName << " " << localeNames[loc] << "]|h|r";
@@ -495,17 +516,17 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         ss << " " << rankName << " (" << target->GetReputationMgr().GetReputation(factionEntry) << ")";
 
         if (itr->second.Flags & FACTION_FLAG_VISIBLE)
-            ss << GetStrawberryString(LANG_FACTION_VISIBLE);
+            ss << GetString(LANG_FACTION_VISIBLE);
         if (itr->second.Flags & FACTION_FLAG_AT_WAR)
-            ss << GetStrawberryString(LANG_FACTION_ATWAR);
+            ss << GetString(LANG_FACTION_ATWAR);
         if (itr->second.Flags & FACTION_FLAG_PEACE_FORCED)
-            ss << GetStrawberryString(LANG_FACTION_PEACE_FORCED);
+            ss << GetString(LANG_FACTION_PEACE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_HIDDEN)
-            ss << GetStrawberryString(LANG_FACTION_HIDDEN);
+            ss << GetString(LANG_FACTION_HIDDEN);
         if (itr->second.Flags & FACTION_FLAG_INVISIBLE_FORCED)
-            ss << GetStrawberryString(LANG_FACTION_INVISIBLE_FORCED);
+            ss << GetString(LANG_FACTION_INVISIBLE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_INACTIVE)
-            ss << GetStrawberryString(LANG_FACTION_INACTIVE);
+            ss << GetString(LANG_FACTION_INACTIVE);
 
         SendSysMessage(ss.str().c_str());
     }
@@ -521,7 +542,7 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
     std::wstring wnamepart;
 
     // converting string that we try to find to lower case
-    if (!Utf8toWStr(namepart,wnamepart))
+    if (!Utf8toWStr(namepart, wnamepart))
         return false;
 
     wstrToLower(wnamepart);
@@ -549,12 +570,12 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
                 return true;
             }
 
-            char const* active = activeEvents.find(id) != activeEvents.end() ? GetStrawberryString(LANG_ACTIVE) : "";
+            char const* active = activeEvents.find(id) != activeEvents.end() ? GetString(LANG_ACTIVE) : "";
 
             if (m_session)
-                PSendSysMessage(LANG_EVENT_ENTRY_LIST_CHAT,id,id,eventData.description.c_str(),active);
+                PSendSysMessage(LANG_EVENT_ENTRY_LIST_CHAT, id, id, eventData.description.c_str(), active);
             else
-                PSendSysMessage(LANG_EVENT_ENTRY_LIST_CONSOLE,id,eventData.description.c_str(),active);
+                PSendSysMessage(LANG_EVENT_ENTRY_LIST_CONSOLE, id, eventData.description.c_str(), active);
 
             if (!found)
                 found = true;
@@ -570,7 +591,7 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
 bool ChatHandler::HandleCombatStopCommand(const char* args)
 {
     Player* target;
-    if (!extractPlayerTarget((char*)args,&target))
+    if (!extractPlayerTarget((char*)args, &target))
         return false;
 
     // check online security
@@ -594,9 +615,9 @@ bool ChatHandler::HandleLookupPlayerIpCommand(const char* args)
 
     RealmDB.escape_string (ip);
 
-    QueryResult result = RealmDB.PQuery ("SELECT id,username FROM account WHERE last_ip = '%s'", ip.c_str ());
+    QueryResult result = RealmDB.PQuery ("SELECT id, username FROM account WHERE last_ip = '%s'", ip.c_str ());
 
-    return LookupPlayerSearchCommand (result,limit);
+    return LookupPlayerSearchCommand (result, limit);
 }
 
 bool ChatHandler::HandleLookupPlayerAccountCommand(const char* args)
@@ -613,9 +634,9 @@ bool ChatHandler::HandleLookupPlayerAccountCommand(const char* args)
 
     RealmDB.escape_string (account);
 
-    QueryResult result = RealmDB.PQuery ("SELECT id,username FROM account WHERE username = '%s'", account.c_str ());
+    QueryResult result = RealmDB.PQuery ("SELECT id, username FROM account WHERE username = '%s'", account.c_str ());
 
-    return LookupPlayerSearchCommand (result,limit);
+    return LookupPlayerSearchCommand (result, limit);
 }
 
 bool ChatHandler::HandleLookupPlayerEmailCommand(const char* args)
@@ -630,9 +651,9 @@ bool ChatHandler::HandleLookupPlayerEmailCommand(const char* args)
 
     RealmDB.escape_string (email);
 
-    QueryResult result = RealmDB.PQuery ("SELECT id,username FROM account WHERE email = '%s'", email.c_str ());
+    QueryResult result = RealmDB.PQuery ("SELECT id, username FROM account WHERE email = '%s'", email.c_str ());
 
-    return LookupPlayerSearchCommand (result,limit);
+    return LookupPlayerSearchCommand (result, limit);
 }
 
 bool ChatHandler::LookupPlayerSearchCommand(QueryResult result, int32 limit)
@@ -659,10 +680,10 @@ bool ChatHandler::LookupPlayerSearchCommand(QueryResult result, int32 limit)
         uint32 acc_id = fields[0].GetUInt32();
         std::string acc_name = fields[1].GetString();
 
-        QueryResult chars = CharDB.PQuery("SELECT guid,name FROM characters WHERE account = '%u'", acc_id);
+        QueryResult chars = CharDB.PQuery("SELECT guid, name FROM characters WHERE account = '%u'", acc_id);
         if (chars)
         {
-            PSendSysMessage(LANG_LOOKUP_PLAYER_ACCOUNT,acc_name.c_str(),acc_id);
+            PSendSysMessage(LANG_LOOKUP_PLAYER_ACCOUNT, acc_name.c_str(), acc_id);
 
             uint64 guid = 0;
             std::string name;
@@ -673,7 +694,7 @@ bool ChatHandler::LookupPlayerSearchCommand(QueryResult result, int32 limit)
                 guid = charfields[0].GetUInt64();
                 name = charfields[1].GetString();
 
-                PSendSysMessage(LANG_LOOKUP_PLAYER_CHARACTER,name.c_str(),guid);
+                PSendSysMessage(LANG_LOOKUP_PLAYER_CHARACTER, name.c_str(), guid);
                 ++i;
 
             } while (chars->NextRow() && (limit == -1 || i < limit));
@@ -700,7 +721,7 @@ bool ChatHandler::HandleServerCorpsesCommand(const char* /*args*/)
 bool ChatHandler::HandleRepairitemsCommand(const char* args)
 {
     Player* target;
-    if (!extractPlayerTarget((char*)args,&target))
+    if (!extractPlayerTarget((char*)args, &target))
         return false;
 
     // check online security
@@ -762,7 +783,7 @@ bool ChatHandler::HandleCreatePetCommand(const char* /*args*/)
         return false;
     }
 
-    CreatureInfo const* cInfo = ObjectMgr::GetCreatureTemplate(creatureTarget->GetEntry());
+    CreatureTemplate const* cInfo = sObjectMgr->GetCreatureTemplate(creatureTarget->GetEntry());
     // Creatures with family 0 crashes the server
     if (cInfo->family == 0)
     {
@@ -807,7 +828,7 @@ bool ChatHandler::HandleCreatePetCommand(const char* /*args*/)
     }
 
     // prepare visual effect for levelup
-    pet->SetUInt32Value(UNIT_FIELD_LEVEL,creatureTarget->getLevel()-1);
+    pet->SetUInt32Value(UNIT_FIELD_LEVEL, creatureTarget->getLevel()-1);
 
     pet->GetCharmInfo()->SetPetNumber(sObjectMgr->GeneratePetNumber(), true);
     // this enables pet details window (Shift+P)
@@ -817,7 +838,7 @@ bool ChatHandler::HandleCreatePetCommand(const char* /*args*/)
     pet->GetMap()->Add(pet->ToCreature());
 
     // visual effect for levelup
-    pet->SetUInt32Value(UNIT_FIELD_LEVEL,creatureTarget->getLevel());
+    pet->SetUInt32Value(UNIT_FIELD_LEVEL, creatureTarget->getLevel());
 
     player->SetMinion(pet, true);
     pet->SavePetToDB(PET_SAVE_AS_CURRENT);
@@ -858,7 +879,7 @@ bool ChatHandler::HandlePetLearnCommand(const char* args)
     SpellEntry const* spellInfo = sSpellStore.LookupEntry(spellId);
     if (!spellInfo || !SpellMgr::IsSpellValid(spellInfo))
     {
-        PSendSysMessage(LANG_COMMAND_SPELL_BROKEN,spellId);
+        PSendSysMessage(LANG_COMMAND_SPELL_BROKEN, spellId);
         SetSentErrorMessage(true);
         return false;
     }
@@ -931,7 +952,7 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
     std::string namepart = args;
     std::wstring wnamepart;
 
-    if (!Utf8toWStr(namepart,wnamepart))
+    if (!Utf8toWStr(namepart, wnamepart))
         return false;
 
     // converting string that we try to find to lower case
@@ -976,20 +997,20 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
                     return true;
                 }
 
-                char const* knownStr = target && target->HasTitle(titleInfo) ? GetStrawberryString(LANG_KNOWN) : "";
+                char const* knownStr = target && target->HasTitle(titleInfo) ? GetString(LANG_KNOWN) : "";
 
                 char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->bit_index
-                    ? GetStrawberryString(LANG_ACTIVE)
+                    ? GetString(LANG_ACTIVE)
                     : "";
 
                 char titleNameStr[80];
-                snprintf(titleNameStr,80,name.c_str(),targetName);
+                snprintf(titleNameStr, 80, name.c_str(), targetName);
 
                 // send title in "id (idx:idx) - [namedlink locale]" format
                 if (m_session)
-                    PSendSysMessage(LANG_TITLE_LIST_CHAT,id,titleInfo->bit_index,id,titleNameStr,localeNames[loc],knownStr,activeStr);
+                    PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->bit_index, id, titleNameStr, localeNames[loc], knownStr, activeStr);
                 else
-                    PSendSysMessage(LANG_TITLE_LIST_CONSOLE,id,titleInfo->bit_index,titleNameStr,localeNames[loc],knownStr,activeStr);
+                    PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->bit_index, titleNameStr, localeNames[loc], knownStr, activeStr);
 
                 ++counter;
             }
@@ -1006,12 +1027,12 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
         return false;
 
     Player* target;
-    if (!extractPlayerTarget((char*)args,&target))
+    if (!extractPlayerTarget((char*)args, &target))
         return false;
 
     LocaleConstant loc = GetSessionDbcLocale();
     char const* targetName = target->GetName();
-    char const* knownStr = GetStrawberryString(LANG_KNOWN);
+    char const* knownStr = GetString(LANG_KNOWN);
 
     // Search in CharTitles.dbc
     for (uint32 id = 0; id < sCharTitlesStore.GetNumRows(); id++)
@@ -1024,17 +1045,17 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
                 continue;
 
             char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->bit_index
-                ? GetStrawberryString(LANG_ACTIVE)
+                ? GetString(LANG_ACTIVE)
                 : "";
 
             char titleNameStr[80];
-            snprintf(titleNameStr,80,name.c_str(),targetName);
+            snprintf(titleNameStr, 80, name.c_str(), targetName);
 
             // send title in "id (idx:idx) - [namedlink locale]" format
             if (m_session)
-                PSendSysMessage(LANG_TITLE_LIST_CHAT,id,titleInfo->bit_index,id,titleNameStr,localeNames[loc],knownStr,activeStr);
+                PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->bit_index, id, titleNameStr, localeNames[loc], knownStr, activeStr);
             else
-                PSendSysMessage(LANG_TITLE_LIST_CONSOLE,id,titleInfo->bit_index,name.c_str(),localeNames[loc],knownStr,activeStr);
+                PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->bit_index, name.c_str(), localeNames[loc], knownStr, activeStr);
         }
     }
     return true;

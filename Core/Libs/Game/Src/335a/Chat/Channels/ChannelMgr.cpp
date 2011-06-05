@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -44,12 +46,12 @@ ChannelMgr::~ChannelMgr()
 Channel *ChannelMgr::GetJoinChannel(std::string name, uint32 channel_id)
 {
     std::wstring wname;
-    Utf8toWStr(name,wname);
+    Utf8toWStr(name, wname);
     wstrToLower(wname);
 
     if (channels.find(wname) == channels.end())
     {
-        Channel *nchan = new Channel(name,channel_id, team);
+        Channel *nchan = new Channel(name, channel_id, team);
         channels[wname] = nchan;
         return nchan;
     }
@@ -60,7 +62,7 @@ Channel *ChannelMgr::GetJoinChannel(std::string name, uint32 channel_id)
 Channel *ChannelMgr::GetChannel(std::string name, Player *p, bool pkt)
 {
     std::wstring wname;
-    Utf8toWStr(name,wname);
+    Utf8toWStr(name, wname);
     wstrToLower(wname);
 
     ChannelMap::const_iterator i = channels.find(wname);
@@ -70,7 +72,7 @@ Channel *ChannelMgr::GetChannel(std::string name, Player *p, bool pkt)
         if (pkt)
         {
             WorldPacket data;
-            MakeNotOnPacket(&data,name);
+            MakeNotOnPacket(&data, name);
             p->GetSession()->SendPacket(&data);
         }
 
@@ -83,7 +85,7 @@ Channel *ChannelMgr::GetChannel(std::string name, Player *p, bool pkt)
 void ChannelMgr::LeftChannel(std::string name)
 {
     std::wstring wname;
-    Utf8toWStr(name,wname);
+    Utf8toWStr(name, wname);
     wstrToLower(wname);
 
     ChannelMap::const_iterator i = channels.find(wname);

@@ -450,6 +450,30 @@ bool Master::_StartDB()
     }
     sLog->outString("Realm running as realm ID %d", realmID);
 
+    // DataDB
+    dbstring = sConfig->GetStringDefault("DataDBInfo", "");
+    if (dbstring.empty())
+    {
+        sLog->outError("Data database not specified in configuration file");
+        return false;
+    }
+
+    async_threads = sConfig->GetIntDefault("DataDB.WorkerThreads", 1);
+    if (async_threads < 1 || async_threads > 32)
+    {
+        sLog->outError("Data database: invalid number of worker threads specified. "
+            "Please pick a value between 1 and 32.");
+        return false;
+    }
+
+    synch_threads = sConfig->GetIntDefault("DataDB.SynchThreads", 1);
+    ///- Initialize the data database
+    if (!DataDB.Open(dbstring, async_threads, synch_threads))
+    {
+        sLog->outError("Cannot connect to data database %s", dbstring.c_str());
+        return false;
+    }
+
     ///- Initialize the DB logging system
     sLog->SetLogDBLater(sConfig->GetBoolDefault("EnableLogDB", false)); // set var to enable DB logging once startup finished.
     sLog->SetLogDB(false);
@@ -473,6 +497,7 @@ void Master::_StopDB()
     CharDB.Close();
     WorldDB.Close();
     RealmDB.Close();
+    DataDB.Close();
 
     MySQL::Library_End();
 }

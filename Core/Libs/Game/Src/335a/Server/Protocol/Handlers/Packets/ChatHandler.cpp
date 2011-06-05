@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -19,6 +21,7 @@
 #include "Common.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
+#include "GuildMgr.h"
 #include "World.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
@@ -163,7 +166,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         if (!_player->CanSpeak())
         {
             std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-            SendNotification(GetStrawberryString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+            SendNotification(GetString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
             return;
         }
 
@@ -176,7 +179,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         std::string msg="";
         recv_data >> msg;
 
-        SendNotification(GetStrawberryString(LANG_GM_SILENCE), GetPlayer()->GetName());
+        SendNotification(GetString(LANG_GM_SILENCE), GetPlayer()->GetName());
         return;
     }
 
@@ -236,7 +239,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         {
             if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ))
             {
-                SendNotification(GetStrawberryString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
+                SendNotification(GetString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
                 return;
             }
 
@@ -251,7 +254,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         {
             if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ))
             {
-                SendNotification(GetStrawberryString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
+                SendNotification(GetString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
                 return;
             }
 
@@ -283,7 +286,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
 
             if (GetPlayer()->HasAura(1852) && !player->isGameMaster())
             {
-                SendNotification(GetStrawberryString(LANG_GM_SILENCE), GetPlayer()->GetName());
+                SendNotification(GetString(LANG_GM_SILENCE), GetPlayer()->GetName());
                 return;
             }
 
@@ -314,7 +317,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         {
             if (GetPlayer()->GetGuildId())
             {
-                if (Guild *guild = sObjectMgr->GetGuildById(GetPlayer()->GetGuildId()))
+                if (Guild *guild = sGuildMgr->GetGuildById(GetPlayer()->GetGuildId()))
                 {
                     sScriptMgr->OnPlayerChat(GetPlayer(), type, lang, msg, guild);
 
@@ -326,7 +329,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         {
             if (GetPlayer()->GetGuildId())
             {
-                if (Guild *guild = sObjectMgr->GetGuildById(GetPlayer()->GetGuildId()))
+                if (Guild *guild = sGuildMgr->GetGuildById(GetPlayer()->GetGuildId()))
                 {
                     sScriptMgr->OnPlayerChat(GetPlayer(), type, lang, msg, guild);
 
@@ -411,7 +414,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         {
             if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ))
             {
-                SendNotification(GetStrawberryString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
+                SendNotification(GetString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
                 return;
             }
 
@@ -433,7 +436,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
                 if (!_player->isAFK())
                 {
                     if (msg.empty())
-                        msg  = GetStrawberryString(LANG_PLAYER_AFK_DEFAULT);
+                        msg  = GetString(LANG_PLAYER_AFK_DEFAULT);
                     _player->afkMsg = msg;
                 }
 
@@ -451,7 +454,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
                 if (!_player->isDND())
                 {
                     if (msg.empty())
-                        msg  = GetStrawberryString(LANG_PLAYER_DND_DEFAULT);
+                        msg  = GetString(LANG_PLAYER_DND_DEFAULT);
                     _player->dndMsg = msg;
                 }
 
@@ -519,7 +522,7 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket & recv_data)
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetStrawberryString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+        SendNotification(GetString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
         return;
     }
 

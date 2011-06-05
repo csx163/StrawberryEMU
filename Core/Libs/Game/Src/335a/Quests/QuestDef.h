@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_QUEST_H
-#define STRAWBERRY_QUEST_H
+#ifndef STRAWBERRYCORE_QUEST_H
+#define STRAWBERRYCORE_QUEST_H
 
 #include "Define.h"
 #include "DatabaseEnv.h"
@@ -144,15 +146,15 @@ enum __QuestFlags
     QUEST_FLAGS_OBJ_TEXT       = 0x00040000,                // use Objective text as Complete text
     QUEST_FLAGS_AUTO_ACCEPT    = 0x00080000,                // The client recognizes this flag as auto-accept. However, NONE of the current quests (3.3.5a) have this flag. Maybe blizz used to use it, or will use it in the future.
 
-    // Strawberry flags for set SpecialFlags in DB if required but used only at server
+    // Flags for set SpecialFlags in DB if required but used only at server
     QUEST_STRAWBERRY_FLAGS_REPEATABLE           = 0x00100000,   // Set by 1 in SpecialFlags from DB
-    QUEST_STRAWBERRY_FLAGS_EXPLORATION_OR_EVENT = 0x00200000,   // Set by 2 in SpecialFlags from DB (if reequired area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script)
-    QUEST_STRAWBERRY_FLAGS_AUTO_ACCEPT          = 0x00400000,  // Set by 4 in SpecialFlags in DB if the quest is to be auto-accepted.
-    QUEST_STRAWBERRY_FLAGS_DF_QUEST             = 0x00800000,  // Set by 8 in SpecialFlags in DB if the quest is used by Dungeon Finder.
+    QUEST_STRAWBERRY_FLAGS_EXPLORATION_OR_EVENT = 0x00200000,   // Set by 2 in SpecialFlags from DB (if required area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script)
+    QUEST_STRAWBERRY_FLAGS_AUTO_ACCEPT          = 0x00400000,   // Set by 4 in SpecialFlags in DB if the quest is to be auto-accepted.
+    QUEST_STRAWBERRY_FLAGS_DF_QUEST             = 0x00800000,   // Set by 8 in SpecialFlags in DB if the quest is used by Dungeon Finder.
 
     QUEST_STRAWBERRY_FLAGS_DB_ALLOWED = 0xFFFFF | QUEST_STRAWBERRY_FLAGS_REPEATABLE | QUEST_STRAWBERRY_FLAGS_EXPLORATION_OR_EVENT | QUEST_STRAWBERRY_FLAGS_AUTO_ACCEPT | QUEST_STRAWBERRY_FLAGS_DF_QUEST,
 
-    // Strawberry flags for internal use only
+    // Flags for internal use only
     QUEST_STRAWBERRY_FLAGS_DELIVER              = 0x04000000,   // Internal flag computed only
     QUEST_STRAWBERRY_FLAGS_SPEAKTO              = 0x08000000,   // Internal flag computed only
     QUEST_STRAWBERRY_FLAGS_KILL_OR_CAST         = 0x10000000,   // Internal flag computed only

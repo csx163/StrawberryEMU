@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -25,7 +27,7 @@
 
 #ifdef MAP_BASED_RAND_GEN
 #define rand_norm() unit.rand_norm()
-#define urand(a,b) unit.urand(a,b)
+#define urand(a, b) unit.urand(a, b)
 #endif
 
 template<class T>
@@ -33,7 +35,7 @@ void
 ConfusedMovementGenerator<T>::Initialize(T &unit)
 {
     const float wander_distance = 11;
-    float x,y,z;
+    float x, y, z;
     x = unit.GetPositionX();
     y = unit.GetPositionY();
     z = unit.GetPositionZ();
@@ -140,7 +142,7 @@ ConfusedMovementGenerator<T>::Update(T &unit, const uint32 &diff)
                 // arrived, stop and wait a bit
                 unit.ClearUnitState(UNIT_STAT_MOVE);
 
-                i_nextMove = urand(1,MAX_CONF_WAYPOINTS);
+                i_nextMove = urand(1, MAX_CONF_WAYPOINTS);
                 i_nextMoveTime.Reset(urand(0, 1500-1));     // TODO: check the minimum reset time, should be probably higher
             }
         }

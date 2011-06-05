@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_REPUTATION_MGR_H
-#define STRAWBERRY_REPUTATION_MGR_H
+#ifndef __STRAWBERRY_REPUTATION_MGR_H
+#define __STRAWBERRY_REPUTATION_MGR_H
 
 #include "Common.h"
 #include "SharedDefines.h"
@@ -56,8 +58,8 @@ struct FactionState
     bool needSave;
 };
 
-typedef std::map<RepListID,FactionState> FactionStateList;
-typedef std::map<uint32,ReputationRank> ForcedReactions;
+typedef std::map<RepListID, FactionState> FactionStateList;
+typedef std::map<uint32, ReputationRank> ForcedReactions;
 
 class Player;
 
@@ -127,7 +129,7 @@ class ReputationMgr
         void SetAtWar(RepListID repListID, bool on);
         void SetInactive(RepListID repListID, bool on);
 
-        void ApplyForceReaction(uint32 faction_id,ReputationRank rank,bool apply);
+        void ApplyForceReaction(uint32 faction_id, ReputationRank rank, bool apply);
 
     public:                                                 // senders
         void SendInitialReputations();

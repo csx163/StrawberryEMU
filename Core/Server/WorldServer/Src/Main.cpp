@@ -45,6 +45,7 @@ int m_ServiceStatus = -1;
 WorldDBWorkerPool WorldDB;                      ///< Accessor to the world database
 CharDBWorkerPool CharDB;                        ///< Accessor to the character database
 RealmDBWorkerPool RealmDB;                      ///< Accessor to the realm/login database
+DataDBWorkerPool DataDB;                        ///< Accessor to the data database
 
 uint32 realmID;                                             ///< Id of the realm
 

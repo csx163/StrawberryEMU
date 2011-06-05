@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_GUILD_H
-#define STRAWBERRY_GUILD_H
+#ifndef STRAWBERRYCORE_GUILD_H
+#define STRAWBERRYCORE_GUILD_H
 
 #include "World.h"
 #include "Item.h"
@@ -506,7 +508,7 @@ private:
         // Defines if player has rights to withdraw item from container
         virtual bool HasWithdrawRights(MoveItemData* /*pOther*/) const { return true; }
         // Checks if container can store specified item
-        uint8 CanStore(Item* pItem, bool swap, bool sendError);
+        bool CanStore(Item* pItem, bool swap, bool sendError);
         // Clones stored item
         bool CloneItem(uint32 count);
         // Remove item from container (if splited update items fields)
@@ -524,7 +526,7 @@ private:
         uint8 GetContainer() const { return m_container; }
         uint8 GetSlotId() const { return m_slotId; }
     protected:
-        virtual uint8 _CanStore(Item* pItem, bool swap) = 0;
+        virtual InventoryResult _CanStore(Item* pItem, bool swap) = 0;
 
         Guild* m_pGuild;
         Player *m_pPlayer;
@@ -547,7 +549,7 @@ private:
         Item* StoreItem(SQLTransaction& trans, Item* pItem);
         void LogBankEvent(SQLTransaction& trans, MoveItemData* pFrom, uint32 count) const;
     protected:
-        uint8 _CanStore(Item* pItem, bool swap);
+        InventoryResult _CanStore(Item* pItem, bool swap);
     };
 
     class BankMoveItemData : public MoveItemData
@@ -566,7 +568,7 @@ private:
         void LogAction(MoveItemData* pFrom) const;
 
     protected:
-        uint8 _CanStore(Item* pItem, bool swap);
+        InventoryResult _CanStore(Item* pItem, bool swap);
 
     private:
         Item* _StoreItem(SQLTransaction& trans, BankTab* pTab, Item *pItem, ItemPosCount& pos, bool clone) const;

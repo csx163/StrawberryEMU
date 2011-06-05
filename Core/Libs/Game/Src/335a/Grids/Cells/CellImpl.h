@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -120,7 +122,7 @@ Cell::Visit(const CellPair& standing_cell, TypeContainerVisitor<T, CONTAINER> &v
     {
         for (uint32 y = begin_cell.y_coord; y <= end_cell.y_coord; y++)
         {
-            CellPair cell_pair(x,y);
+            CellPair cell_pair(x, y);
             Cell r_zone(cell_pair);
             r_zone.data.Part.nocreate = this->data.Part.nocreate;
             m.Visit(r_zone, visitor);
@@ -218,7 +220,7 @@ Cell::Visit(const CellPair& standing_cell, TypeContainerVisitor<T, CONTAINER> &v
     {
         for (uint32 y = begin_cell.y_coord; y <= end_cell.y_coord; ++y)
         {
-            CellPair cell_pair(x,y);
+            CellPair cell_pair(x, y);
             //lets skip standing cell since we already visited it
             if (cell_pair != standing_cell)
             {
@@ -254,7 +256,7 @@ Cell::VisitCircle(TypeContainerVisitor<T, CONTAINER> &visitor, Map &m, const Cel
     {
         for (uint32 y = begin_cell.y_coord; y <= end_cell.y_coord; ++y)
         {
-            CellPair cell_pair(x,y);
+            CellPair cell_pair(x, y);
             Cell r_zone(cell_pair);
             r_zone.data.Part.nocreate = this->data.Part.nocreate;
             m.Visit(r_zone, visitor);

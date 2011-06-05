@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -40,6 +42,7 @@ class AuraApplication
     friend void Unit::_ApplyAura(AuraApplication * aurApp, uint8 effMask);
     friend void Unit::_UnapplyAura(AuraApplicationMap::iterator &i, AuraRemoveMode removeMode);
     friend void Unit::_ApplyAuraEffect(Aura * aura, uint8 effIndex);
+    friend void Unit::RemoveAura(AuraApplication * aurApp, AuraRemoveMode mode);
     friend AuraApplication * Unit::_CreateAuraApplication(Aura * aura, uint8 effMask);
     private:
         Unit * const m_target;
@@ -78,6 +81,7 @@ class AuraApplication
 
 class Aura
 {
+    friend Aura * Unit::_TryStackingOrRefreshingExistingAura(SpellEntry const * newAura, uint8 effMask, int32 *baseAmount, Item * castItem, uint64 casterGUID);
     public:
         typedef std::map<uint64, AuraApplication *> ApplicationMap;
 
@@ -86,7 +90,7 @@ class Aura
         static Aura * Create(SpellEntry const* spellproto, uint8 effMask, WorldObject * owner, Unit * caster, int32 *baseAmount = NULL, Item * castItem = NULL, uint64 casterGUID = 0);
         explicit Aura(SpellEntry const* spellproto, WorldObject * owner, Unit * caster, Item * castItem, uint64 casterGUID);
         void _InitEffects(uint8 effMask, Unit * caster, int32 *baseAmount);
-        ~Aura();
+        virtual ~Aura();
 
         SpellEntry const* GetSpellProto() const { return m_spellProto; }
         uint32 GetId() const{ return GetSpellProto()->Id; }
@@ -129,8 +133,8 @@ class Aura
         bool DropCharge();
 
         uint8 GetStackAmount() const { return m_stackAmount; }
-        void SetStackAmount(uint8 num, bool applied = true);
-        bool ModStackAmount(int32 num); // return true if last charge dropped
+        void SetStackAmount(uint8 num);
+        void ModStackAmount(int32 num, AuraRemoveMode removeMode = AURA_REMOVE_BY_DEFAULT);
 
         uint8 GetCasterLevel() const { return m_casterLevel; }
 
@@ -153,7 +157,7 @@ class Aura
         AuraEffect * GetEffect(uint8 effIndex) const { ASSERT (effIndex < MAX_SPELL_EFFECTS); return m_effects[effIndex]; }
         uint8 GetEffectMask() const { uint8 effMask = 0; for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i) if (m_effects[i]) effMask |= 1<<i; return effMask; }
         void RecalculateAmountOfEffects();
-        void HandleAllEffects(AuraApplication const * aurApp, uint8 mode, bool apply);
+        void HandleAllEffects(AuraApplication * aurApp, uint8 mode, bool apply);
 
         // Helpers for targets
         ApplicationMap const & GetApplicationMap() {return m_applications;}
@@ -168,8 +172,11 @@ class Aura
 
         // AuraScript
         void LoadScripts();
+        bool CallScriptCheckAreaTargetHandlers(Unit * target);
         bool CallScriptEffectApplyHandlers(AuraEffect const * aurEff, AuraApplication const * aurApp, AuraEffectHandleModes mode);
         bool CallScriptEffectRemoveHandlers(AuraEffect const * aurEff, AuraApplication const * aurApp, AuraEffectHandleModes mode);
+        void CallScriptAfterEffectApplyHandlers(AuraEffect const * aurEff, AuraApplication const * aurApp, AuraEffectHandleModes mode);
+        void CallScriptAfterEffectRemoveHandlers(AuraEffect const * aurEff, AuraApplication const * aurApp, AuraEffectHandleModes mode);
         bool CallScriptEffectPeriodicHandlers(AuraEffect const * aurEff, AuraApplication const * aurApp);
         void CallScriptEffectUpdatePeriodicHandlers(AuraEffect * aurEff);
         void CallScriptEffectCalcAmountHandlers(AuraEffect const * aurEff, int32 & amount, bool & canBeRecalculated);

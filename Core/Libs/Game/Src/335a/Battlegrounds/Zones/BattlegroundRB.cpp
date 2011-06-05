@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -57,7 +59,7 @@ void BattlegroundRB::AddPlayer(Player *plr)
     m_PlayerScores[plr->GetGUID()] = sc;
 }
 
-void BattlegroundRB::RemovePlayer(Player* /*plr*/,uint64 /*guid*/)
+void BattlegroundRB::RemovePlayer(Player* /*plr*/, uint64 /*guid*/)
 {
 }
 
@@ -75,5 +77,5 @@ void BattlegroundRB::UpdatePlayerScore(Player* Source, uint32 type, uint32 value
     if (itr == m_PlayerScores.end())                         // player not found...
         return;
 
-    Battleground::UpdatePlayerScore(Source,type,value, doAddHonor);
+    Battleground::UpdatePlayerScore(Source, type, value, doAddHonor);
 }

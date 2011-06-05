@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -23,6 +25,7 @@
 #include "ObjectMgr.h"
 #include "SocialMgr.h"
 #include "LFGMgr.h"
+#include "GroupMgr.h"
 #include "LFGScripts.h"
 #include "LFGGroupData.h"
 #include "LFGPlayerData.h"
@@ -388,7 +391,7 @@ void LFGMgr::InitializeLockedDungeons(Player* plr)
             locktype = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
         else if (locktype == LFG_LOCKSTATUS_OK && ar)
         {
-            if (ar->achievement && !plr->GetAchievementMgr().HasAchieved(sAchievementStore.LookupEntry(ar->achievement)))
+            if (ar->achievement && !plr->GetAchievementMgr().HasAchieved(sObjectMgr->GetAchievementData(ar->achievement)))
                 locktype = LFG_LOCKSTATUS_RAID_LOCKED;       // FIXME: Check the correct lock value
             else if (plr->GetTeam() == ALLIANCE && ar->quest_A && !plr->GetQuestRewardStatus(ar->quest_A))
                 locktype = LFG_LOCKSTATUS_QUEST_NOT_COMPLETED;
@@ -785,7 +788,7 @@ bool LFGMgr::CheckCompatibility(LfgGuidList check, LfgProposal*& pProposal)
         uint64 frontGuid = check.front();
         check.pop_front();
 
-        // Check all-but-new compatibilities (New,A,B,C,D) --> check(A,B,C,D)
+        // Check all-but-new compatibilities (New, A, B, C, D) --> check(A, B, C, D)
         if (!CheckCompatibility(check, pProposal))          // Group not compatible
         {
             sLog->outDebug(LOG_FILTER_LFG, "LFGMgr::CheckCompatibility: (%s) not compatibles (%s not compatibles)", strGuids.c_str(), ConcatenateGuids(check).c_str());
@@ -816,7 +819,7 @@ bool LFGMgr::CheckCompatibility(LfgGuidList check, LfgProposal*& pProposal)
         if (IS_GROUP(guid))
         {
             uint32 lowGuid = GUID_LOPART(guid);
-            if (Group* grp = sObjectMgr->GetGroupByGUID(lowGuid))
+            if (Group* grp = sGroupMgr->GetGroupByGUID(lowGuid))
                 if (grp->isLFGGroup())
                 {
                     if (!numLfgGroups)
@@ -1140,7 +1143,7 @@ LfgAnswer LFGMgr::GetCompatibles(std::string key)
 /**
    Given a list of dungeons remove the dungeons players have restrictions.
 
-   @param[in,out] dungeons Dungeons to check restrictions
+   @param[in, out] dungeons Dungeons to check restrictions
    @param[in]     players Set of players to check their dungeon restrictions
    @param[out]    lockMap Map of players Lock status info of given dungeons (Empty if dungeons is not empty)
 */
@@ -1325,7 +1328,7 @@ void LFGMgr::UpdateProposal(uint32 proposalId, const uint64& guid, bool accept)
 
         // Create a new group (if needed)
         LfgUpdateData updateData = LfgUpdateData(LFG_UPDATETYPE_GROUP_FOUND);
-        Group* grp = pProposal->groupLowGuid ? sObjectMgr->GetGroupByGUID(pProposal->groupLowGuid) : NULL;
+        Group* grp = pProposal->groupLowGuid ? sGroupMgr->GetGroupByGUID(pProposal->groupLowGuid) : NULL;
         for (LfgPlayerList::const_iterator it = players.begin(); it != players.end(); ++it)
         {
             Player* plr = (*it);
@@ -1349,7 +1352,7 @@ void LFGMgr::UpdateProposal(uint32 proposalId, const uint64& guid, bool accept)
                 grp->ConvertToLFG();
                 uint64 gguid = grp->GetGUID();
                 SetState(gguid, LFG_STATE_PROPOSAL);
-                sObjectMgr->AddGroup(grp);
+                sGroupMgr->AddGroup(grp);
             }
             else if (group != grp)
                 grp->AddMember(plr);
@@ -1795,8 +1798,8 @@ void LFGMgr::RewardDungeonDoneFor(const uint32 dungeonId, Player* player)
         return;
 
     // if we can take the quest, means that we haven't done this kind of "run", IE: First Heroic Random of Day.
-    if (player->CanRewardQuest(qReward,false))
-        player->RewardQuest(qReward,0,NULL,false);
+    if (player->CanRewardQuest(qReward, false))
+        player->RewardQuest(qReward, 0, NULL, false);
     else
     {
         index = 1;
@@ -1804,11 +1807,11 @@ void LFGMgr::RewardDungeonDoneFor(const uint32 dungeonId, Player* player)
         if (!qReward)
             return;
         // we give reward without informing client (retail does this)
-        player->RewardQuest(qReward,0,NULL,false);
+        player->RewardQuest(qReward, 0, NULL, false);
     }
 
     // Give rewards
-    sLog->outDebug(LOG_FILTER_LFG, "LFGMgr::RewardDungeonDoneFor: [" UI64FMTD "] done dungeon %u,%s previously done.", player->GetGUID(), GetDungeon(gguid), index > 0 ? " " : " not");
+    sLog->outDebug(LOG_FILTER_LFG, "LFGMgr::RewardDungeonDoneFor: [" UI64FMTD "] done dungeon %u, %s previously done.", player->GetGUID(), GetDungeon(gguid), index > 0 ? " " : " not");
     player->GetSession()->SendLfgPlayerReward(dungeon->Entry(), GetDungeon(gguid, false), index, reward, qReward);
 }
 

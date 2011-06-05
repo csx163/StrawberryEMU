@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -15,8 +17,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef STRAWBERRY_CHANNELMGR_H
-#define STRAWBERRY_CHANNELMGR_H
+#ifndef __STRAWBERRY_CHANNELMGR_H
+#define __STRAWBERRY_CHANNELMGR_H
 
 #include "Common.h"
 #include "Channel.h"
@@ -31,7 +33,7 @@ class ChannelMgr
 {
     public:
         uint32 team;
-        typedef std::map<std::wstring,Channel*> ChannelMap;
+        typedef std::map<std::wstring, Channel*> ChannelMap;
         ChannelMgr() {team = 0;}
         ~ChannelMgr();
 

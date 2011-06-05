@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -24,6 +26,7 @@
 #include "WorldSession.h"
 #include "World.h"
 #include "ObjectMgr.h"
+#include "GroupMgr.h"
 #include "Player.h"
 #include "Group.h"
 #include "SocialMgr.h"
@@ -233,7 +236,7 @@ void WorldSession::HandleGroupAcceptOpcode(WorldPacket& recv_data)
         ASSERT(leader);
         group->RemoveInvite(leader);
         group->Create(leader);
-        sObjectMgr->AddGroup(group);
+        sGroupMgr->AddGroup(group);
     }
 
     // Everything is fine, do it, PLAYER'S GROUP IS SET IN ADDMEMBER!!!
@@ -930,7 +933,7 @@ void WorldSession::HandleRequestPartyMemberStatsOpcode(WorldPacket &recv_data)
             data << (uint8)  1;
         }
     }
-    data.put<uint64>(maskPos,auramask);                     // GROUP_UPDATE_FLAG_AURAS
+    data.put<uint64>(maskPos, auramask);                     // GROUP_UPDATE_FLAG_AURAS
 
     if (pet)
     {
@@ -956,7 +959,7 @@ void WorldSession::HandleRequestPartyMemberStatsOpcode(WorldPacket &recv_data)
                 data << (uint8)  1;
             }
         }
-        data.put<uint64>(petMaskPos,petauramask);           // GROUP_UPDATE_FLAG_PET_AURAS
+        data.put<uint64>(petMaskPos, petauramask);           // GROUP_UPDATE_FLAG_PET_AURAS
     }
     else
     {

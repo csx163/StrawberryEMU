@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -76,7 +78,7 @@ HomeMovementGenerator<Creature>::Update(Creature &owner, const uint32& time_diff
         // restore orientation of not moving creature at returning to home
         if (owner.GetDefaultMovementType() == IDLE_MOTION_TYPE)
         {
-            //sLog->outDebug("Entering HomeMovement::GetDestination(z,y,z)");
+            //sLog->outDebug("Entering HomeMovement::GetDestination(z, y, z)");
             owner.SetOrientation(ori);
             WorldPacket packet;
             owner.BuildHeartBeatMsg(&packet);

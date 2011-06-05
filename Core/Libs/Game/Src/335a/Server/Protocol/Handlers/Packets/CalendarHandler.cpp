@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -31,8 +33,32 @@ void WorldSession::HandleCalendarGetCalendar(WorldPacket & /*recv_data*/)
 
     time_t cur_time = time(NULL);
 
-    // we can't really get the real size of this packet...
     WorldPacket data(SMSG_CALENDAR_SEND_CALENDAR, 4+4*0+4+4*0+4+4);
+
+    data << uint32(0);                                      // invite count
+    /*
+    for (;;)
+    {
+        uint64 inviteId;
+        uint64 unkGuid0;
+        uint8 unk1, unk2, unk3;
+        uint64 creatorGuid;
+    }
+    */
+
+    data << uint32(0);                                      // event count
+    /*
+    for (;;)
+    {
+        uint64 eventId;
+        std::string title;                                  // 128 chars
+        uint32 type;
+        uint32 occurrenceTime;
+        uint32 flags;
+        uint32 unk4; -- possibly mapid for dungeon/raid
+        uint64 creatorGuid;
+    }
+    */
 
     sCalendarMgr->AppendInvitesToCalendarPacketForPlayer(data, GetPlayer());
     sCalendarMgr->AppendEventsToCalendarPacketForPlayer(data, GetPlayer());
@@ -136,6 +162,7 @@ void WorldSession::HandleCalendarArenaTeam(WorldPacket &recv_data)
 void WorldSession::HandleCalendarAddEvent(WorldPacket &recv_data)
 {
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: CMSG_CALENDAR_ADD_EVENT");
+
     std::string title;
     std::string description;
     uint8 type;

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -34,7 +36,7 @@ Strawberry::VisibleNotifier::Visit(GridRefManager<T> &m)
     for (typename GridRefManager<T>::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
         vis_guids.erase(iter->getSource()->GetGUID());
-        i_player.UpdateVisibilityOf(iter->getSource(),i_data,i_visibleNow);
+        i_player.UpdateVisibilityOf(iter->getSource(), i_data, i_visibleNow);
     }
 }
 
@@ -413,7 +415,7 @@ void Strawberry::LocalizedPacketDo<Builder>::operator()(Player* p)
 
         data = new WorldPacket(SMSG_MESSAGECHAT, 200);
 
-        i_builder(*data,loc_idx);
+        i_builder(*data, loc_idx);
 
         i_data_cache[cache_idx] = data;
     }
@@ -438,7 +440,7 @@ void Strawberry::LocalizedPacketListDo<Builder>::operator()(Player* p)
 
         data_list = &i_data_cache[cache_idx];
 
-        i_builder(*data_list,loc_idx);
+        i_builder(*data_list, loc_idx);
     }
     else
         data_list = &i_data_cache[cache_idx];

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -108,7 +110,6 @@ enum WorldBoolConfigs
     CONFIG_ALLOW_GM_GROUP,
     CONFIG_ALLOW_GM_FRIEND,
     CONFIG_GM_LOWER_SECURITY,
-    CONFIG_GM_ALLOW_ACHIEVEMENT_GAINS,
     CONFIG_SKILL_PROSPECTING,
     CONFIG_SKILL_MILLING,
     CONFIG_SAVE_RESPAWN_TIME_IMMEDIATELY,
@@ -227,6 +228,7 @@ enum WorldIntConfigs
     CONFIG_GM_WHISPERING_TO,
     CONFIG_GM_LEVEL_IN_GM_LIST,
     CONFIG_GM_LEVEL_IN_WHO_LIST,
+    CONFIG_GM_LEVEL_ALLOW_ACHIEVEMENTS,
     CONFIG_START_GM_LEVEL,
     CONFIG_GROUP_VISIBILITY,
     CONFIG_MAIL_DELIVERY_DELAY,
@@ -637,7 +639,7 @@ class World
 
         void UpdateSessions(uint32 diff);
         /// Set a server rate (see #Rates)
-        void setRate(Rates rate,float value) { rate_values[rate]=value; }
+        void setRate(Rates rate, float value) { rate_values[rate]=value; }
         /// Get a server rate (see #Rates)
         float getRate(Rates rate) const { return rate_values[rate]; }
 
@@ -668,7 +670,7 @@ class World
         }
 
         /// Set a server configuration element (see #WorldConfigs)
-        void setIntConfig(WorldIntConfigs index,uint32 value)
+        void setIntConfig(WorldIntConfigs index, uint32 value)
         {
             if (index < INT_CONFIG_VALUE_COUNT)
                 m_int_configs[index] = value;
@@ -685,8 +687,8 @@ class World
         void LoadWorldStates();
 
         /// Are we on a "Player versus Player" server?
-        bool IsPvPRealm() { return (getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_PVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_RPPVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP); }
-        bool IsFFAPvPRealm() { return getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP; }
+        bool IsPvPRealm() const { return (getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_PVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_RPPVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP); }
+        bool IsFFAPvPRealm() const { return getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP; }
 
         void KickAll();
         void KickAllLess(AccountTypes sec);
@@ -730,7 +732,7 @@ class World
 
         bool isEventKillStart;
 
-        uint32 GetCleaningFlags() { return m_CleaningFlags; }
+        uint32 GetCleaningFlags() const { return m_CleaningFlags; }
         void   SetCleaningFlags(uint32 flags) { m_CleaningFlags = flags; }
     protected:
         void _UpdateGameTime();
@@ -776,7 +778,7 @@ class World
         uint32 m_int_configs[INT_CONFIG_VALUE_COUNT];
         bool m_bool_configs[BOOL_CONFIG_VALUE_COUNT];
         float m_float_configs[FLOAT_CONFIG_VALUE_COUNT];
-        typedef std::map<uint32,uint64> WorldStatesMap;
+        typedef std::map<uint32, uint64> WorldStatesMap;
         WorldStatesMap m_worldstates;
         uint32 m_playerLimit;
         AccountTypes m_allowedSecurityLevel;
@@ -797,7 +799,7 @@ class World
         static int32 m_visibility_notify_periodInBGArenas;
 
         // CLI command holder to be thread safe
-        ACE_Based::LockedQueue<CliCommandHolder*,ACE_Thread_Mutex> cliCmdQueue;
+        ACE_Based::LockedQueue<CliCommandHolder*, ACE_Thread_Mutex> cliCmdQueue;
 
         // next daily quests and random bg reset time
         time_t m_NextDailyQuestReset;

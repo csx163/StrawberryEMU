@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -22,6 +24,8 @@
 #include "WorldSession.h"
 #include "World.h"
 #include "ObjectMgr.h"
+#include "ArenaTeamMgr.h"
+#include "GuildMgr.h"
 #include "Log.h"
 #include "ClientOpcodeHandler.h"
 #include "Guild.h"
@@ -89,7 +93,7 @@ void WorldSession::HandlePetitionBuyOpcode(WorldPacket & recv_data)
     sLog->outDebug(LOG_FILTER_NETWORKIO, "Petitioner with GUID %u tried sell petition: name %s", GUID_LOPART(guidNPC), name.c_str());
 
     // prevent cheating
-    Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(guidNPC,UNIT_NPC_FLAG_PETITIONER);
+    Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(guidNPC, UNIT_NPC_FLAG_PETITIONER);
     if (!pCreature)
     {
         sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: HandlePetitionBuyOpcode - Unit (GUID: %u) not found or you can't interact with him.", GUID_LOPART(guidNPC));
@@ -154,7 +158,7 @@ void WorldSession::HandlePetitionBuyOpcode(WorldPacket & recv_data)
 
     if (type == GUILD_CHARTER_TYPE)
     {
-        if (sObjectMgr->GetGuildByName(name))
+        if (sGuildMgr->GetGuildByName(name))
         {
             Guild::SendCommandResult(this, GUILD_CREATE_S, ERR_GUILD_NAME_EXISTS_S, name);
             return;
@@ -167,7 +171,7 @@ void WorldSession::HandlePetitionBuyOpcode(WorldPacket & recv_data)
     }
     else
     {
-        if (sObjectMgr->GetArenaTeamByName(name))
+        if (sArenaTeamMgr->GetArenaTeamByName(name))
         {
             SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, name, "", ERR_ARENA_TEAM_NAME_EXISTS_S);
             return;
@@ -179,7 +183,7 @@ void WorldSession::HandlePetitionBuyOpcode(WorldPacket & recv_data)
         }
     }
 
-    ItemPrototype const *pProto = ObjectMgr::GetItemPrototype(charterid);
+    ItemTemplate const *pProto = sObjectMgr->GetItemTemplate(charterid);
     if (!pProto)
     {
         _player->SendBuyError(BUY_ERR_CANT_FIND_ITEM, NULL, charterid, 0);
@@ -193,10 +197,10 @@ void WorldSession::HandlePetitionBuyOpcode(WorldPacket & recv_data)
     }
 
     ItemPosCountVec dest;
-    uint8 msg = _player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->BuyCount);
+    InventoryResult msg = _player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->BuyCount);
     if (msg != EQUIP_ERR_OK)
     {
-        _player->SendBuyError(msg, pCreature, charterid, 0);
+        _player->SendEquipError(msg, NULL, NULL, charterid);
         return;
     }
 
@@ -300,7 +304,7 @@ void WorldSession::HandlePetitionQueryOpcode(WorldPacket & recv_data)
 
     uint32 guildguid;
     uint64 petitionguid;
-    recv_data >> guildguid;                                 // in Trinity always same as GUID_LOPART(petitionguid)
+    recv_data >> guildguid;                                 // Always same as GUID_LOPART(petitionguid)
     recv_data >> petitionguid;                              // petition guid
     sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_PETITION_QUERY Petition GUID %u Guild GUID %u", GUID_LOPART(petitionguid), guildguid);
 
@@ -335,7 +339,7 @@ void WorldSession::SendPetitionQueryOpcode(uint64 petitionguid)
     }
 
     WorldPacket data(SMSG_PETITION_QUERY_RESPONSE, (4+8+name.size()+1+1+4*12+2+10));
-    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (in Trinity always same as GUID_LOPART(petition guid)
+    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (Always same as GUID_LOPART(petition guid)
     data << uint64(ownerguid);                              // charter owner guid
     data << name;                                           // name (guild/arena team)
     data << uint8(0);                                       // some string
@@ -404,7 +408,7 @@ void WorldSession::HandlePetitionRenameOpcode(WorldPacket & recv_data)
 
     if (type == GUILD_CHARTER_TYPE)
     {
-        if (sObjectMgr->GetGuildByName(newname))
+        if (sGuildMgr->GetGuildByName(newname))
         {
             Guild::SendCommandResult(this, GUILD_CREATE_S, ERR_GUILD_NAME_EXISTS_S, newname);
             return;
@@ -417,7 +421,7 @@ void WorldSession::HandlePetitionRenameOpcode(WorldPacket & recv_data)
     }
     else
     {
-        if (sObjectMgr->GetArenaTeamByName(newname))
+        if (sArenaTeamMgr->GetArenaTeamByName(newname))
         {
             SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, newname, "", ERR_ARENA_TEAM_NAME_EXISTS_S);
             return;
@@ -544,9 +548,9 @@ void WorldSession::HandlePetitionSignOpcode(WorldPacket & recv_data)
         return;
     }
 
-    CharDB.PExecute("INSERT INTO petition_sign (ownerguid,petitionguid, playerguid, player_account) VALUES ('%u', '%u', '%u','%u')", GUID_LOPART(ownerguid),GUID_LOPART(petitionguid), plguidlo,GetAccountId());
+    CharDB.PExecute("INSERT INTO petition_sign (ownerguid, petitionguid, playerguid, player_account) VALUES ('%u', '%u', '%u', '%u')", GUID_LOPART(ownerguid), GUID_LOPART(petitionguid), plguidlo, GetAccountId());
 
-    sLog->outDebug(LOG_FILTER_NETWORKIO, "PETITION SIGN: GUID %u by player: %s (GUID: %u Account: %u)", GUID_LOPART(petitionguid), _player->GetName(),plguidlo,GetAccountId());
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "PETITION SIGN: GUID %u by player: %s (GUID: %u Account: %u)", GUID_LOPART(petitionguid), _player->GetName(), plguidlo, GetAccountId());
 
     WorldPacket data(SMSG_PETITION_SIGN_RESULTS, (8+8+4));
     data << uint64(petitionguid);
@@ -749,7 +753,7 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket & recv_data)
         }
 
         // Check if guild name is already taken
-        if (sObjectMgr->GetGuildByName(name))
+        if (sGuildMgr->GetGuildByName(name))
         {
             Guild::SendCommandResult(this, GUILD_CREATE_S, ERR_GUILD_NAME_EXISTS_S, name);
             return;
@@ -770,7 +774,7 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket & recv_data)
         }
 
         // Check if arena team name is already taken
-        if (sObjectMgr->GetArenaTeamByName(name))
+        if (sArenaTeamMgr->GetArenaTeamByName(name))
         {
             SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, name, "", ERR_ARENA_TEAM_NAME_EXISTS_S);
             return;
@@ -807,7 +811,7 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket & recv_data)
     // Proceed with guild/arena team creation
 
     // Delete charter item
-    _player->DestroyItem(item->GetBagSlot(),item->GetSlot(), true);
+    _player->DestroyItem(item->GetBagSlot(), item->GetSlot(), true);
 
     if (type == GUILD_CHARTER_TYPE)
     {
@@ -821,7 +825,7 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket & recv_data)
         }
 
         // Register guild and add guild master
-        sObjectMgr->AddGuild(guild);
+        sGuildMgr->AddGuild(guild);
 
         // Add members from signatures
         for (uint8 i = 0; i < signatures; ++i)
@@ -847,7 +851,7 @@ void WorldSession::HandleTurnInPetitionOpcode(WorldPacket & recv_data)
         }
 
         // Register arena team
-        sObjectMgr->AddArenaTeam(arenaTeam);
+        sArenaTeamMgr->AddArenaTeam(arenaTeam);
         sLog->outDebug(LOG_FILTER_NETWORKIO, "PetitonsHandler: Arena team (guid: %u) added to ObjectMgr", arenaTeam->GetId());
 
         // Add members

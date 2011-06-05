@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_LOG_H
-#define STRAWBERRY_LOG_H
+#ifndef STRAWBERRYCORE_LOG_H
+#define STRAWBERRYCORE_LOG_H
 
 #include "Common.h"
 #include <ace/Singleton.h>
@@ -30,7 +32,7 @@ enum DebugLogFilters
     LOG_FILTER_UNITS                    = 0x00000001,   // Anything related to units that doesn't fit in other categories. ie. creature formations
     LOG_FILTER_PETS                     = 0x00000002,
     LOG_FILTER_VEHICLES                 = 0x00000004,
-    LOG_FILTER_SSCR                     = 0x00000008,   // C++ AI, instance scripts, etc.
+    LOG_FILTER_TSCR                     = 0x00000008,   // C++ AI, instance scripts, etc.
     LOG_FILTER_DATABASE_AI              = 0x08000010,   // SmartAI, EventAI, CreatureAI
     LOG_FILTER_MAPSCRIPTS               = 0x00000020,
     LOG_FILTER_NETWORKIO                = 0x00000040,   // Anything packet/netcode related
@@ -113,23 +115,23 @@ class Log
         void ResetColor(bool stdout_stream);
 
         void outDB( LogTypes type, const char * str );
-        void outString( const char * str, ... )                 ATTR_PRINTF(2,3);
+        void outString( const char * str, ... )                 ATTR_PRINTF(2, 3);
         void outString( );
-        void outStringInLine( const char * str, ... )           ATTR_PRINTF(2,3);
-        void outError( const char * err, ... )                  ATTR_PRINTF(2,3);
-        void outCrash( const char * err, ... )                  ATTR_PRINTF(2,3);
-        void outBasic( const char * str, ... )                  ATTR_PRINTF(2,3);
-        void outDetail( const char * str, ... )                 ATTR_PRINTF(2,3);
-        void outDebug(DebugLogFilters f, const char* str, ...)  ATTR_PRINTF(3,4);
-        void outStaticDebug( const char * str, ... )            ATTR_PRINTF(2,3);
-        void outDebugInLine( const char * str, ... )            ATTR_PRINTF(2,3);
-        void outErrorDb( const char * str, ... )                ATTR_PRINTF(2,3);
-        void outChar( const char * str, ... )                   ATTR_PRINTF(2,3);
-        void outCommand( uint32 account, const char * str, ...) ATTR_PRINTF(3,4);
-        void outRemote( const char * str, ... )                 ATTR_PRINTF(2,3);
-        void outChat( const char * str, ... )                   ATTR_PRINTF(2,3);
-        void outArena( const char * str, ... )                  ATTR_PRINTF(2,3);
-        void outSQLDriver( const char* str, ... )               ATTR_PRINTF(2,3);
+        void outStringInLine( const char * str, ... )           ATTR_PRINTF(2, 3);
+        void outError( const char * err, ... )                  ATTR_PRINTF(2, 3);
+        void outCrash( const char * err, ... )                  ATTR_PRINTF(2, 3);
+        void outBasic( const char * str, ... )                  ATTR_PRINTF(2, 3);
+        void outDetail( const char * str, ... )                 ATTR_PRINTF(2, 3);
+        void outDebug(DebugLogFilters f, const char* str, ...)  ATTR_PRINTF(3, 4);
+        void outStaticDebug( const char * str, ... )            ATTR_PRINTF(2, 3);
+        void outDebugInLine( const char * str, ... )            ATTR_PRINTF(2, 3);
+        void outErrorDb( const char * str, ... )                ATTR_PRINTF(2, 3);
+        void outChar( const char * str, ... )                   ATTR_PRINTF(2, 3);
+        void outCommand( uint32 account, const char * str, ...) ATTR_PRINTF(3, 4);
+        void outRemote( const char * str, ... )                 ATTR_PRINTF(2, 3);
+        void outChat( const char * str, ... )                   ATTR_PRINTF(2, 3);
+        void outArena( const char * str, ... )                  ATTR_PRINTF(2, 3);
+        void outSQLDriver( const char* str, ... )               ATTR_PRINTF(2, 3);
         void outCharDump( const char * str, uint32 account_id, uint32 guid, const char * name );
 
         static void outTimestamp(FILE* file);
@@ -150,7 +152,7 @@ class Log
         void SetLogDBLater(bool value) { m_enableLogDBLater = value; }
         bool GetSQLDriverQueryLogging() const { return m_sqlDriverQueryLogging; }
     private:
-        FILE* openLogFile(char const* configFileName,char const* configTimeStampFlag, char const* mode);
+        FILE* openLogFile(char const* configFileName, char const* configTimeStampFlag, char const* mode);
         FILE* openGmlogPerAccount(uint32 account);
 
         FILE* raLogfile;

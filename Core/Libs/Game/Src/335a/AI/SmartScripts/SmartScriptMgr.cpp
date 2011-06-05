@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -16,7 +18,6 @@
  */
 
 #include "DatabaseEnv.h"
-#include "SQLStorage.h"
 #include "ObjectMgr.h"
 #include "ObjectDefines.h"
 #include "GridDefines.h"
@@ -57,7 +58,7 @@ void SmartWaypointMgr::LoadFromDB()
         Field* fields = result->Fetch();
         uint32 entry = fields[0].GetUInt32();
         uint32 id = fields[1].GetUInt32();
-        float x,y,z;
+        float x, y, z;
         x = fields[2].GetFloat();
         y = fields[3].GetFloat();
         z = fields[4].GetFloat();
@@ -128,7 +129,7 @@ void SmartAIMgr::LoadSmartAIFromDB()
             {
                 case SMART_SCRIPT_TYPE_CREATURE:
                 {
-                    if (!sCreatureStorage.LookupEntry<CreatureInfo>((uint32)temp.entryOrGuid))
+                    if (!sObjectMgr->GetCreatureTemplate((uint32)temp.entryOrGuid))
                     {
                         sLog->outErrorDb("SmartAIMgr::LoadSmartAIFromDB: Creature entry (%u) does not exist, skipped loading.", uint32(temp.entryOrGuid));
                         continue;
@@ -137,7 +138,7 @@ void SmartAIMgr::LoadSmartAIFromDB()
                 }
                 case SMART_SCRIPT_TYPE_GAMEOBJECT:
                 {
-                    if (!sGOStorage.LookupEntry<GameObjectInfo>((uint32)temp.entryOrGuid))
+                    if (!sObjectMgr->GetGameObjectTemplate((uint32)temp.entryOrGuid))
                     {
                         sLog->outErrorDb("SmartAIMgr::LoadSmartAIFromDB: GameObject entry (%u) does not exist, skipped loading.", uint32(temp.entryOrGuid));
                         continue;
@@ -146,7 +147,7 @@ void SmartAIMgr::LoadSmartAIFromDB()
                 }
                 case SMART_SCRIPT_TYPE_AREATRIGGER:
                 {
-                    if (!sAreaTriggerStore.LookupEntry((uint32)temp.entryOrGuid))
+                    if (!sObjectMgr->GetAreaTriggerData((uint32)temp.entryOrGuid))
                     {
                         sLog->outErrorDb("SmartAIMgr::LoadSmartAIFromDB: AreaTrigger entry (%u) does not exist, skipped loading.", uint32(temp.entryOrGuid));
                         continue;
@@ -222,7 +223,7 @@ void SmartAIMgr::LoadSmartAIFromDB()
     sLog->outString();
 }
 
-bool SmartAIMgr::IsTargetValid(SmartScriptHolder e)
+bool SmartAIMgr::IsTargetValid(SmartScriptHolder const& e)
 {
     if (e.GetActionType() == SMART_ACTION_INSTALL_AI_TEMPLATE)
         return true; //AI template has special handling
@@ -231,7 +232,7 @@ bool SmartAIMgr::IsTargetValid(SmartScriptHolder e)
         case SMART_TARGET_CREATURE_DISTANCE:
         case SMART_TARGET_CREATURE_RANGE:
             {
-                if (e.target.unitDistance.creature && !sCreatureStorage.LookupEntry<CreatureInfo>(e.target.unitDistance.creature))
+                if (e.target.unitDistance.creature && !sObjectMgr->GetCreatureTemplate(e.target.unitDistance.creature))
                 {
                     sLog->outErrorDb("SmartAIMgr: Entry %d SourceType %u Event %u Action %u uses non-existent Creature entry %u as target_param1, skipped.", e.entryOrGuid, e.GetScriptType(), e.event_id, e.GetActionType(), e.target.unitDistance.creature);
                     return false;
@@ -241,7 +242,7 @@ bool SmartAIMgr::IsTargetValid(SmartScriptHolder e)
         case SMART_TARGET_GAMEOBJECT_DISTANCE:
         case SMART_TARGET_GAMEOBJECT_RANGE:
             {
-                if (e.target.goDistance.entry && !sGOStorage.LookupEntry<GameObjectInfo>(e.target.goDistance.entry))
+                if (e.target.goDistance.entry && !sObjectMgr->GetGameObjectTemplate(e.target.goDistance.entry))
                 {
                     sLog->outErrorDb("SmartAIMgr: Entry %d SourceType %u Event %u Action %u uses non-existent GameObject entry %u as target_param1, skipped.", e.entryOrGuid, e.GetScriptType(), e.event_id, e.GetActionType(), e.target.goDistance.entry);
                     return false;
@@ -505,7 +506,7 @@ bool SmartAIMgr::IsEventValid(SmartScriptHolder &e)
         case SMART_ACTION_MOUNT_TO_ENTRY_OR_MODEL:
             if (e.action.morphOrMount.creature || e.action.morphOrMount.model)
             {
-                if (e.action.morphOrMount.creature > 0 && !sCreatureStorage.LookupEntry<CreatureInfo>(e.action.morphOrMount.creature))
+                if (e.action.morphOrMount.creature > 0 && !sObjectMgr->GetCreatureTemplate(e.action.morphOrMount.creature))
                 {
                     sLog->outErrorDb("SmartAIMgr: Entry %d SourceType %u Event %u Action %u uses non-existent Creature entry %u, skipped.", e.entryOrGuid, e.GetScriptType(), e.event_id, e.GetActionType(), e.action.morphOrMount.creature);
                     return false;
@@ -781,7 +782,7 @@ bool SmartAIMgr::IsEventValid(SmartScriptHolder &e)
     return true;
 }
 
-bool SmartAIMgr::IsTextValid(SmartScriptHolder e, uint32 id)
+bool SmartAIMgr::IsTextValid(SmartScriptHolder const& e, uint32 id)
 {
     bool error = false;
     uint32 entry = 0;

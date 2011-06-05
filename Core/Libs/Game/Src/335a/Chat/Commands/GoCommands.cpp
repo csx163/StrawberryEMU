@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -76,7 +78,7 @@ public:
         Player* _player = handler->GetSession()->GetPlayer();
 
         // "id" or number or [name] Shift-click form |color|Hcreature_entry:creature_id|h[name]|h|r
-        char* pParam1 = handler->extractKeyFromLink((char*)args,"Hcreature");
+        char* pParam1 = handler->extractKeyFromLink((char*)args, "Hcreature");
         if (!pParam1)
             return false;
 
@@ -89,10 +91,10 @@ public:
 
             // Get the "creature_template.entry"
             // number or [name] Shift-click form |color|Hcreature_entry:creature_id|h[name]|h|r
-            char* tail = strtok(NULL,"");
+            char* tail = strtok(NULL, "");
             if (!tail)
                 return false;
-            char* cId = handler->extractKeyFromLink(tail,"Hcreature_entry");
+            char* cId = handler->extractKeyFromLink(tail, "Hcreature_entry");
             if (!cId)
                 return false;
 
@@ -123,7 +125,7 @@ public:
         }
         //sLog->outError("DEBUG: %s", whereClause.c_str());
 
-        QueryResult result = WorldDB.PQuery("SELECT position_x,position_y,position_z,orientation,map FROM creature %s", whereClause.str().c_str());
+        QueryResult result = WorldDB.PQuery("SELECT position_x, position_y, position_z, orientation, map FROM creature %s", whereClause.str().c_str());
         if (!result)
         {
             handler->SendSysMessage(LANG_COMMAND_GOCREATNOTFOUND);
@@ -140,9 +142,9 @@ public:
         float ort = fields[3].GetFloat();
         int mapid = fields[4].GetUInt16();
 
-        if (!MapManager::IsValidMapCoord(mapid,x,y,z,ort))
+        if (!MapManager::IsValidMapCoord(mapid, x, y, z, ort))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, mapid);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -179,14 +181,14 @@ public:
         WorldSafeLocsEntry const* gy = sWorldSafeLocsStore.LookupEntry(i_gyId);
         if (!gy)
         {
-            handler->PSendSysMessage(LANG_COMMAND_GRAVEYARDNOEXIST,i_gyId);
+            handler->PSendSysMessage(LANG_COMMAND_GRAVEYARDNOEXIST, i_gyId);
             handler->SetSentErrorMessage(true);
             return false;
         }
 
-        if (!MapManager::IsValidMapCoord(gy->map_id,gy->x,gy->y,gy->z))
+        if (!MapManager::IsValidMapCoord(gy->map_id, gy->x, gy->y, gy->z))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,gy->x,gy->y,gy->map_id);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, gy->x, gy->y, gy->map_id);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -228,9 +230,9 @@ public:
         float x = (grid_x-CENTER_GRID_ID+0.5f)*SIZE_OF_GRIDS;
         float y = (grid_y-CENTER_GRID_ID+0.5f)*SIZE_OF_GRIDS;
 
-        if (!MapManager::IsValidMapCoord(mapid,x,y))
+        if (!MapManager::IsValidMapCoord(mapid, x, y))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, mapid);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -260,7 +262,7 @@ public:
         Player* _player = handler->GetSession()->GetPlayer();
 
         // number or [name] Shift-click form |color|Hgameobject:go_guid|h[name]|h|r
-        char* cId = handler->extractKeyFromLink((char*)args,"Hgameobject");
+        char* cId = handler->extractKeyFromLink((char*)args, "Hgameobject");
         if (!cId)
             return false;
 
@@ -287,9 +289,9 @@ public:
             return false;
         }
 
-        if (!MapManager::IsValidMapCoord(mapid,x,y,z,ort))
+        if (!MapManager::IsValidMapCoord(mapid, x, y, z, ort))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, mapid);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -314,7 +316,7 @@ public:
         if (!*args)
             return false;
 
-        char* cNodeId = handler->extractKeyFromLink((char*)args,"Htaxinode");
+        char* cNodeId = handler->extractKeyFromLink((char*)args, "Htaxinode");
         if (!cNodeId)
             return false;
 
@@ -325,15 +327,15 @@ public:
         TaxiNodesEntry const* node = sTaxiNodesStore.LookupEntry(i_nodeId);
         if (!node)
         {
-            handler->PSendSysMessage(LANG_COMMAND_GOTAXINODENOTFOUND,i_nodeId);
+            handler->PSendSysMessage(LANG_COMMAND_GOTAXINODENOTFOUND, i_nodeId);
             handler->SetSentErrorMessage(true);
             return false;
         }
 
         if ((node->x == 0.0f && node->y == 0.0f && node->z == 0.0f) ||
-            !MapManager::IsValidMapCoord(node->map_id,node->x,node->y,node->z))
+            !MapManager::IsValidMapCoord(node->map_id, node->x, node->y, node->z))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,node->x,node->y,node->map_id);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, node->x, node->y, node->map_id);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -367,17 +369,17 @@ public:
         if (!i_atId)
             return false;
 
-        AreaTriggerEntry const* at = sAreaTriggerStore.LookupEntry(i_atId);
+        AreaTriggerData const* at = sObjectMgr->GetAreaTriggerData(i_atId);
         if (!at)
         {
-            handler->PSendSysMessage(LANG_COMMAND_GOAREATRNOTFOUND,i_atId);
+            handler->PSendSysMessage(LANG_COMMAND_GOAREATRNOTFOUND, i_atId);
             handler->SetSentErrorMessage(true);
             return false;
         }
 
-        if (!MapManager::IsValidMapCoord(at->mapid,at->x,at->y,at->z))
+        if (!MapManager::IsValidMapCoord(at->MapId, at->X, at->Y, at->Z))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,at->x,at->y,at->mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, at->X, at->Y, at->MapId);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -392,7 +394,7 @@ public:
         else
             _player->SaveRecallPosition();
 
-        _player->TeleportTo(at->mapid, at->x, at->y, at->z, _player->GetOrientation());
+        _player->TeleportTo(at->MapId, at->X, at->Y, at->Z, _player->GetOrientation());
         return true;
     }
     //teleport at coordinates
@@ -405,9 +407,9 @@ public:
 
         char* px = strtok((char*)args, " ");
         char* py = strtok(NULL, " ");
-        char* tail = strtok(NULL,"");
+        char* tail = strtok(NULL, "");
 
-        char* cAreaId = handler->extractKeyFromLink(tail,"Harea");       // string or [name] Shift-click form |color|Harea:area_id|h[name]|h|r
+        char* cAreaId = handler->extractKeyFromLink(tail, "Harea");       // string or [name] Shift-click form |color|Harea:area_id|h[name]|h|r
 
         if (!px || !py)
             return false;
@@ -421,32 +423,32 @@ public:
 
         uint32 areaid = cAreaId ? (uint32)atoi(cAreaId) : _player->GetZoneId();
 
-        AreaTableEntry const* areaEntry = GetAreaEntryByAreaID(areaid);
+        AreaTableData const* areaEntry = GetAreaEntryByAreaID(areaid);
 
         if (x < 0 || x > 100 || y < 0 || y > 100 || !areaEntry)
         {
-            handler->PSendSysMessage(LANG_INVALID_ZONE_COORD,x,y,areaid);
+            handler->PSendSysMessage(LANG_INVALID_ZONE_COORD, x, y, areaid);
             handler->SetSentErrorMessage(true);
             return false;
         }
 
         // update to parent zone if exist (client map show only zones without parents)
-        AreaTableEntry const* zoneEntry = areaEntry->zone ? GetAreaEntryByAreaID(areaEntry->zone) : areaEntry;
+        AreaTableData const* zoneEntry = areaEntry->ZoneId ? GetAreaEntryByAreaID(areaEntry->ZoneId) : areaEntry;
 
-        Map const *map = sMapMgr->CreateBaseMap(zoneEntry->mapid);
+        Map const *map = sMapMgr->CreateBaseMap(zoneEntry->MapId);
 
         if (map->Instanceable())
         {
-            handler->PSendSysMessage(LANG_INVALID_ZONE_MAP,areaEntry->ID,areaEntry->area_name[handler->GetSessionDbcLocale()],map->GetId(),map->GetMapName());
+            handler->PSendSysMessage(LANG_INVALID_ZONE_MAP, areaEntry->Id, areaEntry->AreaName[handler->GetSessionDbcLocale()], map->GetId(), map->GetMapName());
             handler->SetSentErrorMessage(true);
             return false;
         }
 
-        Zone2MapCoordinates(x,y,zoneEntry->ID);
+        Zone2MapCoordinates(x, y, zoneEntry->Id);
 
-        if (!MapManager::IsValidMapCoord(zoneEntry->mapid,x,y))
+        if (!MapManager::IsValidMapCoord(zoneEntry->MapId, x, y))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,zoneEntry->mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, zoneEntry->MapId);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -462,7 +464,7 @@ public:
             _player->SaveRecallPosition();
 
         float z = std::max(map->GetHeight(x, y, MAX_HEIGHT), map->GetWaterLevel(x, y));
-        _player->TeleportTo(zoneEntry->mapid, x, y, z, _player->GetOrientation());
+        _player->TeleportTo(zoneEntry->MapId, x, y, z, _player->GetOrientation());
 
         return true;
     }
@@ -489,9 +491,9 @@ public:
         else
             mapid = _player->GetMapId();
 
-        if (!MapManager::IsValidMapCoord(mapid,x,y))
+        if (!MapManager::IsValidMapCoord(mapid, x, y))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, mapid);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -538,9 +540,9 @@ public:
         else
             mapid = _player->GetMapId();
 
-        if (!MapManager::IsValidMapCoord(mapid,x,y,z))
+        if (!MapManager::IsValidMapCoord(mapid, x, y, z))
         {
-            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD,x,y,mapid);
+            handler->PSendSysMessage(LANG_INVALID_TARGET_COORD, x, y, mapid);
             handler->SetSentErrorMessage(true);
             return false;
         }

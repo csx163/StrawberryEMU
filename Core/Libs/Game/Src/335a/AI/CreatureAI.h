@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -115,9 +117,6 @@ class CreatureAI : public UnitAI
 
         // Called when spell hits a target
         virtual void SpellHitTarget(Unit* /*target*/, SpellEntry const* /*spell*/) {}
-
-        // Called to get trigger target for aura effect
-        virtual Unit* GetAuraEffectTriggerTarget(uint32 /*spellId*/, uint8 /*effIndex*/) { return NULL; }
 
         // Called when the creature is target of hostile action: swing, hostile spell landed, fear/etc)
         //virtual void AttackedBy(Unit* attacker);

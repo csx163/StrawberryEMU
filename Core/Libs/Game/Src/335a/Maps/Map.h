@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -207,23 +209,18 @@ struct CreatureMover
     float x, y, z, ang;
 };
 
-// GCC have alternative #pragma pack(N) syntax and old gcc version not support pack(push,N), also any gcc version not support it at some platform
+// GCC have alternative #pragma pack(N) syntax and old gcc version not support pack(push, N), also any gcc version not support it at some platform
 #if defined(__GNUC__)
 #pragma pack(1)
 #else
-#pragma pack(push,1)
+#pragma pack(push, 1)
 #endif
 
 struct InstanceTemplate
 {
-    uint32 map;
-    uint32 parent;
-    float startLocX;
-    float startLocY;
-    float startLocZ;
-    float startLocO;
-    uint32 script_id;
-    bool allowMount;
+    uint32 Parent;
+    uint32 ScriptId;
+    bool AllowMount;
 };
 
 enum LevelRequirementVsMode
@@ -332,23 +329,23 @@ class Map : public GridRefManager<NGridType>
         bool IsInWater(float x, float y, float z, LiquidData *data = 0) const;
         bool IsUnderWater(float x, float y, float z) const;
 
-        static uint32 GetAreaIdByAreaFlag(uint16 areaflag,uint32 map_id);
-        static uint32 GetZoneIdByAreaFlag(uint16 areaflag,uint32 map_id);
-        static void GetZoneAndAreaIdByAreaFlag(uint32& zoneid, uint32& areaid, uint16 areaflag,uint32 map_id);
+        static uint32 GetAreaIdByAreaFlag(uint16 areaflag, uint32 map_id);
+        static uint32 GetZoneIdByAreaFlag(uint16 areaflag, uint32 map_id);
+        static void GetZoneAndAreaIdByAreaFlag(uint32& zoneid, uint32& areaid, uint16 areaflag, uint32 map_id);
 
         uint32 GetAreaId(float x, float y, float z) const
         {
-            return GetAreaIdByAreaFlag(GetAreaFlag(x,y,z),GetId());
+            return GetAreaIdByAreaFlag(GetAreaFlag(x, y, z), GetId());
         }
 
         uint32 GetZoneId(float x, float y, float z) const
         {
-            return GetZoneIdByAreaFlag(GetAreaFlag(x,y,z),GetId());
+            return GetZoneIdByAreaFlag(GetAreaFlag(x, y, z), GetId());
         }
 
         void GetZoneAndAreaId(uint32& zoneid, uint32& areaid, float x, float y, float z) const
         {
-            GetZoneAndAreaIdByAreaFlag(zoneid,areaid,GetAreaFlag(x,y,z),GetId());
+            GetZoneAndAreaIdByAreaFlag(zoneid, areaid, GetAreaFlag(x, y, z), GetId());
         }
 
         void MoveAllCreaturesInMoveList();
@@ -433,7 +430,7 @@ class Map : public GridRefManager<NGridType>
 
         void UpdateIteratorBack(Player *player);
 
-        TempSummon *SummonCreature(uint32 entry, const Position &pos, SummonPropertiesEntry const *properties = NULL, uint32 duration = 0, Unit *summoner = NULL, uint32 vehId = 0);
+        TempSummon* SummonCreature(uint32 entry, Position const& pos, SummonPropertiesEntry const* properties = NULL, uint32 duration = 0, Unit* summoner = NULL, uint32 spellId = 0, uint32 vehId = 0);
         Creature* GetCreature(uint64 guid);
         GameObject* GetGameObject(uint64 guid);
         DynamicObject* GetDynamicObject(uint64 guid);
@@ -446,7 +443,7 @@ class Map : public GridRefManager<NGridType>
     private:
         void LoadMapAndVMap(int gx, int gy);
         void LoadVMap(int gx, int gy);
-        void LoadMap(int gx,int gy, bool reload = false);
+        void LoadMap(int gx, int gy, bool reload = false);
         GridMap *GetGrid(float x, float y);
 
         void SetTimer(uint32 t) { i_gridExpiry = t < MIN_GRID_DELAY ? MIN_GRID_DELAY : t; }
@@ -478,8 +475,8 @@ class Map : public GridRefManager<NGridType>
             return i_grids[x][y];
         }
 
-        bool isGridObjectDataLoaded(uint32 x, uint32 y) const { return getNGrid(x,y)->isGridObjectDataLoaded(); }
-        void setGridObjectDataLoaded(bool pLoaded, uint32 x, uint32 y) { getNGrid(x,y)->setGridObjectDataLoaded(pLoaded); }
+        bool isGridObjectDataLoaded(uint32 x, uint32 y) const { return getNGrid(x, y)->isGridObjectDataLoaded(); }
+        void setGridObjectDataLoaded(bool pLoaded, uint32 x, uint32 y) { getNGrid(x, y)->setGridObjectDataLoaded(pLoaded); }
 
         void setNGrid(NGridType* grid, uint32 x, uint32 y);
         void ScriptsProcess();
@@ -649,7 +646,7 @@ Map::Visit(const Cell& cell, TypeContainerVisitor<T, CONTAINER> &visitor)
     const uint32 cell_x = cell.CellX();
     const uint32 cell_y = cell.CellY();
 
-    if (!cell.NoCreate() || loaded(GridPair(x,y)))
+    if (!cell.NoCreate() || loaded(GridPair(x, y)))
     {
         EnsureGridLoaded(cell);
         getNGrid(x, y)->Visit(cell_x, cell_y, visitor);

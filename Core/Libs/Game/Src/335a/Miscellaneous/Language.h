@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,10 +18,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_LANGUAGE_H
-#define STRAWBERRY_LANGUAGE_H
+#ifndef __STRAWBERRY_LANGUAGE_H
+#define __STRAWBERRY_LANGUAGE_H
 
-enum StrawberryStrings
+enum Strings
 {
     // for chat commands
     LANG_SELECT_CHAR_OR_CREATURE        = 1,
@@ -512,7 +514,7 @@ enum StrawberryStrings
 
     LANG_PINFO_ACCOUNT                  = 548,
     LANG_PINFO_LEVEL                    = 549,
-    LANG_PINFO_NO_REP                   = 550,
+    LANG_PINFO_MUTE_BAN                 = 550,
 
     LANG_YOU_SET_EXPLORE_ALL            = 551,
     LANG_YOU_SET_EXPLORE_NOTHING        = 552,
@@ -905,7 +907,7 @@ enum StrawberryStrings
     LANG_COMMAND_TICKETLISTAGECREATE    = 2025,
     LANG_COMMAND_TICKETSHOWESCALATEDLIST = 2026,
 
-    // Strawberry strings                    5000-9999
+    // Strings                    5000-9999
     LANG_COMMAND_FREEZE                 = 5000,
     LANG_COMMAND_FREEZE_ERROR           = 5001,
     LANG_COMMAND_FREEZE_WRONG           = 5002,
@@ -937,7 +939,7 @@ enum StrawberryStrings
     LANG_GOINFO_NAME                    = 5027,
     LANG_GOINFO_LOOTID                  = 5028,
     LANG_COMMAND_LOOKUP_MAX_RESULTS     = 5029,
-    // Room for more Strawberry strings      5030-9999
+    // Room for more Strings      5030-9999
 
     // Level requirement notifications
     LANG_SAY_REQ                        = 6604,
@@ -1029,20 +1031,20 @@ enum StrawberryStrings
     LANG_BG_SA_START_ONE_MINUTE             = 10057,
     LANG_BG_SA_START_HALF_MINUTE            = 10058,
     LANG_BG_SA_HAS_BEGUN                    = 10059,
-    LANG_BG_SA_IS_UNDER_ATTACK              = 10060,//The %s is under attack!
-    LANG_BG_SA_WAS_DESTROYED                = 10061,//The %s was destroyed!
-    LANG_BG_SA_ROUND_ONE_END                = 10062,//Round 1 - finished!
-    LANG_BG_SA_ALLIANCE_CAPTURED_RELIC      = 10063,//The Alliance captured the titan portal!
-    LANG_BG_SA_HORDE_CAPTURED_RELIC         = 10064,//The Horde captured the titan portal!
-    LANG_BG_SA_ROUND_TWO_ONE_MINUTE         = 10065,//Round 2 of the Battle for the Strand of the Ancients begins in 1 minute.
-    LANG_BG_SA_ROUND_TWO_START_HALF_MINUTE  = 10066,//Round 2 begins in 30 seconds. Prepare yourselves!
-    LANG_BG_SA_CHAMBER_BREACHED             = 10067,//The chamber has been breached! The titan relic is vulnerable!
-    LANG_BG_SA_A_GY_SOUTH                   = 10068,//The Alliance captured the South Graveyard!
-    LANG_BG_SA_A_GY_WEST                    = 10069,//The Alliance captured the West Graveyard!
-    LANG_BG_SA_A_GY_EAST                    = 10070,//The Alliance captured the East Graveyard!
-    LANG_BG_SA_H_GY_SOUTH                   = 10071,//The Horde captured the South Graveyard!
-    LANG_BG_SA_H_GY_WEST                    = 10072,//The Horde captured the West Graveyard!
-    LANG_BG_SA_H_GY_EAST                    = 10073,//The Horde captured the East Graveyard!
+    LANG_BG_SA_IS_UNDER_ATTACK              = 10060, //The %s is under attack!
+    LANG_BG_SA_WAS_DESTROYED                = 10061, //The %s was destroyed!
+    LANG_BG_SA_ROUND_ONE_END                = 10062, //Round 1 - finished!
+    LANG_BG_SA_ALLIANCE_CAPTURED_RELIC      = 10063, //The Alliance captured the titan portal!
+    LANG_BG_SA_HORDE_CAPTURED_RELIC         = 10064, //The Horde captured the titan portal!
+    LANG_BG_SA_ROUND_TWO_ONE_MINUTE         = 10065, //Round 2 of the Battle for the Strand of the Ancients begins in 1 minute.
+    LANG_BG_SA_ROUND_TWO_START_HALF_MINUTE  = 10066, //Round 2 begins in 30 seconds. Prepare yourselves!
+    LANG_BG_SA_CHAMBER_BREACHED             = 10067, //The chamber has been breached! The titan relic is vulnerable!
+    LANG_BG_SA_A_GY_SOUTH                   = 10068, //The Alliance captured the South Graveyard!
+    LANG_BG_SA_A_GY_WEST                    = 10069, //The Alliance captured the West Graveyard!
+    LANG_BG_SA_A_GY_EAST                    = 10070, //The Alliance captured the East Graveyard!
+    LANG_BG_SA_H_GY_SOUTH                   = 10071, //The Horde captured the South Graveyard!
+    LANG_BG_SA_H_GY_WEST                    = 10072, //The Horde captured the West Graveyard!
+    LANG_BG_SA_H_GY_EAST                    = 10073, //The Horde captured the East Graveyard!
 
     // Use for custom patches             11000-11999
     LANG_AUTO_BROADCAST                 = 11000,

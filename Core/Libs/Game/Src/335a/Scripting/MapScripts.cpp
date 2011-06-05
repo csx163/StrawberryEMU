@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -382,7 +384,7 @@ void Map::ScriptsProcess()
                     if (Player *pSource = _GetScriptPlayerSourceOrTarget(source, target, step.script))
                     {
                         LocaleConstant loc_idx = pSource->GetSession()->GetSessionDbLocaleIndex();
-                        std::string text(sObjectMgr->GetStrawberryString(step.script->Talk.TextID, loc_idx));
+                        std::string text(sObjectMgr->GetString(step.script->Talk.TextID, loc_idx));
 
                         switch (step.script->Talk.ChatType)
                         {
@@ -776,7 +778,7 @@ void Map::ScriptsProcess()
                 if (Player* pReceiver = _GetScriptPlayerSourceOrTarget(source, target, step.script))
                 {
                     ItemPosCountVec dest;
-                    uint8 msg = pReceiver->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, step.script->CreateItem.ItemEntry, step.script->CreateItem.Amount);
+                    InventoryResult msg = pReceiver->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, step.script->CreateItem.ItemEntry, step.script->CreateItem.Amount);
                     if (msg == EQUIP_ERR_OK)
                     {
                         if (Item* item = pReceiver->StoreNewItem(dest, step.script->CreateItem.ItemEntry, true))
@@ -909,7 +911,7 @@ void Map::ScriptsProcess()
             case SCRIPT_COMMAND_CLOSE_GOSSIP:
                 // Source must be Player.
                 if (Player *pSource = _GetScriptPlayer(source, true, step.script))
-                    pSource->PlayerTalkClass->CloseGossip();
+                    pSource->PlayerTalkClass->SendCloseGossip();
                 break;
 
             case SCRIPT_COMMAND_PLAYMOVIE:

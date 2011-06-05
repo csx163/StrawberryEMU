@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,17 +18,21 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** \file
+    \ingroup u2w
+*/
+
 #include "WorldSocket.h"                                    // must be first to make ACE happy with ACE includes in it
 #include "Common.h"
 #include "DatabaseEnv.h"
 #include "Log.h"
-#include "OpcodeHandler.h"
 #include "ClientOpcodeHandler.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include "Player.h"
 #include "Vehicle.h"
 #include "ObjectMgr.h"
+#include "GuildMgr.h"
 #include "Group.h"
 #include "Guild.h"
 #include "World.h"
@@ -431,7 +437,7 @@ void WorldSession::LogoutPlayer(bool Save)
         if (!_player->m_InstanceValid && !_player->isGameMaster())
             _player->TeleportTo(_player->m_homebindMapId, _player->m_homebindX, _player->m_homebindY, _player->m_homebindZ, _player->GetOrientation());
 
-        sOutdoorPvPMgr->HandlePlayerLeaveZone(_player,_player->GetZoneId());
+        sOutdoorPvPMgr->HandlePlayerLeaveZone(_player, _player->GetZoneId());
 
         for (int i=0; i < PLAYER_MAX_BATTLEGROUND_QUEUES; ++i)
         {
@@ -448,11 +454,11 @@ void WorldSession::LogoutPlayer(bool Save)
             HandleMoveWorldportAckOpcode();
 
         ///- If the player is in a guild, update the guild roster and broadcast a logout message to other guild members
-        if (Guild *pGuild = sObjectMgr->GetGuildById(_player->GetGuildId()))
+        if (Guild *pGuild = sGuildMgr->GetGuildById(_player->GetGuildId()))
             pGuild->HandleMemberLogout(this);
 
         ///- Remove pet
-        _player->RemovePet(NULL,PET_SAVE_AS_CURRENT, true);
+        _player->RemovePet(NULL, PET_SAVE_AS_CURRENT, true);
 
         ///- empty buyback items and save the player in the database
         // some save parts only correctly work in case player present in map/player_lists (pets, etc)
@@ -499,7 +505,7 @@ void WorldSession::LogoutPlayer(bool Save)
         // e.g if he got disconnected during a transfer to another map
         // calls to GetMap in this case may cause crashes
         _player->CleanupsBeforeDelete();
-        sLog->outChar("Account: %d (IP: %s) Logout Character:[%s] (GUID: %u)", GetAccountId(), GetRemoteAddress().c_str(), _player->GetName() ,_player->GetGUIDLow());
+        sLog->outChar("Account: %d (IP: %s) Logout Character:[%s] (GUID: %u)", GetAccountId(), GetRemoteAddress().c_str(), _player->GetName() , _player->GetGUIDLow());
         Map *_map = _player->GetMap();
         _map->Remove(_player, true);
         SetPlayer(NULL);                                    // deleted in Remove call
@@ -527,7 +533,7 @@ void WorldSession::KickPlayer()
         m_Socket->CloseSocket();
 }
 
-void WorldSession::SendNotification(const char *format,...)
+void WorldSession::SendNotification(const char *format, ...)
 {
     if (format)
     {
@@ -544,9 +550,9 @@ void WorldSession::SendNotification(const char *format,...)
     }
 }
 
-void WorldSession::SendNotification(uint32 string_id,...)
+void WorldSession::SendNotification(uint32 string_id, ...)
 {
-    char const *format = GetStrawberryString(string_id);
+    char const *format = GetString(string_id);
     if (format)
     {
         va_list ap;
@@ -562,14 +568,14 @@ void WorldSession::SendNotification(uint32 string_id,...)
     }
 }
 
-const char *WorldSession::GetStrawberryString(int32 entry) const
+const char *WorldSession::GetString(int32 entry) const
 {
-    return sObjectMgr->GetStrawberryString(entry, GetSessionDbLocaleIndex());
+    return sObjectMgr->GetString(entry, GetSessionDbLocaleIndex());
 }
 
 void WorldSession::HandleNULL(WorldPacket& recvPacket)
 {
-    //sLog->outError("SESSION: received unhandled opcode %s (0x%.4X)", LookupOpcodeName(recvPacket.GetOpcode()), recvPacket.GetOpcode());
+    sLog->outError("SESSION: received unhandled opcode %s (0x%.4X)", LookupOpcodeName(recvPacket.GetOpcode()), recvPacket.GetOpcode());
 }
 
 void WorldSession::HandleEarlyProccess(WorldPacket& recvPacket)

@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -22,6 +24,7 @@
 #include "Group.h"
 #include "LFGMgr.h"
 #include "ObjectMgr.h"
+#include "GroupMgr.h"
 #include "InstanceScript.h"
 
 void BuildPlayerLockDungeonBlock(WorldPacket& data, const LfgLockMap& lock)
@@ -201,13 +204,13 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
             data << uint8(qRew->GetRewItemsCount());
             if (qRew->GetRewItemsCount())
             {
-                ItemPrototype const* iProto = NULL;
+                ItemTemplate const* iProto = NULL;
                 for (uint8 i = 0; i < QUEST_REWARDS_COUNT; ++i)
                 {
                     if (!qRew->RewItemId[i])
                         continue;
 
-                    iProto = ObjectMgr::GetItemPrototype(qRew->RewItemId[i]);
+                    iProto = sObjectMgr->GetItemTemplate(qRew->RewItemId[i]);
 
                     data << uint32(qRew->RewItemId[i]);
                     data << uint32(iProto ? iProto->DisplayInfoID : 0);
@@ -491,13 +494,13 @@ void WorldSession::SendLfgPlayerReward(uint32 rdungeonEntry, uint32 sdungeonEntr
     data << uint8(itemNum);
     if (itemNum)
     {
-        ItemPrototype const* iProto = NULL;
+        ItemTemplate const* iProto = NULL;
         for (uint8 i = 0; i < QUEST_REWARDS_COUNT; ++i)
         {
             if (!qRew->RewItemId[i])
                 continue;
 
-            iProto = ObjectMgr::GetItemPrototype(qRew->RewItemId[i]);
+            iProto = sObjectMgr->GetItemTemplate(qRew->RewItemId[i]);
 
             data << uint32(qRew->RewItemId[i]);
             data << uint32(iProto ? iProto->DisplayInfoID : 0);
@@ -554,7 +557,7 @@ void WorldSession::SendLfgUpdateProposal(uint32 proposalId, const LfgProposal* p
     uint32 dungeonId = pProp->dungeonId;
     bool isSameDungeon = false;
     bool isContinue = false;
-    Group* grp = dLowGuid ? sObjectMgr->GetGroupByGUID(dLowGuid) : NULL;
+    Group* grp = dLowGuid ? sGroupMgr->GetGroupByGUID(dLowGuid) : NULL;
     uint32 completedEncounters = 0;
     if (grp)
     {

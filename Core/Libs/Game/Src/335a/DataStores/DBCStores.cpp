@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -25,9 +27,10 @@
 #include "DBCfmt.h"
 
 #include <map>
+#include "AreaTable.h"
 
-typedef std::map<uint16,uint32> AreaFlagByAreaID;
-typedef std::map<uint32,uint32> AreaFlagByMapID;
+typedef std::map<uint16, uint32> AreaFlagByAreaID;
+typedef std::map<uint32, uint32> AreaFlagByMapID;
 
 struct WMOAreaTableTripple
 {
@@ -48,17 +51,11 @@ struct WMOAreaTableTripple
 
 typedef std::map<WMOAreaTableTripple, WMOAreaTableEntry const *> WMOAreaInfoByTripple;
 
-DBCStorage <AreaTableEntry> sAreaStore(AreaTableEntryfmt);
-DBCStorage <AreaGroupEntry> sAreaGroupStore(AreaGroupEntryfmt);
-DBCStorage <AreaPOIEntry> sAreaPOIStore(AreaPOIEntryfmt);
 static AreaFlagByAreaID sAreaFlagByAreaID;
 static AreaFlagByMapID sAreaFlagByMapID;                    // for instances without generated *.map files
 
 static WMOAreaInfoByTripple sWMOAreaInfoByTripple;
 
-DBCStorage <AchievementEntry> sAchievementStore(Achievementfmt);
-DBCStorage <AchievementCriteriaEntry> sAchievementCriteriaStore(AchievementCriteriafmt);
-DBCStorage <AreaTriggerEntry> sAreaTriggerStore(AreaTriggerEntryfmt);
 DBCStorage <AuctionHouseEntry> sAuctionHouseStore(AuctionHouseEntryfmt);
 DBCStorage <BankBagSlotPricesEntry> sBankBagSlotPricesStore(BankBagSlotPricesEntryfmt);
 DBCStorage <BattlemasterListEntry> sBattlemasterListStore(BattlemasterListEntryfmt);
@@ -83,7 +80,7 @@ DBCStorage <DurabilityCostsEntry> sDurabilityCostsStore(DurabilityCostsfmt);
 DBCStorage <EmotesEntry> sEmotesStore(EmotesEntryfmt);
 DBCStorage <EmotesTextEntry> sEmotesTextStore(EmotesTextEntryfmt);
 
-typedef std::map<uint32,SimpleFactionsList> FactionTeamMap;
+typedef std::map<uint32, SimpleFactionsList> FactionTeamMap;
 static FactionTeamMap sFactionTeamMap;
 DBCStorage <FactionEntry> sFactionStore(FactionEntryfmt);
 DBCStorage <FactionTemplateEntry> sFactionTemplateStore(FactionTemplateEntryfmt);
@@ -99,6 +96,7 @@ DBCStorage <GtChanceToMeleeCritBaseEntry> sGtChanceToMeleeCritBaseStore(GtChance
 DBCStorage <GtChanceToMeleeCritEntry>     sGtChanceToMeleeCritStore(GtChanceToMeleeCritfmt);
 DBCStorage <GtChanceToSpellCritBaseEntry> sGtChanceToSpellCritBaseStore(GtChanceToSpellCritBasefmt);
 DBCStorage <GtChanceToSpellCritEntry>     sGtChanceToSpellCritStore(GtChanceToSpellCritfmt);
+DBCStorage <GtOCTClassCombatRatingScalarEntry> sGtOCTClassCombatRatingScalarStore(GtOCTClassCombatRatingScalarfmt);
 DBCStorage <GtOCTRegenHPEntry>            sGtOCTRegenHPStore(GtOCTRegenHPfmt);
 //DBCStorage <GtOCTRegenMPEntry>            sGtOCTRegenMPStore(GtOCTRegenMPfmt);  -- not used currently
 DBCStorage <GtRegenHPPerSptEntry>         sGtRegenHPPerSptStore(GtRegenHPPerSptfmt);
@@ -194,155 +192,43 @@ DBCStorage <WorldSafeLocsEntry> sWorldSafeLocsStore(WorldSafeLocsEntryfmt);
 
 typedef std::list<std::string> StoreProblemList;
 
-bool IsAcceptableClientBuild(uint32 build)
-{
-    int accepted_versions[] = {12340, 0};
-    for(int i = 0; accepted_versions[i]; ++i)
-        if(int(build) == accepted_versions[i])
-            return true;
-
-    return false;
-}
-
-std::string AcceptableClientBuildsListStr()
-{
-    std::ostringstream data;
-    int accepted_versions[] = {12340, 0};
-    for(int i = 0; accepted_versions[i]; ++i)
-        data << accepted_versions[i] << " ";
-    return data.str();
-}
-
-static bool ReadDBCBuildFileText(const std::string& dbc_path, char const* localeName, std::string& text)
-{
-    std::string filename  = dbc_path + "component.wow-" + localeName + ".txt";
-
-    if (FILE* file = fopen(filename.c_str(),"rb"))
-    {
-        char buf[100];
-        fread(buf,1,100-1,file);
-        fclose(file);
-
-        text = &buf[0];
-        return true;
-    }
-    else
-        return false;
-}
-
-static uint32 ReadDBCBuild(const std::string& dbc_path, LocaleNameStr const*&localeNameStr)
-{
-    std::string text;
-
-    if (!localeNameStr)
-    {
-        for(LocaleNameStr const* itr = &fullLocaleNameList[0]; itr->name; ++itr)
-        {
-            if (ReadDBCBuildFileText(dbc_path,itr->name,text))
-            {
-                localeNameStr = itr;
-                break;
-            }
-        }
-    }
-    else
-        ReadDBCBuildFileText(dbc_path,localeNameStr->name,text);
-
-    if (text.empty())
-        return 0;
-
-    size_t pos = text.find("version=\"");
-    size_t pos1 = pos + strlen("version=\"");
-    size_t pos2 = text.find("\"",pos1);
-    if (pos == text.npos || pos2 == text.npos || pos1 >= pos2)
-        return 0;
-
-    std::string build_str = text.substr(pos1,pos2-pos1);
-
-    int build = atoi(build_str.c_str());
-    if (build <= 0)
-        return 0;
-
-    return build;
-}
-
 uint32 DBCFileCount = 0;
 
-static bool LoadDBC_assert_print(uint32 fsize,uint32 rsize, const std::string& filename)
+static bool LoadDBC_assert_print(uint32 fsize, uint32 rsize, const std::string& filename)
 {
-    sLog->outError("Size of '%s' setted by format string (%u) not equal size of C++ structure (%u).",filename.c_str(),fsize,rsize);
+    sLog->outError("Size of '%s' setted by format string (%u) not equal size of C++ structure (%u).", filename.c_str(), fsize, rsize);
 
     // ASSERT must fail after function call
     return false;
 }
 
-struct LocalData
-{
-    LocalData(uint32 build, LocaleConstant loc)
-        : main_build(build), defaultLocale(loc), availableDbcLocales(0xFFFFFFFF),checkedDbcLocaleBuilds(0) {}
-
-    uint32 main_build;
-    LocaleConstant defaultLocale;
-
-    // bitmasks for index of fullLocaleNameList
-    uint32 availableDbcLocales;
-    uint32 checkedDbcLocaleBuilds;
-};
-
 template<class T>
-inline void LoadDBC(LocalData& localeData, StoreProblemList& errors, DBCStorage<T>& storage, std::string const& dbcPath, std::string const& filename, std::string const* customFormat = NULL, std::string const* customIndexName = NULL)
+inline void LoadDBC(uint32& availableDbcLocales, StoreProblemList& errors, DBCStorage<T>& storage, std::string const& dbcPath, std::string const& filename, std::string const* customFormat = NULL, std::string const* customIndexName = NULL)
 {
     // compatibility format and C++ structure sizes
     ASSERT(DBCFileLoader::GetFormatRecordSize(storage.GetFormat()) == sizeof(T) || LoadDBC_assert_print(DBCFileLoader::GetFormatRecordSize(storage.GetFormat()), sizeof(T), filename));
 
     ++DBCFileCount;
     std::string dbcFilename = dbcPath + filename;
-    SqlDbc* sql = NULL;
-
+    SqlDbc * sql = NULL;
     if (customFormat)
         sql = new SqlDbc(&filename, customFormat, customIndexName, storage.GetFormat());
 
-    if (storage.Load(dbcFilename.c_str(), localeData.defaultLocale, sql))
+    if (storage.Load(dbcFilename.c_str(), sql))
     {
-        for (uint8 i = 0; fullLocaleNameList[i].name; ++i)
+        for (uint8 i = 0; i < TOTAL_LOCALES; ++i)
         {
-            if (!(localeData.availableDbcLocales & (1 << i)))
+            if (!(availableDbcLocales & (1 << i)))
                 continue;
 
-            LocaleNameStr const* localStr = &fullLocaleNameList[i];
-
-            std::string dbc_dir_loc = dbcPath + localStr->name + "/";
-
-            if (!(localeData.checkedDbcLocaleBuilds & (1 << i)))
-            {
-                localeData.checkedDbcLocaleBuilds |= (1<<i);// mark as checked for speedup next checks
-
-                uint32 build_loc = ReadDBCBuild(dbc_dir_loc, localStr);
-                if (localeData.main_build != build_loc)
-                {
-                    localeData.availableDbcLocales &= ~(1<<i);  // mark as not available for speedup next checks
-
-                    // exist but wrong build
-                    if (build_loc)
-                    {
-                        std::string dbc_filename_loc = dbcPath + localStr->name + "/" + filename;
-                        char buf[200];
-                        snprintf(buf,200," (exist, but DBC locale subdir %s have DBCs for build %u instead expected build %u, it and other DBC from subdir skipped)",localStr->name,build_loc,localeData.main_build);
-                        errors.push_back(dbc_filename_loc + buf);
-                    }
-
-                    continue;
-                }
-            }
-
-            std::string localizedName = dbcPath + localStr->name + "/" + filename;
-            if (!storage.LoadStringsFrom(localizedName.c_str(), localStr->locale))
-                localeData.availableDbcLocales &= ~(1<<i);  // mark as not available for speedup next checks
+            std::string localizedName = dbcPath + localeNames[i] + "/" + filename;
+            if (!storage.LoadStringsFrom(localizedName.c_str()))
+                availableDbcLocales &= ~(1<<i);             // mark as not available for speedup next checks
         }
     }
     else
     {
-        // sort problematic dbc to (1) non compatible and (2) nonexistent
+        // sort problematic dbc to (1) non compatible and (2) non-existed
         if (FILE* f = fopen(dbcFilename.c_str(), "rb"))
         {
             char buf[100];
@@ -360,47 +246,26 @@ inline void LoadDBC(LocalData& localeData, StoreProblemList& errors, DBCStorage<
 void LoadDBCStores(const std::string& dataPath)
 {
     uint32 oldMSTime = getMSTime();
-    std::string dbcPath = dataPath + "dbc/";
 
-    LocaleNameStr const* defaultLocaleNameStr = NULL;
-    uint32 build = ReadDBCBuild(dbcPath, defaultLocaleNameStr);
-
-    // Check the expected DBC version
-    if (!IsAcceptableClientBuild(build))
-    {
-        if (build)
-            sLog->outError("Found DBC files for build %u but Strawberry expected DBC for one from builds: %s Please extract correct DBC files.", build, AcceptableClientBuildsListStr().c_str());
-        else
-            sLog->outError("Incorrect DataDir value in WorldServer.conf or not found build info (outdated DBC files). Required one from builds: %s Please extract correct DBC files.", AcceptableClientBuildsListStr().c_str());
-
-        exit(1);
-    }
+    std::string dbcPath = dataPath+"dbc/";
 
     StoreProblemList bad_dbc_files;
-
-    LocalData availableDbcLocales(build,defaultLocaleNameStr->locale);
-
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAreaStore,                   dbcPath, "AreaTable.dbc");
+    uint32 availableDbcLocales = 0xFFFFFFFF;
 
     // must be after sAreaStore loading
-    for (uint32 i = 0; i < sAreaStore.GetNumRows(); ++i)           // areaflag numbered from 0
+    for (uint32 i = 0; i < (uint32)sObjectMgr->GetAreaTableData(i); ++i)           // areaflag numbered from 0
     {
-        if (AreaTableEntry const* area = sAreaStore.LookupEntry(i))
+        if (AreaTableData const* area = sObjectMgr->GetAreaTableData(i))
         {
             // fill AreaId->DBC records
-            sAreaFlagByAreaID.insert(AreaFlagByAreaID::value_type(uint16(area->ID), area->exploreFlag));
+            sAreaFlagByAreaID.insert(AreaFlagByAreaID::value_type(uint16(area->Id), area->ExploreFlag));
 
             // fill MapId->DBC records (skip sub zones and continents)
-            if (area->zone == 0 && area->mapid != 0 && area->mapid != 1 && area->mapid != 530 && area->mapid != 571)
-                sAreaFlagByMapID.insert(AreaFlagByMapID::value_type(area->mapid, area->exploreFlag));
+            if (area->ZoneId == 0 && area->MapId != 0 && area->MapId != 1 && area->MapId != 530 && area->MapId != 571)
+                sAreaFlagByMapID.insert(AreaFlagByMapID::value_type(area->MapId, area->ExploreFlag));
         }
     }
 
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAchievementStore,            dbcPath, "Achievement.dbc", &CustomAchievementfmt, &CustomAchievementIndex);
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAchievementCriteriaStore,    dbcPath, "Achievement_Criteria.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAreaTriggerStore,            dbcPath, "AreaTrigger.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAreaGroupStore,              dbcPath, "AreaGroup.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAreaPOIStore,                dbcPath, "AreaPOI.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sAuctionHouseStore,           dbcPath, "AuctionHouse.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sBankBagSlotPricesStore,      dbcPath, "BankBagSlotPrices.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sBattlemasterListStore,       dbcPath, "BattlemasterList.dbc");
@@ -453,10 +318,11 @@ void LoadDBCStores(const std::string& dataPath)
     LoadDBC(availableDbcLocales, bad_dbc_files, sGlyphSlotStore,              dbcPath, "GlyphSlot.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtBarberShopCostBaseStore,   dbcPath, "gtBarberShopCostBase.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtCombatRatingsStore,        dbcPath, "gtCombatRatings.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToMeleeCritBaseStore,dbcPath, "gtChanceToMeleeCritBase.dbc");
+    LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToMeleeCritBaseStore, dbcPath, "gtChanceToMeleeCritBase.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToMeleeCritStore,    dbcPath, "gtChanceToMeleeCrit.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToSpellCritBaseStore,dbcPath, "gtChanceToSpellCritBase.dbc");
+    LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToSpellCritBaseStore, dbcPath, "gtChanceToSpellCritBase.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtChanceToSpellCritStore,    dbcPath, "gtChanceToSpellCrit.dbc");
+    LoadDBC(availableDbcLocales, bad_dbc_files, sGtOCTClassCombatRatingScalarStore,    dbcPath, "gtOCTClassCombatRatingScalar.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtOCTRegenHPStore,           dbcPath, "gtOCTRegenHP.dbc");
     //LoadDBC(dbcCount, availableDbcLocales, bad_dbc_files, sGtOCTRegenMPStore,           dbcPath, "gtOCTRegenMP.dbc");       -- not used currently
     LoadDBC(availableDbcLocales, bad_dbc_files, sGtRegenHPPerSptStore,        dbcPath, "gtRegenHPPerSpt.dbc");
@@ -502,7 +368,7 @@ void LoadDBCStores(const std::string& dataPath)
 
     LoadDBC(availableDbcLocales, bad_dbc_files, sRandomPropertiesPointsStore, dbcPath, "RandPropPoints.dbc");
 
-    LoadDBC(availableDbcLocales, bad_dbc_files, sScalingStatDistributionStore,dbcPath, "ScalingStatDistribution.dbc");
+    LoadDBC(availableDbcLocales, bad_dbc_files, sScalingStatDistributionStore, dbcPath, "ScalingStatDistribution.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sScalingStatValuesStore,      dbcPath, "ScalingStatValues.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sSkillLineStore,              dbcPath, "SkillLine.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sSkillLineAbilityStore,       dbcPath, "SkillLineAbility.dbc");
@@ -740,8 +606,7 @@ void LoadDBCStores(const std::string& dataPath)
     }
 
     // Check loaded DBC files proper version
-    if (!sAreaStore.LookupEntry(3617)              ||       // last area (areaflag) added in 3.3.5a
-        !sCharTitlesStore.LookupEntry(177)         ||       // last char title added in 3.3.5a
+    if (!sCharTitlesStore.LookupEntry(177)         ||       // last char title added in 3.3.5a
         !sGemPropertiesStore.LookupEntry(1629)     ||       // last added spell in 3.3.5a
         !sItemStore.LookupEntry(56806)             ||       // last gem property added in 3.3.5a
         !sItemExtendedCostStore.LookupEntry(2997)  ||       // last item extended cost added in 3.3.5a
@@ -809,19 +674,19 @@ WMOAreaTableEntry const* GetWMOAreaTableEntryByTripple(int32 rootid, int32 adtid
         return i->second;
 }
 
-AreaTableEntry const* GetAreaEntryByAreaID(uint32 area_id)
+AreaTableData const* GetAreaEntryByAreaID(uint32 area_id)
 {
     int32 areaflag = GetAreaFlagByAreaID(area_id);
     if (areaflag < 0)
         return NULL;
 
-    return sAreaStore.LookupEntry(areaflag);
+    return sObjectMgr->GetAreaTableData(areaflag);
 }
 
-AreaTableEntry const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag,uint32 map_id)
+AreaTableData const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag, uint32 map_id)
 {
     if (area_flag)
-        return sAreaStore.LookupEntry(area_flag);
+        return sObjectMgr->GetAreaTableData(area_flag);
 
     if (MapEntry const* mapEntry = sMapStore.LookupEntry(map_id))
         return GetAreaEntryByAreaID(mapEntry->linked_zone);
@@ -851,7 +716,7 @@ uint32 GetVirtualMapForMapAndZone(uint32 mapid, uint32 zoneId)
 
 ContentLevels GetContentLevelsForMapAndZone(uint32 mapid, uint32 zoneId)
 {
-    mapid = GetVirtualMapForMapAndZone(mapid,zoneId);
+    mapid = GetVirtualMapForMapAndZone(mapid, zoneId);
     if (mapid < 2)
         return CONTENT_1_60;
 
@@ -887,7 +752,7 @@ bool IsTotemCategoryCompatiableWith(uint32 itemTotemCategoryId, uint32 requiredT
     return (itemEntry->categoryMask & reqEntry->categoryMask) == reqEntry->categoryMask;
 }
 
-void Zone2MapCoordinates(float& x,float& y,uint32 zone)
+void Zone2MapCoordinates(float& x, float& y, uint32 zone)
 {
     WorldMapAreaEntry const* maEntry = sWorldMapAreaStore.LookupEntry(zone);
 
@@ -895,12 +760,12 @@ void Zone2MapCoordinates(float& x,float& y,uint32 zone)
     if (!maEntry)
         return;
 
-    std::swap(x,y);                                         // at client map coords swapped
+    std::swap(x, y);                                         // at client map coords swapped
     x = x*((maEntry->x2-maEntry->x1)/100)+maEntry->x1;
     y = y*((maEntry->y2-maEntry->y1)/100)+maEntry->y1;      // client y coord from top to down
 }
 
-void Map2ZoneCoordinates(float& x,float& y,uint32 zone)
+void Map2ZoneCoordinates(float& x, float& y, uint32 zone)
 {
     WorldMapAreaEntry const* maEntry = sWorldMapAreaStore.LookupEntry(zone);
 
@@ -910,12 +775,12 @@ void Map2ZoneCoordinates(float& x,float& y,uint32 zone)
 
     x = (x-maEntry->x1)/((maEntry->x2-maEntry->x1)/100);
     y = (y-maEntry->y1)/((maEntry->y2-maEntry->y1)/100);    // client y coord from top to down
-    std::swap(x,y);                                         // client have map coords swapped
+    std::swap(x, y);                                         // client have map coords swapped
 }
 
 MapDifficulty const* GetMapDifficultyData(uint32 mapId, Difficulty difficulty)
 {
-    MapDifficultyMap::const_iterator itr = sMapDifficultyMap.find(MAKE_PAIR32(mapId,difficulty));
+    MapDifficultyMap::const_iterator itr = sMapDifficultyMap.find(MAKE_PAIR32(mapId, difficulty));
     return itr != sMapDifficultyMap.end() ? &itr->second : NULL;
 }
 
@@ -991,4 +856,3 @@ uint32 const* GetTalentTabPages(uint8 cls)
  DBCStorage <CreatureDisplayInfoEntry> const* GetCreatureDisplayStore() { return &sCreatureDisplayInfoStore; }
  DBCStorage <EmotesEntry>        const* GetEmotesStore()         { return &sEmotesStore;         }
  DBCStorage <EmotesTextEntry>    const* GetEmotesTextStore()     { return &sEmotesTextStore;     }
- DBCStorage <AchievementEntry>   const* GetAchievementStore()    { return &sAchievementStore;    }

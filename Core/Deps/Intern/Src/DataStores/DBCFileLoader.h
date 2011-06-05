@@ -1,8 +1,7 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com/>
- *
- * Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
- *
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -24,6 +23,21 @@
 #include "Define.h"
 #include "Utilities/ByteConverter.h"
 #include <cassert>
+
+enum
+{
+    FT_NA='x',                                              //not used or unknown, 4 byte size
+    FT_NA_BYTE='X',                                         //not used or unknown, byte
+    FT_STRING='s',                                          //char*
+    FT_FLOAT='f',                                           //float
+    FT_INT='i',                                             //uint32
+    FT_BYTE='b',                                            //uint8
+    FT_SORT='d',                                            //sorted by this field, field is not included
+    FT_IND='n',                                             //the same, but parsed to data
+    FT_LOGIC='l',                                            //Logical (boolean)
+    FT_SQL_PRESENT='p',                                      //Used in sql format to mark column present in sql dbc
+    FT_SQL_ABSENT='a'                                       //Used in sql format to mark column absent in sql dbc
+};
 
 class DBCFileLoader
 {
@@ -77,15 +91,14 @@ class DBCFileLoader
         Record getRecord(size_t id);
         /// Get begin iterator over records
 
-        uint32 GetNumRows() const { return recordCount;}
+        uint32 GetNumRows() const { return recordCount; }
+        uint32 GetRowSize() const { return recordSize; }
         uint32 GetCols() const { return fieldCount; }
         uint32 GetOffset(size_t id) const { return (fieldsOffset != NULL && id < fieldCount) ? fieldsOffset[id] : 0; }
-        bool IsLoaded() const { return (data != NULL); }
+        bool IsLoaded() const { return data != NULL; }
         char* AutoProduceData(const char* fmt, uint32& count, char**& indexTable, uint32 sqlRecordCount, uint32 sqlHighestIndex, char *& sqlDataTable);
-        char* AutoProduceStringsArrayHolders(const char* fmt, char* dataTable);
-        char* AutoProduceStrings(const char* fmt, char* dataTable, LocaleConstant loc);
+        char* AutoProduceStrings(const char* fmt, char* dataTable);
         static uint32 GetFormatRecordSize(const char * format, int32 * index_pos = NULL);
-        static uint32 GetFormatStringsFields(const char * format);
     private:
 
         uint32 recordSize;

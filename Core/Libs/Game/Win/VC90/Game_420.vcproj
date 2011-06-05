@@ -3,8 +3,8 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="Game_420"
-	ProjectGUID="{6D76CF5C-07CB-4C4B-97E0-11966CE5A3EE}"
-	RootNamespace="Game_410a"
+	ProjectGUID="{308BADFD-95B2-4E2C-9946-EC3F6D337F79}"
+	RootNamespace="Game_420"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Game_410a_$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\Game_410a_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\Game_420_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\Game_420_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP /Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Src\410a\Achievements;..\..\Src\410a\Battlegrounds\Zones;..\..\Src\410a\AI\SmartScripts;..\..\Src\410a\AI\ScriptedAI;..\..\Src\410a\AI\EventAI;..\..\Src\410a\AI\CoreAI;..\..\Src\410a\World;..\..\Src\410a\Weather;..\..\Src\410a\Tools;..\..\Src\410a\Tickets;..\..\Src\410a\Texts;..\..\Src\410a\Spells;..\..\Src\410a\Skills;..\..\Src\410a\Server;..\..\Src\410a\Scripting;..\..\Src\410a\Reputation;..\..\Src\410a\Quests;..\..\Src\410a\Pools;..\..\Src\410a\PCH;..\..\Src\410a\OutdoorPvP;..\..\Src\410a\Movement;..\..\Src\410a\Miscellaneous;..\..\Src\410a\Maps;..\..\Src\410a\Mails;..\..\Src\410a\Loot;..\..\Src\410a\Instances;..\..\Src\410a\Guilds;..\..\Src\410a\Groups;..\..\Src\410a\Grids;..\..\Src\410a\Globals;..\..\Src\410a\Spells\Auras;..\..\Src\410a\Server\Protocol\Handlers\Packets;..\..\Src\410a\Server\Protocol\Handlers\Opcodes;..\..\Src\410a\Server\Protocol\Handlers;..\..\Src\410a\Server\Sockets;..\..\Src\410a\Server\Sessions;..\..\Src\410a\Server\Logs;..\..\Src\410a\Server\Protocol;..\..\Src\410a\Movement\Waypoints;..\..\Src\410a\Movement\MovementGenerators;..\..\Src\410a\Grids\Notifiers;..\..\Src\410a\Grids\Cells;..\..\Src\410a\Entities\Object\Updates;..\..\Src\410a\Entities\Item\Container;..\..\Src\410a\Entities\Vehicle;..\..\Src\410a\Entities\Unit;..\..\Src\410a\Entities\Transport;..\..\Src\410a\Entities\Totem;..\..\Src\410a\Entities\Player;..\..\Src\410a\Entities\Pet;..\..\Src\410a\Entities\Object;..\..\Src\410a\Entities\Item;..\..\Src\410a\Entities\GameObject;..\..\Src\410a\Entities\DynamicObject;..\..\Src\410a\Entities\Creature;..\..\Src\410a\Entities\Corpse;..\..\Src\410a\Events;..\..\Src\410a\Entities;..\..\Src\410a\DungeonFinding;..\..\Src\410a\DataStores;..\..\Src\410a\Conditions;..\..\Src\410a\Combat;..\..\Src\410a\Chat\Commands;..\..\Src\410a\Chat\Channels;..\..\Src\410a\Chat;..\..\Src\410a\Calendar;..\..\Src\410a\Battlegrounds;..\..\Src\410a\AuctionHouse\AuctionHouseBot;..\..\Src\410a\AuctionHouse;..\..\Src\410a\AI;..\..\Src\410a\Addons;..\..\Src\410a\Accounts;..\..\dep;..\..\..\..\Deps\Extern\Src\MySql;..\..\..\..\Deps\Extern\Src\MySql\include;..\..\..\..\Deps\Extern\Src\ZLib;..\..\..\..\Deps\Extern\Src\MySql\extra\yassl\include;..\..\..\..\Deps\Intern\Src;..\..\..\..\Deps\Intern\Src\Collision;..\..\..\..\Deps\Intern\Src\Collision\Management;..\..\..\..\Deps\Intern\Src\Collision\Maps;..\..\..\..\Deps\Intern\Src\Collision\Models;..\..\..\..\Deps\Intern\Src\Collision\PCH;..\..\..\..\Deps\Intern\Src\Configuration;..\..\..\..\Deps\Intern\Src\Cryptography;..\..\..\..\Deps\Intern\Src\Cryptography\Authentication;..\..\..\..\Deps\Intern\Src\DataStores;..\..\..\..\Deps\Intern\Src\Database;..\..\..\..\Deps\Intern\Src\Dynamic;..\..\..\..\Deps\Intern\Src\Dynamic\LinkedReference;..\..\..\..\Deps\Intern\Src\Logging;..\..\..\..\Deps\Intern\Src\Packets;..\..\..\..\Deps\Intern\Src\Threading;..\..\..\..\Deps\Intern\Src\Utilities;..\..\..\..\Deps\Extern\Src\Ace"
+				AdditionalIncludeDirectories="..\..\Src\420\Achievements;..\..\Src\420\Battlegrounds\Zones;..\..\Src\420\AI\SmartScripts;..\..\Src\420\AI\ScriptedAI;..\..\Src\420\AI\EventAI;..\..\Src\420\AI\CoreAI;..\..\Src\420\World;..\..\Src\420\Weather;..\..\Src\420\Tools;..\..\Src\420\Tickets;..\..\Src\420\Texts;..\..\Src\420\Spells;..\..\Src\420\Skills;..\..\Src\420\Server;..\..\Src\420\Scripting;..\..\Src\420\Reputation;..\..\Src\420\Quests;..\..\Src\420\Pools;..\..\Src\420\PCH;..\..\Src\420\OutdoorPvP;..\..\Src\420\Movement;..\..\Src\420\Miscellaneous;..\..\Src\420\Maps;..\..\Src\420\Mails;..\..\Src\420\Loot;..\..\Src\420\Instances;..\..\Src\420\Guilds;..\..\Src\420\Groups;..\..\Src\420\Grids;..\..\Src\420\Globals;..\..\Src\420\Spells\Auras;..\..\Src\420\Server\Protocol\Handlers\Packets;..\..\Src\420\Server\Protocol\Handlers\Opcodes;..\..\Src\420\Server\Protocol\Handlers;..\..\Src\420\Server\Sockets;..\..\Src\420\Server\Sessions;..\..\Src\420\Server\Logs;..\..\Src\420\Server\Protocol;..\..\Src\420\Movement\Waypoints;..\..\Src\420\Movement\MovementGenerators;..\..\Src\420\Grids\Notifiers;..\..\Src\420\Grids\Cells;..\..\Src\420\Entities\Object\Updates;..\..\Src\420\Entities\Item\Container;..\..\Src\420\Entities\Vehicle;..\..\Src\420\Entities\Unit;..\..\Src\420\Entities\Transport;..\..\Src\420\Entities\Totem;..\..\Src\420\Entities\Player;..\..\Src\420\Entities\Pet;..\..\Src\420\Entities\Object;..\..\Src\420\Entities\Item;..\..\Src\420\Entities\GameObject;..\..\Src\420\Entities\DynamicObject;..\..\Src\420\Entities\Creature;..\..\Src\420\Entities\Corpse;..\..\Src\420\Events;..\..\Src\420\Entities;..\..\Src\420\DungeonFinding;..\..\Src\420\DataStores;..\..\Src\420\Conditions;..\..\Src\420\Combat;..\..\Src\420\Chat\Commands;..\..\Src\420\Chat\Channels;..\..\Src\420\Chat;..\..\Src\420\Calendar;..\..\Src\420\Battlegrounds;..\..\Src\420\AuctionHouse\AuctionHouseBot;..\..\Src\420\AuctionHouse;..\..\Src\420\AI;..\..\Src\420\Addons;..\..\Src\420\Accounts;..\..\dep;..\..\..\..\Deps\Extern\Src\MySql;..\..\..\..\Deps\Extern\Src\MySql\include;..\..\..\..\Deps\Extern\Src\ZLib;..\..\..\..\Deps\Extern\Src\MySql\extra\yassl\include;..\..\..\..\Deps\Intern\Src;..\..\..\..\Deps\Intern\Src\Collision;..\..\..\..\Deps\Intern\Src\Collision\Management;..\..\..\..\Deps\Intern\Src\Collision\Maps;..\..\..\..\Deps\Intern\Src\Collision\Models;..\..\..\..\Deps\Intern\Src\Collision\PCH;..\..\..\..\Deps\Intern\Src\Configuration;..\..\..\..\Deps\Intern\Src\Cryptography;..\..\..\..\Deps\Intern\Src\Cryptography\Authentication;..\..\..\..\Deps\Intern\Src\DataStores;..\..\..\..\Deps\Intern\Src\Database;..\..\..\..\Deps\Intern\Src\Dynamic;..\..\..\..\Deps\Intern\Src\Dynamic\LinkedReference;..\..\..\..\Deps\Intern\Src\Logging;..\..\..\..\Deps\Intern\Src\Packets;..\..\..\..\Deps\Intern\Src\Threading;..\..\..\..\Deps\Intern\Src\Utilities;..\..\..\..\Deps\Extern\Src\Ace"
 				PreprocessorDefinitions="WIN32;_DEBUG;STRAWBERRY_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS"
 				StringPooling="false"
 				MinimalRebuild="false"
@@ -53,18 +53,18 @@
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="..\..\Src\410a\PCH\PCH.h"
-				PrecompiledHeaderFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\Game.pch"
-				AssemblerListingLocation=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderThrough="..\..\Src\420\PCH\PCH.h"
+				PrecompiledHeaderFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\Game.pch"
+				AssemblerListingLocation=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="0"
-				ForcedIncludeFiles="..\..\Src\410a\PCH\PCH.h"
+				ForcedIncludeFiles="..\..\Src\420\PCH\PCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -79,7 +79,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\Game.lib"
+				OutputFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\Game.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -100,8 +100,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Game_410a_$(PlatformName)_$(ConfigurationName)"
-			IntermediateDirectory=".\Game_410a_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory=".\Game_420_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory=".\Game_420_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -126,7 +126,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP /Zm200"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\Src\410a;..\..\Src\410a\Achievements;..\..\Src\410a\Battlegrounds\Zones;..\..\Src\410a\AI\SmartScripts;..\..\Src\410a\AI\ScriptedAI;..\..\Src\410a\AI\EventAI;..\..\Src\410a\AI\CoreAI;..\..\Src\410a\World;..\..\Src\410a\Weather;..\..\Src\410a\Tools;..\..\Src\410a\Tickets;..\..\Src\410a\Texts;..\..\Src\410a\Spells;..\..\Src\410a\Skills;..\..\Src\410a\Server;..\..\Src\410a\Scripting;..\..\Src\410a\Reputation;..\..\Src\410a\Quests;..\..\Src\410a\Pools;..\..\Src\410a\PCH;..\..\Src\410a\OutdoorPvP;..\..\Src\410a\Movement;..\..\Src\410a\Miscellaneous;..\..\Src\410a\Maps;..\..\Src\410a\Mails;..\..\Src\410a\Loot;..\..\Src\410a\Instances;..\..\Src\410a\Guilds;..\..\Src\410a\Groups;..\..\Src\410a\Grids;..\..\Src\410a\Globals;..\..\Src\410a\Spells\Auras;..\..\Src\410a\Server\Protocol\Handlers\Packets;..\..\Src\410a\Server\Protocol\Handlers\Opcodes;..\..\Src\410a\Server\Protocol\Handlers;..\..\Src\410a\Server\Sockets;..\..\Src\410a\Server\Sessions;..\..\Src\410a\Server\Logs;..\..\Src\410a\Server\Protocol;..\..\Src\410a\Movement\Waypoints;..\..\Src\410a\Movement\MovementGenerators;..\..\Src\410a\Grids\Notifiers;..\..\Src\410a\Grids\Cells;..\..\Src\410a\Entities\Object\Updates;..\..\Src\410a\Entities\Item\Container;..\..\Src\410a\Entities\Vehicle;..\..\Src\410a\Entities\Unit;..\..\Src\410a\Entities\Transport;..\..\Src\410a\Entities\Totem;..\..\Src\410a\Entities\Player;..\..\Src\410a\Entities\Pet;..\..\Src\410a\Entities\Object;..\..\Src\410a\Entities\Item;..\..\Src\410a\Entities\GameObject;..\..\Src\410a\Entities\DynamicObject;..\..\Src\410a\Entities\Creature;..\..\Src\410a\Entities\Corpse;..\..\Src\410a\Events;..\..\Src\410a\Entities;..\..\Src\410a\DungeonFinding;..\..\Src\410a\DataStores;..\..\Src\410a\Conditions;..\..\Src\410a\Combat;..\..\Src\410a\Chat\Commands;..\..\Src\410a\Chat\Channels;..\..\Src\410a\Chat;..\..\Src\410a\Calendar;..\..\Src\410a\Battlegrounds;..\..\Src\410a\AuctionHouse\AuctionHouseBot;..\..\Src\410a\AuctionHouse;..\..\Src\410a\AI;..\..\Src\410a\Addons;..\..\Src\410a\Accounts;..\..\..\..\Deps\Extern\Src\MySql;..\..\..\..\Deps\Extern\Src\MySql\include;..\..\..\..\Deps\Extern\Src\ZLib;..\..\..\..\Deps\Extern\Src\MySql\extra\yassl\include;..\..\..\..\Deps\Intern\Src;..\..\..\..\Deps\Intern\Src\Collision;..\..\..\..\Deps\Intern\Src\Collision\Management;..\..\..\..\Deps\Intern\Src\Collision\Maps;..\..\..\..\Deps\Intern\Src\Collision\Models;..\..\..\..\Deps\Intern\Src\Collision\PCH;..\..\..\..\Deps\Intern\Src\Configuration;..\..\..\..\Deps\Intern\Src\Cryptography;..\..\..\..\Deps\Intern\Src\Cryptography\Authentication;..\..\..\..\Deps\Intern\Src\DataStores;..\..\..\..\Deps\Intern\Src\Database;..\..\..\..\Deps\Intern\Src\Dynamic;..\..\..\..\Deps\Intern\Src\Dynamic\LinkedReference;..\..\..\..\Deps\Intern\Src\Logging;..\..\..\..\Deps\Intern\Src\Packets;..\..\..\..\Deps\Intern\Src\Threading;..\..\..\..\Deps\Intern\Src\Utilities;..\..\..\..\Deps\Extern\Src\Ace"
+				AdditionalIncludeDirectories="..\..\Src\420;..\..\Src\420\Achievements;..\..\Src\420\Battlegrounds\Zones;..\..\Src\420\AI\SmartScripts;..\..\Src\420\AI\ScriptedAI;..\..\Src\420\AI\EventAI;..\..\Src\420\AI\CoreAI;..\..\Src\420\World;..\..\Src\420\Weather;..\..\Src\420\Tools;..\..\Src\420\Tickets;..\..\Src\420\Texts;..\..\Src\420\Spells;..\..\Src\420\Skills;..\..\Src\420\Server;..\..\Src\420\Scripting;..\..\Src\420\Reputation;..\..\Src\420\Quests;..\..\Src\420\Pools;..\..\Src\420\PCH;..\..\Src\420\OutdoorPvP;..\..\Src\420\Movement;..\..\Src\420\Miscellaneous;..\..\Src\420\Maps;..\..\Src\420\Mails;..\..\Src\420\Loot;..\..\Src\420\Instances;..\..\Src\420\Guilds;..\..\Src\420\Groups;..\..\Src\420\Grids;..\..\Src\420\Globals;..\..\Src\420\Spells\Auras;..\..\Src\420\Server\Protocol\Handlers\Packets;..\..\Src\420\Server\Protocol\Handlers\Opcodes;..\..\Src\420\Server\Protocol\Handlers;..\..\Src\420\Server\Sockets;..\..\Src\420\Server\Sessions;..\..\Src\420\Server\Logs;..\..\Src\420\Server\Protocol;..\..\Src\420\Movement\Waypoints;..\..\Src\420\Movement\MovementGenerators;..\..\Src\420\Grids\Notifiers;..\..\Src\420\Grids\Cells;..\..\Src\420\Entities\Object\Updates;..\..\Src\420\Entities\Item\Container;..\..\Src\420\Entities\Vehicle;..\..\Src\420\Entities\Unit;..\..\Src\420\Entities\Transport;..\..\Src\420\Entities\Totem;..\..\Src\420\Entities\Player;..\..\Src\420\Entities\Pet;..\..\Src\420\Entities\Object;..\..\Src\420\Entities\Item;..\..\Src\420\Entities\GameObject;..\..\Src\420\Entities\DynamicObject;..\..\Src\420\Entities\Creature;..\..\Src\420\Entities\Corpse;..\..\Src\420\Events;..\..\Src\420\Entities;..\..\Src\420\DungeonFinding;..\..\Src\420\DataStores;..\..\Src\420\Conditions;..\..\Src\420\Combat;..\..\Src\420\Chat\Commands;..\..\Src\420\Chat\Channels;..\..\Src\420\Chat;..\..\Src\420\Calendar;..\..\Src\420\Battlegrounds;..\..\Src\420\AuctionHouse\AuctionHouseBot;..\..\Src\420\AuctionHouse;..\..\Src\420\AI;..\..\Src\420\Addons;..\..\Src\420\Accounts;..\..\..\..\Deps\Extern\Src\MySql;..\..\..\..\Deps\Extern\Src\MySql\include;..\..\..\..\Deps\Extern\Src\ZLib;..\..\..\..\Deps\Extern\Src\MySql\extra\yassl\include;..\..\..\..\Deps\Intern\Src;..\..\..\..\Deps\Intern\Src\Collision;..\..\..\..\Deps\Intern\Src\Collision\Management;..\..\..\..\Deps\Intern\Src\Collision\Maps;..\..\..\..\Deps\Intern\Src\Collision\Models;..\..\..\..\Deps\Intern\Src\Collision\PCH;..\..\..\..\Deps\Intern\Src\Configuration;..\..\..\..\Deps\Intern\Src\Cryptography;..\..\..\..\Deps\Intern\Src\Cryptography\Authentication;..\..\..\..\Deps\Intern\Src\DataStores;..\..\..\..\Deps\Intern\Src\Database;..\..\..\..\Deps\Intern\Src\Dynamic;..\..\..\..\Deps\Intern\Src\Dynamic\LinkedReference;..\..\..\..\Deps\Intern\Src\Logging;..\..\..\..\Deps\Intern\Src\Packets;..\..\..\..\Deps\Intern\Src\Threading;..\..\..\..\Deps\Intern\Src\Utilities;..\..\..\..\Deps\Extern\Src\Ace"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SECURE_SCL=0"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -134,18 +134,18 @@
 				EnableEnhancedInstructionSet="1"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="..\..\Src\410a\PCH\PCH.h"
-				PrecompiledHeaderFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\Game.pch"
-				AssemblerListingLocation=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
-				ObjectFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
-				ProgramDataBaseFileName=".\Game_410a_$(PlatformName)_$(ConfigurationName)\"
+				PrecompiledHeaderThrough="..\..\Src\420\PCH\PCH.h"
+				PrecompiledHeaderFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\Game.pch"
+				AssemblerListingLocation=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
+				ObjectFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
+				ProgramDataBaseFileName=".\Game_420_$(PlatformName)_$(ConfigurationName)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CallingConvention="0"
 				CompileAs="2"
-				ForcedIncludeFiles="..\..\Src\410a\PCH\PCH.h"
+				ForcedIncludeFiles="..\..\Src\420\PCH\PCH.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -160,7 +160,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Game_410a_$(PlatformName)_$(ConfigurationName)\Game.lib"
+				OutputFile=".\Game_420_$(PlatformName)_$(ConfigurationName)\Game.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -187,11 +187,11 @@
 			Name="Accounts"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Accounts\AccountMgr.cpp"
+				RelativePath="..\..\Src\420\Accounts\AccountMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Accounts\AccountMgr.h"
+				RelativePath="..\..\Src\420\Accounts\AccountMgr.h"
 				>
 			</File>
 		</Filter>
@@ -199,11 +199,11 @@
 			Name="Achievements"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Achievements\AchievementMgr.cpp"
+				RelativePath="..\..\Src\420\Achievements\AchievementMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Achievements\AchievementMgr.h"
+				RelativePath="..\..\Src\420\Achievements\AchievementMgr.h"
 				>
 			</File>
 		</Filter>
@@ -211,11 +211,11 @@
 			Name="Addons"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Addons\AddonMgr.cpp"
+				RelativePath="..\..\Src\420\Addons\AddonMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Addons\AddonMgr.h"
+				RelativePath="..\..\Src\420\Addons\AddonMgr.h"
 				>
 			</File>
 		</Filter>
@@ -223,102 +223,102 @@
 			Name="AI"
 			>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAI.cpp"
+				RelativePath="..\..\Src\420\AI\CreatureAI.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAI.h"
+				RelativePath="..\..\Src\420\AI\CreatureAI.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAIFactory.h"
+				RelativePath="..\..\Src\420\AI\CreatureAIFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAIImpl.h"
+				RelativePath="..\..\Src\420\AI\CreatureAIImpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAIRegistry.cpp"
+				RelativePath="..\..\Src\420\AI\CreatureAIRegistry.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAIRegistry.h"
+				RelativePath="..\..\Src\420\AI\CreatureAIRegistry.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAISelector.cpp"
+				RelativePath="..\..\Src\420\AI\CreatureAISelector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AI\CreatureAISelector.h"
+				RelativePath="..\..\Src\420\AI\CreatureAISelector.h"
 				>
 			</File>
 			<Filter
 				Name="CoreAI"
 				>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\CombatAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\CombatAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\CombatAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\CombatAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\GameObjectAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\GameObjectAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\GameObjectAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\GameObjectAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\GuardAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\GuardAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\GuardAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\GuardAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\PassiveAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\PassiveAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\PassiveAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\PassiveAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\PetAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\PetAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\PetAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\PetAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\ReactorAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\ReactorAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\ReactorAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\ReactorAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\TotemAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\TotemAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\TotemAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\TotemAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\UnitAI.cpp"
+					RelativePath="..\..\Src\420\AI\CoreAI\UnitAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\CoreAI\UnitAI.h"
+					RelativePath="..\..\Src\420\AI\CoreAI\UnitAI.h"
 					>
 				</File>
 			</Filter>
@@ -326,19 +326,19 @@
 				Name="EventAI"
 				>
 				<File
-					RelativePath="..\..\Src\410a\AI\EventAI\CreatureEventAI.cpp"
+					RelativePath="..\..\Src\420\AI\EventAI\CreatureEventAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\EventAI\CreatureEventAI.h"
+					RelativePath="..\..\Src\420\AI\EventAI\CreatureEventAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\EventAI\CreatureEventAIMgr.cpp"
+					RelativePath="..\..\Src\420\AI\EventAI\CreatureEventAIMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\EventAI\CreatureEventAIMgr.h"
+					RelativePath="..\..\Src\420\AI\EventAI\CreatureEventAIMgr.h"
 					>
 				</File>
 			</Filter>
@@ -346,39 +346,39 @@
 				Name="ScriptedAI"
 				>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedCreature.cpp"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedCreature.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedCreature.h"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedCreature.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedEscortAI.cpp"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedEscortAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedEscortAI.h"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedEscortAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedFollowerAI.cpp"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedFollowerAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedFollowerAI.h"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedFollowerAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedGossip.h"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedGossip.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedSimpleAI.cpp"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedSimpleAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\ScriptedAI\ScriptedSimpleAI.h"
+					RelativePath="..\..\Src\420\AI\ScriptedAI\ScriptedSimpleAI.h"
 					>
 				</File>
 			</Filter>
@@ -386,27 +386,27 @@
 				Name="SmartScripts"
 				>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartAI.cpp"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartAI.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartAI.h"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartAI.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartScript.cpp"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartScript.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartScript.h"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartScript.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartScriptMgr.cpp"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartScriptMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\AI\SmartScripts\SmartScriptMgr.h"
+					RelativePath="..\..\Src\420\AI\SmartScripts\SmartScriptMgr.h"
 					>
 				</File>
 			</Filter>
@@ -415,11 +415,11 @@
 			Name="AuctionHouse"
 			>
 			<File
-				RelativePath="..\..\Src\410a\AuctionHouse\AuctionHouseMgr.cpp"
+				RelativePath="..\..\Src\420\AuctionHouse\AuctionHouseMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\AuctionHouse\AuctionHouseMgr.h"
+				RelativePath="..\..\Src\420\AuctionHouse\AuctionHouseMgr.h"
 				>
 			</File>
 			<Filter
@@ -431,142 +431,150 @@
 			Name="Battlegrounds"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\ArenaTeam.cpp"
+				RelativePath="..\..\Src\420\Battlegrounds\ArenaTeam.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\ArenaTeam.h"
+				RelativePath="..\..\Src\420\Battlegrounds\ArenaTeam.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\Battleground.cpp"
+				RelativePath="..\..\Src\420\Battlegrounds\ArenaTeamMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\Battleground.h"
+				RelativePath="..\..\Src\420\Battlegrounds\ArenaTeamMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\BattlegroundMgr.cpp"
+				RelativePath="..\..\Src\420\Battlegrounds\Battleground.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\BattlegroundMgr.h"
+				RelativePath="..\..\Src\420\Battlegrounds\Battleground.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\BattlegroundQueue.cpp"
+				RelativePath="..\..\Src\420\Battlegrounds\BattlegroundMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Battlegrounds\BattlegroundQueue.h"
+				RelativePath="..\..\Src\420\Battlegrounds\BattlegroundMgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Battlegrounds\BattlegroundQueue.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Battlegrounds\BattlegroundQueue.h"
 				>
 			</File>
 			<Filter
 				Name="Zones"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAA.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAA.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAA.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAA.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAB.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAB.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAB.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAB.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAV.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAV.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundAV.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundAV.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundBE.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundBE.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundBE.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundBE.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundDS.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundDS.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundDS.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundDS.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundEY.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundEY.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundEY.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundEY.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundIC.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundIC.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundIC.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundIC.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundNA.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundNA.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundNA.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundNA.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRB.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRB.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRB.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRB.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRL.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRL.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRL.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRL.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRV.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRV.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundRV.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundRV.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundSA.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundSA.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundSA.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundSA.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundWS.cpp"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundWS.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Battlegrounds\Zones\BattlegroundWS.h"
+					RelativePath="..\..\Src\420\Battlegrounds\Zones\BattlegroundWS.h"
 					>
 				</File>
 			</Filter>
@@ -575,19 +583,19 @@
 			Name="Calendar"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Calendar\Calendar.cpp"
+				RelativePath="..\..\Src\420\Calendar\Calendar.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Calendar\Calendar.h"
+				RelativePath="..\..\Src\420\Calendar\Calendar.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Calendar\CalendarMgr.cpp"
+				RelativePath="..\..\Src\420\Calendar\CalendarMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Calendar\CalendarMgr.h"
+				RelativePath="..\..\Src\420\Calendar\CalendarMgr.h"
 				>
 			</File>
 		</Filter>
@@ -595,38 +603,38 @@
 			Name="Chat"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Chat\Chat.cpp"
+				RelativePath="..\..\Src\420\Chat\Chat.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Chat\Chat.h"
+				RelativePath="..\..\Src\420\Chat\Chat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Chat\ChatLink.cpp"
+				RelativePath="..\..\Src\420\Chat\ChatLink.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Chat\ChatLink.h"
+				RelativePath="..\..\Src\420\Chat\ChatLink.h"
 				>
 			</File>
 			<Filter
 				Name="Channels"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Channels\Channel.cpp"
+					RelativePath="..\..\Src\420\Chat\Channels\Channel.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Channels\Channel.h"
+					RelativePath="..\..\Src\420\Chat\Channels\Channel.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Channels\ChannelMgr.cpp"
+					RelativePath="..\..\Src\420\Chat\Channels\ChannelMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Channels\ChannelMgr.h"
+					RelativePath="..\..\Src\420\Chat\Channels\ChannelMgr.h"
 					>
 				</File>
 			</Filter>
@@ -634,91 +642,91 @@
 				Name="Commands"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\AccountCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\AccountCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\AchievementCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\AchievementCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\Debugcmds.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\Debugcmds.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\DebugCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\DebugCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\EventCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\EventCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\GameObjectCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\GameObjectCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\GMCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\GMCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\GoCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\GoCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\HonorCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\HonorCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\LearnCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\LearnCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\Level0.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\Level0.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\Level1.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\Level1.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\Level2.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\Level2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\Level3.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\Level3.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\ModifyCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\ModifyCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\NPCCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\NPCCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\QuestCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\QuestCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\ReloadCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\ReloadCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\TeleCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\TeleCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\TicketCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\TicketCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\TitleCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\TitleCommands.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Chat\Commands\WayPointCommands.cpp"
+					RelativePath="..\..\Src\420\Chat\Commands\WayPointCommands.cpp"
 					>
 				</File>
 			</Filter>
@@ -727,23 +735,23 @@
 			Name="Combat"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Combat\HostileRefManager.cpp"
+				RelativePath="..\..\Src\420\Combat\HostileRefManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Combat\HostileRefManager.h"
+				RelativePath="..\..\Src\420\Combat\HostileRefManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Combat\ThreatManager.cpp"
+				RelativePath="..\..\Src\420\Combat\ThreatManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Combat\ThreatManager.h"
+				RelativePath="..\..\Src\420\Combat\ThreatManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Combat\UnitEvents.h"
+				RelativePath="..\..\Src\420\Combat\UnitEvents.h"
 				>
 			</File>
 		</Filter>
@@ -751,19 +759,19 @@
 			Name="Conditions"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Conditions\ConditionMgr.cpp"
+				RelativePath="..\..\Src\420\Conditions\ConditionMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Conditions\ConditionMgr.h"
+				RelativePath="..\..\Src\420\Conditions\ConditionMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Conditions\DisableMgr.cpp"
+				RelativePath="..\..\Src\420\Conditions\DisableMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Conditions\DisableMgr.h"
+				RelativePath="..\..\Src\420\Conditions\DisableMgr.h"
 				>
 			</File>
 		</Filter>
@@ -771,43 +779,23 @@
 			Name="DataStores"
 			>
 			<File
-				RelativePath="..\..\Src\410a\DataStores\DB2fmt.h"
+				RelativePath="..\..\Src\420\DataStores\DBCEnums.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DataStores\DB2Stores.cpp"
+				RelativePath="..\..\Src\420\DataStores\DBCfmt.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DataStores\DB2Stores.h"
+				RelativePath="..\..\Src\420\DataStores\DBCStores.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DataStores\DB2Structure.h"
+				RelativePath="..\..\Src\420\DataStores\DBCStores.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCEnums.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCfmt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCStores.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCStores.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCStructure.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\410a\DataStores\DBCStructure.h"
+				RelativePath="..\..\Src\420\DataStores\DBCStructure.h"
 				>
 			</File>
 		</Filter>
@@ -815,39 +803,39 @@
 			Name="DungeonFinding"
 			>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFG.h"
+				RelativePath="..\..\Src\420\DungeonFinding\LFG.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGGroupData.cpp"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGGroupData.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGGroupData.h"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGGroupData.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGMgr.cpp"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGMgr.h"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGPlayerData.cpp"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGPlayerData.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGPlayerData.h"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGPlayerData.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGScripts.cpp"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGScripts.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\DungeonFinding\LFGScripts.h"
+				RelativePath="..\..\Src\420\DungeonFinding\LFGScripts.h"
 				>
 			</File>
 		</Filter>
@@ -858,11 +846,11 @@
 				Name="Corpse"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Corpse\Corpse.cpp"
+					RelativePath="..\..\Src\420\Entities\Corpse\Corpse.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Corpse\Corpse.h"
+					RelativePath="..\..\Src\420\Entities\Corpse\Corpse.h"
 					>
 				</File>
 			</Filter>
@@ -870,35 +858,35 @@
 				Name="Creature"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\Creature.cpp"
+					RelativePath="..\..\Src\420\Entities\Creature\Creature.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\Creature.h"
+					RelativePath="..\..\Src\420\Entities\Creature\Creature.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\CreatureGroups.cpp"
+					RelativePath="..\..\Src\420\Entities\Creature\CreatureGroups.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\CreatureGroups.h"
+					RelativePath="..\..\Src\420\Entities\Creature\CreatureGroups.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\GossipDef.cpp"
+					RelativePath="..\..\Src\420\Entities\Creature\GossipDef.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\GossipDef.h"
+					RelativePath="..\..\Src\420\Entities\Creature\GossipDef.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\TemporarySummon.cpp"
+					RelativePath="..\..\Src\420\Entities\Creature\TemporarySummon.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Creature\TemporarySummon.h"
+					RelativePath="..\..\Src\420\Entities\Creature\TemporarySummon.h"
 					>
 				</File>
 			</Filter>
@@ -906,11 +894,11 @@
 				Name="DynamicObject"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\DynamicObject\DynamicObject.cpp"
+					RelativePath="..\..\Src\420\Entities\DynamicObject\DynamicObject.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\DynamicObject\DynamicObject.h"
+					RelativePath="..\..\Src\420\Entities\DynamicObject\DynamicObject.h"
 					>
 				</File>
 			</Filter>
@@ -918,11 +906,11 @@
 				Name="GameObject"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\GameObject\GameObject.cpp"
+					RelativePath="..\..\Src\420\Entities\GameObject\GameObject.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\GameObject\GameObject.h"
+					RelativePath="..\..\Src\420\Entities\GameObject\GameObject.h"
 					>
 				</File>
 			</Filter>
@@ -930,34 +918,34 @@
 				Name="Item"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Item\Item.cpp"
+					RelativePath="..\..\Src\420\Entities\Item\Item.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Item\Item.h"
+					RelativePath="..\..\Src\420\Entities\Item\Item.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Item\ItemEnchantmentMgr.cpp"
+					RelativePath="..\..\Src\420\Entities\Item\ItemEnchantmentMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Item\ItemEnchantmentMgr.h"
+					RelativePath="..\..\Src\420\Entities\Item\ItemEnchantmentMgr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Item\ItemPrototype.h"
+					RelativePath="..\..\Src\420\Entities\Item\ItemPrototype.h"
 					>
 				</File>
 				<Filter
 					Name="Container"
 					>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Item\Container\Bag.cpp"
+						RelativePath="..\..\Src\420\Entities\Item\Container\Bag.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Item\Container\Bag.h"
+						RelativePath="..\..\Src\420\Entities\Item\Container\Bag.h"
 						>
 					</File>
 				</Filter>
@@ -966,42 +954,42 @@
 				Name="Object"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Object\Object.cpp"
+					RelativePath="..\..\Src\420\Entities\Object\Object.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Object\Object.h"
+					RelativePath="..\..\Src\420\Entities\Object\Object.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Object\ObjectDefines.h"
+					RelativePath="..\..\Src\420\Entities\Object\ObjectDefines.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Object\ObjectPosSelector.cpp"
+					RelativePath="..\..\Src\420\Entities\Object\ObjectPosSelector.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Object\ObjectPosSelector.h"
+					RelativePath="..\..\Src\420\Entities\Object\ObjectPosSelector.h"
 					>
 				</File>
 				<Filter
 					Name="Updates"
 					>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Object\Updates\UpdateData.cpp"
+						RelativePath="..\..\Src\420\Entities\Object\Updates\UpdateData.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Object\Updates\UpdateData.h"
+						RelativePath="..\..\Src\420\Entities\Object\Updates\UpdateData.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Object\Updates\UpdateFields.h"
+						RelativePath="..\..\Src\420\Entities\Object\Updates\UpdateFields.h"
 						>
 					</File>
 					<File
-						RelativePath="..\..\Src\410a\Entities\Object\Updates\UpdateMask.h"
+						RelativePath="..\..\Src\420\Entities\Object\Updates\UpdateMask.h"
 						>
 					</File>
 				</Filter>
@@ -1010,11 +998,11 @@
 				Name="Pet"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Pet\Pet.cpp"
+					RelativePath="..\..\Src\420\Entities\Pet\Pet.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Pet\Pet.h"
+					RelativePath="..\..\Src\420\Entities\Pet\Pet.h"
 					>
 				</File>
 			</Filter>
@@ -1022,23 +1010,23 @@
 				Name="Player"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Player\Player.cpp"
+					RelativePath="..\..\Src\420\Entities\Player\Player.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Player\Player.h"
+					RelativePath="..\..\Src\420\Entities\Player\Player.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Player\PLevel.h"
+					RelativePath="..\..\Src\420\Entities\Player\PLevel.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Player\SocialMgr.cpp"
+					RelativePath="..\..\Src\420\Entities\Player\SocialMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Player\SocialMgr.h"
+					RelativePath="..\..\Src\420\Entities\Player\SocialMgr.h"
 					>
 				</File>
 			</Filter>
@@ -1046,11 +1034,11 @@
 				Name="Totem"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Totem\Totem.cpp"
+					RelativePath="..\..\Src\420\Entities\Totem\Totem.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Totem\Totem.h"
+					RelativePath="..\..\Src\420\Entities\Totem\Totem.h"
 					>
 				</File>
 			</Filter>
@@ -1058,11 +1046,11 @@
 				Name="Transport"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Transport\Transport.cpp"
+					RelativePath="..\..\Src\420\Entities\Transport\Transport.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Transport\Transport.h"
+					RelativePath="..\..\Src\420\Entities\Transport\Transport.h"
 					>
 				</File>
 			</Filter>
@@ -1070,15 +1058,15 @@
 				Name="Unit"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Unit\StatSystem.cpp"
+					RelativePath="..\..\Src\420\Entities\Unit\StatSystem.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Unit\Unit.cpp"
+					RelativePath="..\..\Src\420\Entities\Unit\Unit.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Unit\Unit.h"
+					RelativePath="..\..\Src\420\Entities\Unit\Unit.h"
 					>
 				</File>
 			</Filter>
@@ -1086,11 +1074,11 @@
 				Name="Vehicle"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Vehicle\Vehicle.cpp"
+					RelativePath="..\..\Src\420\Entities\Vehicle\Vehicle.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Entities\Vehicle\Vehicle.h"
+					RelativePath="..\..\Src\420\Entities\Vehicle\Vehicle.h"
 					>
 				</File>
 			</Filter>
@@ -1099,11 +1087,11 @@
 			Name="Events"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Events\GameEventMgr.cpp"
+				RelativePath="..\..\Src\420\Events\GameEventMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Events\GameEventMgr.h"
+				RelativePath="..\..\Src\420\Events\GameEventMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1111,19 +1099,19 @@
 			Name="Globals"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Globals\ObjectAccessor.cpp"
+				RelativePath="..\..\Src\420\Globals\ObjectAccessor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Globals\ObjectAccessor.h"
+				RelativePath="..\..\Src\420\Globals\ObjectAccessor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Globals\ObjectMgr.cpp"
+				RelativePath="..\..\Src\420\Globals\ObjectMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Globals\ObjectMgr.h"
+				RelativePath="..\..\Src\420\Globals\ObjectMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1131,54 +1119,54 @@
 			Name="Grids"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Grids\Grid.h"
+				RelativePath="..\..\Src\420\Grids\Grid.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridDefines.h"
+				RelativePath="..\..\Src\420\Grids\GridDefines.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridLoader.h"
+				RelativePath="..\..\Src\420\Grids\GridLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridReference.h"
+				RelativePath="..\..\Src\420\Grids\GridReference.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridRefManager.h"
+				RelativePath="..\..\Src\420\Grids\GridRefManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridStates.cpp"
+				RelativePath="..\..\Src\420\Grids\GridStates.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\GridStates.h"
+				RelativePath="..\..\Src\420\Grids\GridStates.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\NGrid.h"
+				RelativePath="..\..\Src\420\Grids\NGrid.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\ObjectGridLoader.cpp"
+				RelativePath="..\..\Src\420\Grids\ObjectGridLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Grids\ObjectGridLoader.h"
+				RelativePath="..\..\Src\420\Grids\ObjectGridLoader.h"
 				>
 			</File>
 			<Filter
 				Name="Cells"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Grids\Cells\Cell.h"
+					RelativePath="..\..\Src\420\Grids\Cells\Cell.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Grids\Cells\CellImpl.h"
+					RelativePath="..\..\Src\420\Grids\Cells\CellImpl.h"
 					>
 				</File>
 			</Filter>
@@ -1186,15 +1174,15 @@
 				Name="Notifiers"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Grids\Notifiers\GridNotifiers.cpp"
+					RelativePath="..\..\Src\420\Grids\Notifiers\GridNotifiers.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Grids\Notifiers\GridNotifiers.h"
+					RelativePath="..\..\Src\420\Grids\Notifiers\GridNotifiers.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Grids\Notifiers\GridNotifiersImpl.h"
+					RelativePath="..\..\Src\420\Grids\Notifiers\GridNotifiersImpl.h"
 					>
 				</File>
 			</Filter>
@@ -1203,23 +1191,31 @@
 			Name="Groups"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Groups\Group.cpp"
+				RelativePath="..\..\Src\420\Groups\Group.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Groups\Group.h"
+				RelativePath="..\..\Src\420\Groups\Group.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Groups\GroupReference.cpp"
+				RelativePath="..\..\Src\420\Groups\GroupMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Groups\GroupReference.h"
+				RelativePath="..\..\Src\420\Groups\GroupMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Groups\GroupRefManager.h"
+				RelativePath="..\..\Src\420\Groups\GroupReference.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Groups\GroupReference.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Groups\GroupRefManager.h"
 				>
 			</File>
 		</Filter>
@@ -1227,11 +1223,19 @@
 			Name="Guilds"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Guilds\Guild.cpp"
+				RelativePath="..\..\Src\420\Guilds\Guild.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Guilds\Guild.h"
+				RelativePath="..\..\Src\420\Guilds\Guild.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Guilds\GuildMgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\420\Guilds\GuildMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1239,19 +1243,19 @@
 			Name="Instances"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Instances\InstanceSaveMgr.cpp"
+				RelativePath="..\..\Src\420\Instances\InstanceSaveMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Instances\InstanceSaveMgr.h"
+				RelativePath="..\..\Src\420\Instances\InstanceSaveMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Instances\InstanceScript.cpp"
+				RelativePath="..\..\Src\420\Instances\InstanceScript.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Instances\InstanceScript.h"
+				RelativePath="..\..\Src\420\Instances\InstanceScript.h"
 				>
 			</File>
 		</Filter>
@@ -1259,11 +1263,11 @@
 			Name="Loot"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Loot\LootMgr.cpp"
+				RelativePath="..\..\Src\420\Loot\LootMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Loot\LootMgr.h"
+				RelativePath="..\..\Src\420\Loot\LootMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1271,11 +1275,11 @@
 			Name="Mails"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Mails\Mail.cpp"
+				RelativePath="..\..\Src\420\Mails\Mail.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Mails\Mail.h"
+				RelativePath="..\..\Src\420\Mails\Mail.h"
 				>
 			</File>
 		</Filter>
@@ -1283,47 +1287,47 @@
 			Name="Maps"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Maps\Map.cpp"
+				RelativePath="..\..\Src\420\Maps\Map.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\Map.h"
+				RelativePath="..\..\Src\420\Maps\Map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapInstanced.cpp"
+				RelativePath="..\..\Src\420\Maps\MapInstanced.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapInstanced.h"
+				RelativePath="..\..\Src\420\Maps\MapInstanced.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapManager.cpp"
+				RelativePath="..\..\Src\420\Maps\MapManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapManager.h"
+				RelativePath="..\..\Src\420\Maps\MapManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapReference.h"
+				RelativePath="..\..\Src\420\Maps\MapReference.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapRefManager.h"
+				RelativePath="..\..\Src\420\Maps\MapRefManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapUpdater.cpp"
+				RelativePath="..\..\Src\420\Maps\MapUpdater.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\MapUpdater.h"
+				RelativePath="..\..\Src\420\Maps\MapUpdater.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Maps\ZoneScript.h"
+				RelativePath="..\..\Src\420\Maps\ZoneScript.h"
 				>
 			</File>
 		</Filter>
@@ -1331,15 +1335,15 @@
 			Name="Miscellaneous"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Miscellaneous\Formulas.h"
+				RelativePath="..\..\Src\420\Miscellaneous\Formulas.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Miscellaneous\Language.h"
+				RelativePath="..\..\Src\420\Miscellaneous\Language.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Miscellaneous\SharedDefines.h"
+				RelativePath="..\..\Src\420\Miscellaneous\SharedDefines.h"
 				>
 			</File>
 		</Filter>
@@ -1347,118 +1351,118 @@
 			Name="Movement"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Movement\DestinationHolder.cpp"
+				RelativePath="..\..\Src\420\Movement\DestinationHolder.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\DestinationHolder.h"
+				RelativePath="..\..\Src\420\Movement\DestinationHolder.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\DestinationHolderImp.h"
+				RelativePath="..\..\Src\420\Movement\DestinationHolderImp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\FollowerReference.cpp"
+				RelativePath="..\..\Src\420\Movement\FollowerReference.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\FollowerReference.h"
+				RelativePath="..\..\Src\420\Movement\FollowerReference.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\FollowerRefManager.h"
+				RelativePath="..\..\Src\420\Movement\FollowerRefManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\MotionMaster.cpp"
+				RelativePath="..\..\Src\420\Movement\MotionMaster.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\MotionMaster.h"
+				RelativePath="..\..\Src\420\Movement\MotionMaster.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\MovementGenerator.cpp"
+				RelativePath="..\..\Src\420\Movement\MovementGenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\MovementGenerator.h"
+				RelativePath="..\..\Src\420\Movement\MovementGenerator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\MovementGeneratorImpl.h"
+				RelativePath="..\..\Src\420\Movement\MovementGeneratorImpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Movement\Traveller.h"
+				RelativePath="..\..\Src\420\Movement\Traveller.h"
 				>
 			</File>
 			<Filter
 				Name="MovementGenerators"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\ConfusedMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\ConfusedMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\ConfusedMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\ConfusedMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\FleeingMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\FleeingMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\FleeingMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\FleeingMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\HomeMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\HomeMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\HomeMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\HomeMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\IdleMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\IdleMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\IdleMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\IdleMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\PointMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\PointMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\PointMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\PointMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\RandomMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\RandomMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\RandomMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\RandomMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\TargetedMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\TargetedMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\TargetedMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\TargetedMovementGenerator.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\WaypointMovementGenerator.cpp"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\WaypointMovementGenerator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\MovementGenerators\WaypointMovementGenerator.h"
+					RelativePath="..\..\Src\420\Movement\MovementGenerators\WaypointMovementGenerator.h"
 					>
 				</File>
 			</Filter>
@@ -1466,15 +1470,15 @@
 				Name="Waypoints"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Movement\Waypoints\Path.h"
+					RelativePath="..\..\Src\420\Movement\Waypoints\Path.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\Waypoints\WaypointManager.cpp"
+					RelativePath="..\..\Src\420\Movement\Waypoints\WaypointManager.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Movement\Waypoints\WaypointManager.h"
+					RelativePath="..\..\Src\420\Movement\Waypoints\WaypointManager.h"
 					>
 				</File>
 			</Filter>
@@ -1483,19 +1487,19 @@
 			Name="OutdoorPvP"
 			>
 			<File
-				RelativePath="..\..\Src\410a\OutdoorPvP\OutdoorPvP.cpp"
+				RelativePath="..\..\Src\420\OutdoorPvP\OutdoorPvP.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\OutdoorPvP\OutdoorPvP.h"
+				RelativePath="..\..\Src\420\OutdoorPvP\OutdoorPvP.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\OutdoorPvP\OutdoorPvPMgr.cpp"
+				RelativePath="..\..\Src\420\OutdoorPvP\OutdoorPvPMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\OutdoorPvP\OutdoorPvPMgr.h"
+				RelativePath="..\..\Src\420\OutdoorPvP\OutdoorPvPMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1503,11 +1507,11 @@
 			Name="Pools"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Pools\PoolMgr.cpp"
+				RelativePath="..\..\Src\420\Pools\PoolMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Pools\PoolMgr.h"
+				RelativePath="..\..\Src\420\Pools\PoolMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1515,11 +1519,11 @@
 			Name="Quests"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Quests\QuestDef.cpp"
+				RelativePath="..\..\Src\420\Quests\QuestDef.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Quests\QuestDef.h"
+				RelativePath="..\..\Src\420\Quests\QuestDef.h"
 				>
 			</File>
 		</Filter>
@@ -1527,11 +1531,11 @@
 			Name="Reputation"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Reputation\ReputationMgr.cpp"
+				RelativePath="..\..\Src\420\Reputation\ReputationMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Reputation\ReputationMgr.h"
+				RelativePath="..\..\Src\420\Reputation\ReputationMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1539,31 +1543,31 @@
 			Name="Scripting"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\MapScripts.cpp"
+				RelativePath="..\..\Src\420\Scripting\MapScripts.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptLoader.cpp"
+				RelativePath="..\..\Src\420\Scripting\ScriptLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptLoader.h"
+				RelativePath="..\..\Src\420\Scripting\ScriptLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptMgr.cpp"
+				RelativePath="..\..\Src\420\Scripting\ScriptMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptMgr.h"
+				RelativePath="..\..\Src\420\Scripting\ScriptMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptSystem.cpp"
+				RelativePath="..\..\Src\420\Scripting\ScriptSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Scripting\ScriptSystem.h"
+				RelativePath="..\..\Src\420\Scripting\ScriptSystem.h"
 				>
 			</File>
 		</Filter>
@@ -1574,11 +1578,11 @@
 				Name="Logs"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Server\Logs\WorldLog.cpp"
+					RelativePath="..\..\Src\420\Server\Logs\WorldLog.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Server\Logs\WorldLog.h"
+					RelativePath="..\..\Src\420\Server\Logs\WorldLog.h"
 					>
 				</File>
 			</Filter>
@@ -1592,35 +1596,35 @@
 						Name="Opcodes"
 						>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ClientOpcodeHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ClientOpcodeHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ClientOpcodeHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ClientOpcodeHandler.h"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ClientServerOpcodeHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ClientServerOpcodeHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ClientServerOpcodeHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ClientServerOpcodeHandler.h"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\OpcodeHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\OpcodeHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\OpcodeHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\OpcodeHandler.h"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ServerOpcodeHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ServerOpcodeHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Opcodes\ServerOpcodeHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Opcodes\ServerOpcodeHandler.h"
 							>
 						</File>
 					</Filter>
@@ -1628,135 +1632,135 @@
 						Name="Packets"
 						>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\AddonHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\AddonHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\AddonHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\AddonHandler.h"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\ArenaTeamHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\ArenaTeamHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\AuctionHouseHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\AuctionHouseHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\AuthHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\AuthHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\BattleGroundHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\BattleGroundHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\CalendarHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\CalendarHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\ChannelHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\ChannelHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\CharacterHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\CharacterHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\ChatHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\ChatHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\CombatHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\CombatHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\DuelHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\DuelHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\GroupHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\GroupHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\GuildHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\GuildHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\ItemHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\ItemHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\LFGHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\LFGHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\LootHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\LootHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\MailHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\MailHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\MiscHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\MiscHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\MovementHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\MovementHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\NPCHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\NPCHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\NPCHandler.h"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\NPCHandler.h"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\PetHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\PetHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\PetitionsHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\PetitionsHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\QueryHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\QueryHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\QuestHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\QuestHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\SkillHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\SkillHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\SpellHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\SpellHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\TaxiHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\TaxiHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\TicketHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\TicketHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\TradeHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\TradeHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\VehicleHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\VehicleHandler.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\..\Src\410a\Server\Protocol\Handlers\Packets\VoiceChatHandler.cpp"
+							RelativePath="..\..\Src\420\Server\Protocol\Handlers\Packets\VoiceChatHandler.cpp"
 							>
 						</File>
 					</Filter>
@@ -1766,11 +1770,11 @@
 				Name="Sessions"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sessions\WorldSession.cpp"
+					RelativePath="..\..\Src\420\Server\Sessions\WorldSession.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sessions\WorldSession.h"
+					RelativePath="..\..\Src\420\Server\Sessions\WorldSession.h"
 					>
 				</File>
 			</Filter>
@@ -1778,19 +1782,19 @@
 				Name="Sockets"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sockets\WorldSocket.cpp"
+					RelativePath="..\..\Src\420\Server\Sockets\WorldSocket.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sockets\WorldSocket.h"
+					RelativePath="..\..\Src\420\Server\Sockets\WorldSocket.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sockets\WorldSocketMgr.cpp"
+					RelativePath="..\..\Src\420\Server\Sockets\WorldSocketMgr.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Server\Sockets\WorldSocketMgr.h"
+					RelativePath="..\..\Src\420\Server\Sockets\WorldSocketMgr.h"
 					>
 				</File>
 			</Filter>
@@ -1799,19 +1803,19 @@
 			Name="Skills"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Skills\SkillDiscovery.cpp"
+				RelativePath="..\..\Src\420\Skills\SkillDiscovery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Skills\SkillDiscovery.h"
+				RelativePath="..\..\Src\420\Skills\SkillDiscovery.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Skills\SkillExtraItems.cpp"
+				RelativePath="..\..\Src\420\Skills\SkillExtraItems.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Skills\SkillExtraItems.h"
+				RelativePath="..\..\Src\420\Skills\SkillExtraItems.h"
 				>
 			</File>
 		</Filter>
@@ -1819,54 +1823,54 @@
 			Name="Spells"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Spells\Spell.cpp"
+				RelativePath="..\..\Src\420\Spells\Spell.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\Spell.h"
+				RelativePath="..\..\Src\420\Spells\Spell.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\SpellEffects.cpp"
+				RelativePath="..\..\Src\420\Spells\SpellEffects.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\SpellMgr.cpp"
+				RelativePath="..\..\Src\420\Spells\SpellMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\SpellMgr.h"
+				RelativePath="..\..\Src\420\Spells\SpellMgr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\SpellScript.cpp"
+				RelativePath="..\..\Src\420\Spells\SpellScript.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Spells\SpellScript.h"
+				RelativePath="..\..\Src\420\Spells\SpellScript.h"
 				>
 			</File>
 			<Filter
 				Name="Auras"
 				>
 				<File
-					RelativePath="..\..\Src\410a\Spells\Auras\SpellAuraDefines.h"
+					RelativePath="..\..\Src\420\Spells\Auras\SpellAuraDefines.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Spells\Auras\SpellAuraEffects.cpp"
+					RelativePath="..\..\Src\420\Spells\Auras\SpellAuraEffects.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Spells\Auras\SpellAuraEffects.h"
+					RelativePath="..\..\Src\420\Spells\Auras\SpellAuraEffects.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Spells\Auras\SpellAuras.cpp"
+					RelativePath="..\..\Src\420\Spells\Auras\SpellAuras.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\410a\Spells\Auras\SpellAuras.h"
+					RelativePath="..\..\Src\420\Spells\Auras\SpellAuras.h"
 					>
 				</File>
 			</Filter>
@@ -1875,11 +1879,11 @@
 			Name="Texts"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Texts\CreatureTextMgr.cpp"
+				RelativePath="..\..\Src\420\Texts\CreatureTextMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Texts\CreatureTextMgr.h"
+				RelativePath="..\..\Src\420\Texts\CreatureTextMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1887,11 +1891,11 @@
 			Name="Tickets"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Tickets\TicketMgr.cpp"
+				RelativePath="..\..\Src\420\Tickets\TicketMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Tickets\TicketMgr.h"
+				RelativePath="..\..\Src\420\Tickets\TicketMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1899,19 +1903,19 @@
 			Name="Tools"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Tools\CharacterDatabaseCleaner.cpp"
+				RelativePath="..\..\Src\420\Tools\CharacterDatabaseCleaner.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Tools\CharacterDatabaseCleaner.h"
+				RelativePath="..\..\Src\420\Tools\CharacterDatabaseCleaner.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Tools\PlayerDump.cpp"
+				RelativePath="..\..\Src\420\Tools\PlayerDump.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Tools\PlayerDump.h"
+				RelativePath="..\..\Src\420\Tools\PlayerDump.h"
 				>
 			</File>
 		</Filter>
@@ -1919,19 +1923,19 @@
 			Name="Weather"
 			>
 			<File
-				RelativePath="..\..\Src\410a\Weather\Weather.cpp"
+				RelativePath="..\..\Src\420\Weather\Weather.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Weather\Weather.h"
+				RelativePath="..\..\Src\420\Weather\Weather.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Weather\WeatherMgr.cpp"
+				RelativePath="..\..\Src\420\Weather\WeatherMgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\Weather\WeatherMgr.h"
+				RelativePath="..\..\Src\420\Weather\WeatherMgr.h"
 				>
 			</File>
 		</Filter>
@@ -1939,16 +1943,16 @@
 			Name="World"
 			>
 			<File
-				RelativePath="..\..\Src\410a\World\World.cpp"
+				RelativePath="..\..\Src\420\World\World.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Src\410a\World\World.h"
+				RelativePath="..\..\Src\420\World\World.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\Src\410a\PCH\PCH.cpp"
+			RelativePath="..\..\Src\420\PCH\PCH.cpp"
 			>
 			<FileConfiguration
 				Name="Debug|Win32"
@@ -1956,7 +1960,7 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="..\..\Src\410a\PCH\PCH.h"
+					PrecompiledHeaderThrough="..\..\Src\420\PCH\PCH.h"
 				/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -1965,7 +1969,7 @@
 				<Tool
 					Name="VCCLCompilerTool"
 					UsePrecompiledHeader="1"
-					PrecompiledHeaderThrough="..\..\Src\410a\PCH\PCH.h"
+					PrecompiledHeaderThrough="..\..\Src\420\PCH\PCH.h"
 				/>
 			</FileConfiguration>
 		</File>

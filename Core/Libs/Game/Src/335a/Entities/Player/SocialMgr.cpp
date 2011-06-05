@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -106,7 +108,7 @@ void PlayerSocial::SetFriendNote(uint32 friend_guid, std::string note)
     if (itr == m_playerSocialMap.end())                     // not exist
         return;
 
-    utf8truncate(note,48);                                  // DB and client size limitation
+    utf8truncate(note, 48);                                  // DB and client size limitation
 
     CharDB.escape_string(note);
     CharDB.PExecute("UPDATE character_social SET note = '%s' WHERE guid = '%u' AND friend = '%u'", note.c_str(), GetPlayerGUID(), friend_guid);

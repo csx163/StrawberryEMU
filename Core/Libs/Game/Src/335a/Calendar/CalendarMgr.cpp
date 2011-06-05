@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2010 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,9 +63,9 @@ void CalendarMgr::AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Playe
         CalendarInvite invite = itr->second;
         if (invite.target_guid == player->GetGUID())
         {
-            if (alreadyAdded.find(invite.id) == alreadyAdded.end())
+            if (alreadyAdded.find(invite.event) == alreadyAdded.end())
             {
-                CalendarEvent const* event = GetEvent(invite.id);
+                CalendarEvent const* event = GetEvent(invite.event);
                 data << uint64(event->id);                // event ID
                 data << event->name;                      // event title
                 data << uint32(event->type);              // event type
@@ -71,7 +73,7 @@ void CalendarMgr::AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Playe
                 data << uint32(event->flags);             // event flags
                 data << uint32(event->dungeonID);         // dungeon ID
                 data.appendPackGUID(event->creator_guid); // creator guid
-                alreadyAdded.insert(invite.id);
+                alreadyAdded.insert(invite.event);
                 counter++;
             }
         }

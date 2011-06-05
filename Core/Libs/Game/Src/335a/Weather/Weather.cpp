@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -28,7 +30,6 @@
 #include "ObjectMgr.h"
 #include "Util.h"
 #include "ScriptMgr.h"
-#include "ServerOpcodeHandler.h"
 
 /// Create the Weather object
 Weather::Weather(uint32 zone, WeatherData const* weatherChances)
@@ -135,7 +136,7 @@ bool Weather::ReGenerate()
             if (m_grade > 0.6666667f)
             {
                                                             // Severe change, but how severe?
-                uint32 rnd = urand(0,99);
+                uint32 rnd = urand(0, 99);
                 if (rnd < 50)
                 {
                     m_grade -= 0.6666667f;

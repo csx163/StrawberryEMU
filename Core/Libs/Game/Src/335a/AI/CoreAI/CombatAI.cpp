@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -123,7 +125,7 @@ void CasterAI::InitializeAI()
 {
     CombatAI::InitializeAI();
 
-    float m_attackDist = 30.0f;
+    m_attackDist = 30.0f;
     for (SpellVct::iterator itr = spells.begin(); itr != spells.end(); ++itr)
         if (AISpellInfo[*itr].condition == AICOND_COMBAT && m_attackDist > GetAISpellInfo(*itr)->maxRange)
             m_attackDist = GetAISpellInfo(*itr)->maxRange;
@@ -269,7 +271,7 @@ AOEAI::AOEAI(Creature *c) : CreatureAI(c)
     me->SetVisible(true);//visible to see all spell anims
     me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);//can't be targeted
     me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_1);//can't be damaged
-    me->SetDisplayId(11686);//invisible model,around a size of a player
+    me->SetDisplayId(11686);//invisible model, around a size of a player
 }
 
 bool AOEAI::CanAIAttack(const Unit * /*who*/) const
@@ -284,7 +286,7 @@ void AOEAI::AttackStart(Unit * /*who*/)
 void AOEAI::UpdateAI(const uint32 /*diff*/)
 {
     if (!me->HasAura(me->m_spells[0]))
-        me->CastSpell(me, me->m_spells[0],false);
+        me->CastSpell(me, me->m_spells[0], false);
 }
 
 //////////////

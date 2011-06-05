@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -16,8 +18,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRAWBERRY_VEHICLE_H
-#define STRAWBERRY_VEHICLE_H
+#ifndef __STRAWBERRY_VEHICLE_H
+#define __STRAWBERRY_VEHICLE_H
 
 #include "ObjectDefines.h"
 
@@ -113,24 +115,25 @@ class Vehicle
     friend class WorldSession;
 
     public:
-        explicit Vehicle(Unit *unit, VehicleEntry const *vehInfo, uint32 creatureEntry);
+        explicit Vehicle(Unit* unit, VehicleEntry const* vehInfo, uint32 creatureEntry);
         virtual ~Vehicle();
 
         void Install();
         void Uninstall();
         void Reset(bool evading = false);
         void InstallAllAccessories(bool evading);
+        void ApplyAllImmunities();
 
-        Unit *GetBase() const { return me; }
-        VehicleEntry const *GetVehicleInfo() const { return m_vehicleInfo; }
+        Unit* GetBase() const { return me; }
+        VehicleEntry const* GetVehicleInfo() const { return m_vehicleInfo; }
         uint32 const& GetCreatureEntry() const { return m_creatureEntry; }
 
         bool HasEmptySeat(int8 seatId) const;
-        Unit *GetPassenger(int8 seatId) const;
+        Unit* GetPassenger(int8 seatId) const;
         int8 GetNextEmptySeat(int8 seatId, bool next) const;
         uint8 GetAvailableSeatCount() const;
 
-        bool AddPassenger(Unit *passenger, int8 seatId = -1);
+        bool AddPassenger(Unit* passenger, int8 seatId = -1);
         void EjectPassenger(Unit* passenger, Unit* controller);
         void RemovePassenger(Unit *passenger);
         void RelocatePassengers(float x, float y, float z, float ang);
@@ -149,8 +152,8 @@ class Vehicle
         void InitMovementInfoForBase();
 
     protected:
-        Unit *me;
-        VehicleEntry const *m_vehicleInfo;
+        Unit* me;
+        VehicleEntry const* m_vehicleInfo;
         uint32 m_usableSeatNum;         // Number of seats that match VehicleSeatEntry::UsableByPlayer, used for proper display flags
         uint32 m_bonusHP;
         uint32 m_creatureEntry;         // Can be different than me->GetBase()->GetEntry() in case of players

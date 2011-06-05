@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -17,7 +19,13 @@
 
 #include "ScriptLoader.h"
 
-/*
+//examples
+/*void AddSC_example_creature();
+void AddSC_example_escort();
+void AddSC_example_gossip_codebox();
+void AddSC_example_misc();
+void AddSC_example_commandscript();
+
 // spells
 void AddSC_deathknight_spell_scripts();
 void AddSC_druid_spell_scripts();
@@ -32,9 +40,9 @@ void AddSC_warlock_spell_scripts();
 void AddSC_warrior_spell_scripts();
 void AddSC_quest_spell_scripts();
 void AddSC_item_spell_scripts();
+void AddSC_example_spell_scripts();*/
 
 void AddSC_SmartSCripts();
-*/
 
 //Commands
 void AddSC_account_commandscript();
@@ -57,9 +65,7 @@ void AddSC_wp_commandscript();
 /*
 //world
 void AddSC_areatrigger_scripts();
-void AddSC_boss_emeriss();
-void AddSC_boss_taerar();
-void AddSC_boss_ysondre();
+void AddSC_emerald_dragons();
 void AddSC_generic_creature();
 void AddSC_go_scripts();
 void AddSC_guards();
@@ -292,6 +298,7 @@ void AddSC_boss_amnennar_the_coldbringer();  //Razorfen Downs
 void AddSC_razorfen_downs();
 void AddSC_instance_razorfen_downs();
 void AddSC_razorfen_kraul();                 //Razorfen Kraul
+void AddSC_instance_razorfen_kraul();
 void AddSC_boss_kurinnaxx();                 //Ruins of ahn'qiraj
 void AddSC_boss_rajaxx();
 void AddSC_boss_moam();
@@ -417,6 +424,8 @@ void AddSC_boss_assembly_of_iron();
 void AddSC_boss_general_vezax();
 void AddSC_ulduar_teleporter();
 void AddSC_boss_mimiron();
+void AddSC_boss_hodir();
+void AddSC_boss_freya();
 void AddSC_instance_ulduar();
 void AddSC_boss_keleseth();              //Utgarde Keep
 void AddSC_boss_skarvald_dalronn();
@@ -468,10 +477,15 @@ void AddSC_boss_rotface();
 void AddSC_boss_professor_putricide();
 void AddSC_boss_blood_prince_council();
 void AddSC_boss_blood_queen_lana_thel();
+void AddSC_boss_valithria_dreamwalker();
 void AddSC_boss_sindragosa();
 void AddSC_icecrown_citadel_teleport();
 void AddSC_instance_icecrown_citadel();
 void AddSC_icecrown_citadel();
+void AddSC_instance_ruby_sanctum();      // Ruby Sanctum
+void AddSC_ruby_sanctum();
+void AddSC_boss_baltharus_the_warborn();
+void AddSC_boss_saviana_ragefire();
 
 void AddSC_dalaran();
 void AddSC_borean_tundra();
@@ -583,11 +597,11 @@ void AddSC_chat_log();
 
 void AddScripts()
 {
-    AddCommandScripts();
-    /*
-    AddSpellScripts();
+    //AddExampleScripts();
+    //AddSpellScripts();
     AddSC_SmartSCripts();
-    AddWorldScripts();
+    AddCommandScripts();
+    /*AddWorldScripts();
     AddEasternKingdomsScripts();
     AddKalimdorScripts();
     AddOutlandScripts();
@@ -596,7 +610,6 @@ void AddScripts()
     AddOutdoorPvPScripts();
     AddCustomScripts();*/
 }
-
 
 void AddSpellScripts()
 {
@@ -612,7 +625,8 @@ void AddSpellScripts()
     AddSC_warlock_spell_scripts();
     AddSC_warrior_spell_scripts();
     AddSC_quest_spell_scripts();
-    AddSC_item_spell_scripts();*/
+    AddSC_item_spell_scripts();
+    AddSC_example_spell_scripts();*/
 }
 
 void AddCommandScripts()
@@ -636,11 +650,9 @@ void AddCommandScripts()
 }
 
 void AddWorldScripts()
-{/*
-    AddSC_areatrigger_scripts();
-    AddSC_boss_emeriss();
-    AddSC_boss_taerar();
-    AddSC_boss_ysondre();
+{
+    /*AddSC_areatrigger_scripts();
+    AddSC_emerald_dragons();
     AddSC_generic_creature();
     AddSC_go_scripts();
     AddSC_guards();
@@ -654,8 +666,8 @@ void AddWorldScripts()
 }
 
 void AddEasternKingdomsScripts()
-{/*
-    AddSC_alterac_valley();                 //Alterac Valley
+{
+    /*AddSC_alterac_valley();                 //Alterac Valley
     AddSC_boss_balinda();
     AddSC_boss_drekthar();
     AddSC_boss_galvangar();
@@ -837,8 +849,8 @@ void AddEasternKingdomsScripts()
 }
 
 void AddKalimdorScripts()
-{/*
-    AddSC_blackfathom_deeps();              //Blackfathom Depths
+{
+    /*AddSC_blackfathom_deeps();              //Blackfathom Depths
     AddSC_boss_gelihast();
     AddSC_boss_kelris();
     AddSC_boss_aku_mai();
@@ -878,6 +890,7 @@ void AddKalimdorScripts()
     AddSC_razorfen_downs();
     AddSC_instance_razorfen_downs();
     AddSC_razorfen_kraul();                 //Razorfen Kraul
+    AddSC_instance_razorfen_kraul();
     AddSC_boss_kurinnaxx();                 //Ruins of ahn'qiraj
     AddSC_boss_rajaxx();
     AddSC_boss_moam();
@@ -925,8 +938,8 @@ void AddKalimdorScripts()
 }
 
 void AddOutlandScripts()
-{/*
-    AddSC_boss_exarch_maladaar();           //Auchindoun Auchenai Crypts
+{
+    /*AddSC_boss_exarch_maladaar();           //Auchindoun Auchenai Crypts
     AddSC_boss_shirrak_the_dead_watcher();
     AddSC_boss_nexusprince_shaffar();       //Auchindoun Mana Tombs
     AddSC_boss_pandemonius();
@@ -1009,8 +1022,8 @@ void AddOutlandScripts()
 }
 
 void AddNorthrendScripts()
-{/*
-    AddSC_boss_slad_ran();               //Gundrak
+{
+    /*AddSC_boss_slad_ran();               //Gundrak
     AddSC_boss_moorabi();
     AddSC_boss_drakkari_colossus();
     AddSC_boss_gal_darah();
@@ -1089,6 +1102,8 @@ void AddNorthrendScripts()
     AddSC_boss_kologarn();
     AddSC_ulduar_teleporter();
     AddSC_boss_mimiron();
+    AddSC_boss_hodir();
+    AddSC_boss_freya();
     AddSC_instance_ulduar();
     AddSC_boss_keleseth();              //Utgarde Keep
     AddSC_boss_skarvald_dalronn();
@@ -1140,10 +1155,15 @@ void AddNorthrendScripts()
     AddSC_boss_professor_putricide();
     AddSC_boss_blood_prince_council();
     AddSC_boss_blood_queen_lana_thel();
+    AddSC_boss_valithria_dreamwalker();
     AddSC_boss_sindragosa();
     AddSC_icecrown_citadel_teleport();
     AddSC_instance_icecrown_citadel();
     AddSC_icecrown_citadel();
+    AddSC_instance_ruby_sanctum();      // Ruby Sanctum
+    AddSC_ruby_sanctum();
+    AddSC_boss_baltharus_the_warborn();
+    AddSC_boss_saviana_ragefire();
 
     AddSC_dalaran();
     AddSC_borean_tundra();
@@ -1159,8 +1179,8 @@ void AddNorthrendScripts()
 }
 
 void AddOutdoorPvPScripts()
-{/*
-    AddSC_outdoorpvp_ep();
+{
+    /*AddSC_outdoorpvp_ep();
     AddSC_outdoorpvp_hp();
     AddSC_outdoorpvp_na();
     AddSC_outdoorpvp_si();

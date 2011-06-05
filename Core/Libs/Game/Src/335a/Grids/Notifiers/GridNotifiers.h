@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * 
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -173,7 +175,7 @@ namespace Strawberry
         Check &i_check;
 
         WorldObjectSearcher(WorldObject const* searcher, WorldObject* & result, Check& check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(GameObjectMapType &m);
         void Visit(PlayerMapType &m);
@@ -192,7 +194,7 @@ namespace Strawberry
         Check& i_check;
 
         WorldObjectListSearcher(WorldObject const* searcher, std::list<WorldObject*> &objects, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects), i_check(check) {}
 
         void Visit(PlayerMapType &m);
         void Visit(CreatureMapType &m);
@@ -259,7 +261,7 @@ namespace Strawberry
         Check &i_check;
 
         GameObjectSearcher(WorldObject const* searcher, GameObject* & result, Check& check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(GameObjectMapType &m);
 
@@ -308,7 +310,7 @@ namespace Strawberry
         Check & i_check;
 
         UnitSearcher(WorldObject const* searcher, Unit* & result, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(CreatureMapType &m);
         void Visit(PlayerMapType &m);
@@ -325,7 +327,7 @@ namespace Strawberry
         Check & i_check;
 
         UnitLastSearcher(WorldObject const* searcher, Unit* & result, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(CreatureMapType &m);
         void Visit(PlayerMapType &m);
@@ -342,7 +344,7 @@ namespace Strawberry
         Check& i_check;
 
         UnitListSearcher(WorldObject const* searcher, std::list<Unit*> &objects, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects), i_check(check) {}
 
         void Visit(PlayerMapType &m);
         void Visit(CreatureMapType &m);
@@ -360,7 +362,7 @@ namespace Strawberry
         Check & i_check;
 
         CreatureSearcher(WorldObject const* searcher, Creature* & result, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(CreatureMapType &m);
 
@@ -376,7 +378,7 @@ namespace Strawberry
         Check & i_check;
 
         CreatureLastSearcher(WorldObject const* searcher, Creature* & result, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(CreatureMapType &m);
 
@@ -391,7 +393,7 @@ namespace Strawberry
         Check& i_check;
 
         CreatureListSearcher(WorldObject const* searcher, std::list<Creature*> &objects, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects), i_check(check) {}
 
         void Visit(CreatureMapType &m);
 
@@ -427,7 +429,7 @@ namespace Strawberry
         Check & i_check;
 
         PlayerSearcher(WorldObject const* searcher, Player* & result, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_object(result),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_object(result), i_check(check) {}
 
         void Visit(PlayerMapType &m);
 
@@ -442,7 +444,7 @@ namespace Strawberry
         Check& i_check;
 
         PlayerListSearcher(WorldObject const* searcher, std::list<Player*> &objects, Check & check)
-            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects),i_check(check) {}
+            : i_phaseMask(searcher->GetPhaseMask()), i_objects(objects), i_check(check) {}
 
         void Visit(PlayerMapType &m);
 
@@ -481,7 +483,7 @@ namespace Strawberry
         void Visit(PlayerMapType &m)
         {
             for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
-                if (itr->getSource()->InSamePhase(i_searcher) && itr->getSource()->IsWithinDist(i_searcher,i_dist))
+                if (itr->getSource()->InSamePhase(i_searcher) && itr->getSource()->IsWithinDist(i_searcher, i_dist))
                     i_do(itr->getSource());
         }
 
@@ -607,7 +609,7 @@ namespace Strawberry
     class GameObjectFocusCheck
     {
         public:
-            GameObjectFocusCheck(Unit const* unit,uint32 focusId) : i_unit(unit), i_focusId(focusId) {}
+            GameObjectFocusCheck(Unit const* unit, uint32 focusId) : i_unit(unit), i_focusId(focusId) {}
             bool operator()(GameObject* go) const
             {
                 if (go->GetGOInfo()->type != GAMEOBJECT_TYPE_SPELL_FOCUS)
@@ -674,7 +676,7 @@ namespace Strawberry
     class NearestGameObjectEntryInObjectRangeCheck
     {
         public:
-            NearestGameObjectEntryInObjectRangeCheck(WorldObject const& obj,uint32 entry, float range) : i_obj(obj), i_entry(entry), i_range(range) {}
+            NearestGameObjectEntryInObjectRangeCheck(WorldObject const& obj, uint32 entry, float range) : i_obj(obj), i_entry(entry), i_range(range) {}
             bool operator()(GameObject* go)
             {
                 if (go->GetEntry() == i_entry && i_obj.IsWithinDistInMap(go, i_range))
@@ -697,7 +699,7 @@ namespace Strawberry
     class GameObjectWithDbGUIDCheck
     {
         public:
-            GameObjectWithDbGUIDCheck(WorldObject const& obj,uint32 db_guid) : i_obj(obj), i_db_guid(db_guid) {}
+            GameObjectWithDbGUIDCheck(WorldObject const& obj, uint32 db_guid) : i_obj(obj), i_db_guid(db_guid) {}
             bool operator()(GameObject const* go) const
             {
                 return go->GetDBTableGUIDLow() == i_db_guid;
@@ -1074,7 +1076,7 @@ namespace Strawberry
             {
                 if (u == i_obj)
                     return false;
-                if (!u->CanAssistTo(i_obj,i_enemy))
+                if (!u->CanAssistTo(i_obj, i_enemy))
                     return false;
 
                 if (!i_obj->IsWithinDistInMap(u, i_range))
@@ -1160,7 +1162,7 @@ namespace Strawberry
         AllGameObjectsWithEntryInRange(const WorldObject* pObject, uint32 uiEntry, float fMaxRange) : m_pObject(pObject), m_uiEntry(uiEntry), m_fRange(fMaxRange) {}
         bool operator() (GameObject* pGo)
         {
-            if (pGo->GetEntry() == m_uiEntry && m_pObject->IsWithinDist(pGo,m_fRange,false))
+            if (pGo->GetEntry() == m_uiEntry && m_pObject->IsWithinDist(pGo, m_fRange, false))
                 return true;
 
             return false;
@@ -1177,7 +1179,7 @@ namespace Strawberry
             AllCreaturesOfEntryInRange(const WorldObject* pObject, uint32 uiEntry, float fMaxRange) : m_pObject(pObject), m_uiEntry(uiEntry), m_fRange(fMaxRange) {}
             bool operator() (Unit* pUnit)
             {
-                if (pUnit->GetEntry() == m_uiEntry && m_pObject->IsWithinDist(pUnit,m_fRange,false))
+                if (pUnit->GetEntry() == m_uiEntry && m_pObject->IsWithinDist(pUnit, m_fRange, false))
                     return true;
 
                 return false;
@@ -1196,7 +1198,7 @@ namespace Strawberry
         bool operator() (Player* pPlayer)
         {
             //No threat list check, must be done explicit if expected to be in combat with creature
-            if (!pPlayer->isGameMaster() && pPlayer->isAlive() && !pUnit->IsWithinDist(pPlayer,fRange,false))
+            if (!pPlayer->isGameMaster() && pPlayer->isAlive() && !pUnit->IsWithinDist(pPlayer, fRange, false))
                 return true;
 
             return false;
@@ -1214,7 +1216,7 @@ namespace Strawberry
           x(_x), y(_y), z(_z), range(_range), entry(_entry) {}
         bool operator() (GameObject* go)
         {
-            if (!entry || (go->GetGOInfo() && go->GetGOInfo()->id == entry))
+            if (!entry || (go->GetGOInfo() && go->GetGOInfo()->entry == entry))
                 return go->IsInRange(x, y, z, range);
             else return false;
         }
