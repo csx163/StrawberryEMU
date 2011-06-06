@@ -1261,6 +1261,7 @@ void World::SetInitialWorldSettings()
     sData->LoadAreaGroupData();
     sData->LoadAreaPoiData();
     sData->LoadAreaTableData();
+    sData->LoadAreaTriggerData();
 
     ///- Load the DBC files
     sLog->outString("Initialize data stores...");
