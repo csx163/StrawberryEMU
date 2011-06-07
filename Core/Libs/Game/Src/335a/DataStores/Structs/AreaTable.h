@@ -51,5 +51,6 @@ struct AreaTableData
 };
 
 typedef UNORDERED_MAP<uint32, AreaTableData> AreaTableDataContainer;
+#define sAreaTableData ACE_Singleton<AreaTableData, ACE_Null_Mutex>::instance()
 
 #endif

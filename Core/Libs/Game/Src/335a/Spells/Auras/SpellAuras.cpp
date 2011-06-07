@@ -215,9 +215,9 @@ void AuraApplication::ClientUpdate(bool remove)
     m_target->SendMessageToSet(&data, true);
 }
 
-Aura * Aura::TryCreate(SpellEntry const* spellproto, uint8 tryEffMask, WorldObject * owner, Unit * caster, int32 *baseAmount, Item * castItem, uint64 casterGUID)
+uint8 Aura::BuildEffectMaskForOwner(SpellEntry const* spellProto, uint8 avalibleEffectMask, WorldObject* owner)
 {
-    ASSERT(spellproto);
+    ASSERT(spellProto);
     ASSERT(owner);
     ASSERT(caster || casterGUID);
     ASSERT(tryEffMask <= MAX_EFFECT_MASK);
@@ -228,57 +228,62 @@ Aura * Aura::TryCreate(SpellEntry const* spellproto, uint8 tryEffMask, WorldObje
         case TYPEID_PLAYER:
             for (uint8 i = 0; i< MAX_SPELL_EFFECTS; ++i)
             {
-                if (IsUnitOwnedAuraEffect(spellproto->Effect[i]))
+                if (IsUnitOwnedAuraEffect(spellProto->Effect[i]))
                     effMask |= 1 << i;
             }
             break;
         case TYPEID_DYNAMICOBJECT:
             for (uint8 i = 0; i< MAX_SPELL_EFFECTS; ++i)
             {
-                if (spellproto->Effect[i] == SPELL_EFFECT_PERSISTENT_AREA_AURA)
+                if (spellProto->Effect[i] == SPELL_EFFECT_PERSISTENT_AREA_AURA)
                     effMask |= 1 << i;
             }
             break;
         default:
             break;
     }
-    if (uint8 realMask = effMask & tryEffMask)
-        return Create(spellproto, realMask, owner, caster, baseAmount, castItem, casterGUID);
-    return NULL;
+    return effMask & avalibleEffectMask;
 }
 
-Aura * Aura::TryCreate(SpellEntry const* spellproto, WorldObject * owner, Unit * caster, int32 *baseAmount, Item * castItem, uint64 casterGUID)
+Aura* Aura::TryRefreshStackOrCreate(SpellEntry const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= NULL*/, Item* castItem /*= NULL*/, uint64 casterGUID /*= 0*/, bool* refresh /*= NULL*/)
 {
     ASSERT(spellproto);
     ASSERT(owner);
     ASSERT(caster || casterGUID);
-    uint8 effMask = 0;
-    switch(owner->GetTypeId())
+    ASSERT(tryEffMask <= MAX_EFFECT_MASK);
+    if (refresh)
+        *refresh = false;
+    uint8 effMask = Aura::BuildEffectMaskForOwner(spellproto, tryEffMask, owner);
+    if (!effMask)
+        return NULL;
+    if (Aura* foundAura = owner->ToUnit()->_TryStackingOrRefreshingExistingAura(spellproto, effMask, caster, baseAmount, castItem, casterGUID))
     {
-        case TYPEID_UNIT:
-        case TYPEID_PLAYER:
-            for (uint8 i = 0; i< MAX_SPELL_EFFECTS; ++i)
-            {
-                if (IsUnitOwnedAuraEffect(spellproto->Effect[i]))
-                    effMask |= 1 << i;
-            }
-            break;
-        case TYPEID_DYNAMICOBJECT:
-            for (uint8 i = 0; i< MAX_SPELL_EFFECTS; ++i)
-            {
-                if (spellproto->Effect[i] == SPELL_EFFECT_PERSISTENT_AREA_AURA)
-                    effMask |= 1 << i;
-            }
-            break;
-        default:
-            break;
+        // we've here aura, which script triggered removal after modding stack amount
+        // check the state here, so we won't create new Aura object
+        if (foundAura->IsRemoved())
+            return NULL;
+
+        if (refresh)
+            *refresh = true;
+        return foundAura;
     }
-    if (effMask)
+    else
         return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
-    return NULL;
 }
 
-Aura * Aura::Create(SpellEntry const* spellproto, uint8 effMask, WorldObject * owner, Unit * caster, int32 *baseAmount, Item * castItem, uint64 casterGUID)
+Aura* Aura::TryCreate(SpellEntry const* spellproto, uint8 tryEffMask, WorldObject* owner, Unit* caster, int32* baseAmount /*= NULL*/, Item* castItem /*= NULL*/, uint64 casterGUID /*= 0*/)
+{
+    ASSERT(spellproto);
+    ASSERT(owner);
+    ASSERT(caster || casterGUID);
+    ASSERT(tryEffMask <= MAX_EFFECT_MASK);
+    uint8 effMask = Aura::BuildEffectMaskForOwner(spellproto, tryEffMask, owner);
+    if (!effMask)
+        return NULL;
+    return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
+}
+
+Aura* Aura::Create(SpellEntry const* spellproto, uint8 effMask, WorldObject* owner, Unit* caster, int32* baseAmount, Item* castItem, uint64 casterGUID)
 {
     ASSERT(effMask);
     ASSERT(spellproto);
@@ -289,32 +294,25 @@ Aura * Aura::Create(SpellEntry const* spellproto, uint8 effMask, WorldObject * o
     if (casterGUID)
     {
         if (owner->GetGUID() == casterGUID)
-            caster = (Unit *)owner;
+            caster = owner->ToUnit();
         else
             caster = ObjectAccessor::GetUnit(*owner, casterGUID);
     }
     else
-    {
         casterGUID = caster->GetGUID();
-    }
+
     // check if aura can be owned by owner
     if (owner->isType(TYPEMASK_UNIT))
-    {
         if (!owner->IsInWorld() || ((Unit*)owner)->IsDuringRemoveFromWorld())
-        {
-            // owner not in world so
-            // don't allow to own not self casted single target auras
+            // owner not in world so don't allow to own not self casted single target auras
             if (casterGUID != owner->GetGUID() && IsSingleTargetSpell(spellproto))
                 return NULL;
-        }
-    }
-    Aura * aura = NULL;
-    switch(owner->GetTypeId())
+    
+    Aura* aura = NULL;
+    switch (owner->GetTypeId())
     {
         case TYPEID_UNIT:
         case TYPEID_PLAYER:
-            if (aura = owner->ToUnit()->_TryStackingOrRefreshingExistingAura(spellproto, effMask, baseAmount, castItem, casterGUID))
-                return aura;
             aura = new UnitAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
             break;
         case TYPEID_DYNAMICOBJECT:
@@ -340,23 +338,14 @@ m_isRemoved(false), m_isSingleTarget(false)
     if (m_spellProto->manaPerSecond || m_spellProto->manaPerSecondPerLevel)
         m_timeCla = 1 * IN_MILLISECONDS;
 
+    m_maxDuration = CalcMaxDuration(caster);
+    m_duration = m_maxDuration;
+ 
     Player* modOwner = NULL;
 
     if (caster)
-    {
         modOwner = caster->GetSpellModOwner();
         m_maxDuration = caster->CalcSpellDuration(m_spellProto);
-    }
-    else
-        m_maxDuration = GetSpellDuration(m_spellProto);
-
-    if (IsPassive() && m_spellProto->DurationIndex == 0)
-        m_maxDuration = -1;
-
-    if (!IsPermanent() && modOwner)
-        modOwner->ApplySpellMod(GetId(), SPELLMOD_DURATION, m_maxDuration);
-
-    m_duration = m_maxDuration;
 
     m_procCharges = m_spellProto->procCharges;
     if (modOwner)
@@ -704,6 +693,27 @@ void Aura::Update(uint32 diff, Unit * caster)
             }
         }
     }
+}
+
+int32 Aura::CalcMaxDuration(Unit* caster) const
+{
+    Player* modOwner = NULL;
+    int32 maxDuration;
+
+    if (caster)
+    {
+        modOwner = caster->GetSpellModOwner();
+        maxDuration = caster->CalcSpellDuration(m_spellProto);
+    }
+    else
+        maxDuration = GetSpellDuration(m_spellProto);
+
+    if (IsPassive() && m_spellProto->DurationIndex == 0)
+        maxDuration = -1;
+
+    if (!IsPermanent() && modOwner)
+        modOwner->ApplySpellMod(GetId(), SPELLMOD_DURATION, maxDuration);
+    return maxDuration;
 }
 
 void Aura::SetDuration(int32 duration, bool withMods)
