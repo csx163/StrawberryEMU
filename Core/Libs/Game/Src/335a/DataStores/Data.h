@@ -32,6 +32,11 @@
 #include "AreaTable.h"
 #include "AreaTrigger.h"
 
+#include "AttackAnimKits.h"
+#include "AttackAnimTypes.h"
+
+#include "AuctionHouse.h"
+
 class Data
 {
     public:
@@ -46,6 +51,11 @@ class Data
         void LoadAreaTableData();
         void LoadAreaTriggerData();
 
+        void LoadAttackAnimKitsData();
+        void LoadAttackAnimTypes();
+
+        void LoadAuctionHouse();
+
         AchievementDataContainer AchievementDataTable;
         AchievementCategoryDataContainer AchievementCategoryDataTable;
         AchievementCriteriaDataContainer AchievementCriteriaDataTable;
@@ -56,6 +66,11 @@ class Data
         AreaPoiDataContainer AreaPoiDataTable;
         AreaTableDataContainer AreaTableDataTable;
         AreaTriggerDataContainer AreaTriggerDataTable;
+
+        AttackAnimKitsDataContainer AttackAnimKitsDataTable;
+        AttackAnimTypesDataContainer AttackAnimTypesDataTable;
+
+        AuctionHouseDataContainer AuctionHouseDataTable;
 };
 
 #define sData ACE_Singleton<Data, ACE_Null_Mutex>::instance()

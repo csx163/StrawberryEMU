@@ -56,10 +56,6 @@ static AreaFlagByMapID sAreaFlagByMapID;                    // for instances wit
 
 static WMOAreaInfoByTripple sWMOAreaInfoByTripple;
 
-DBCStorage <AuctionHouseEntry> sAuctionHouseStore(AuctionHouseEntryfmt);
-DBCStorage <BankBagSlotPricesEntry> sBankBagSlotPricesStore(BankBagSlotPricesEntryfmt);
-DBCStorage <BattlemasterListEntry> sBattlemasterListStore(BattlemasterListEntryfmt);
-DBCStorage <BarberShopStyleEntry> sBarberShopStyleStore(BarberShopStyleEntryfmt);
 DBCStorage <CharStartOutfitEntry> sCharStartOutfitStore(CharStartOutfitEntryfmt);
 DBCStorage <CharTitlesEntry> sCharTitlesStore(CharTitlesEntryfmt);
 DBCStorage <ChatChannelsEntry> sChatChannelsStore(ChatChannelsEntryfmt);

@@ -26,6 +26,7 @@
 #include "Common.h"
 #include "DatabaseEnv.h"
 #include "DBCStructure.h"
+#include "AuctionHouse.h"
 
 class Item;
 class Player;
@@ -62,12 +63,12 @@ struct AuctionEntry
     time_t expire_time;
     uint32 bidder;
     uint32 deposit;                                         //deposit can be calculated only when creating auction
-    AuctionHouseEntry const* auctionHouseEntry;             // in AuctionHouse.dbc
+    AuctionHouseData const* auctionHouseData;               // in AuctionHouse table
     uint32 factionTemplateId;
 
     // helpers
-    uint32 GetHouseId() const { return auctionHouseEntry->houseId; }
-    uint32 GetHouseFaction() const { return auctionHouseEntry->faction; }
+    uint32 GetHouseId() const { return auctionHouseData->Id; }
+    uint32 GetHouseFaction() const { return auctionHouseData->FactionId; }
     uint32 GetAuctionCut() const;
     uint32 GetAuctionOutBid() const;
     bool BuildAuctionInfo(WorldPacket & data) const;
@@ -153,8 +154,10 @@ class AuctionHouseMgr
         void SendAuctionOutbiddedMail(AuctionEntry * auction, uint32 newPrice, Player* newBidder, SQLTransaction& trans);
         void SendAuctionCancelledToBidderMail(AuctionEntry* auction, SQLTransaction& trans);
 
-        static uint32 GetAuctionDeposit(AuctionHouseEntry const* entry, uint32 time, Item *pItem, uint32 count);
-        static AuctionHouseEntry const* GetAuctionHouseEntry(uint32 factionTemplateId);
+        static uint32 GetAuctionDeposit(AuctionHouseData const* entry, uint32 time, Item *pItem, uint32 count);
+        static AuctionHouseData const* GetAuctionHouseEntry(uint32 factionTemplateId);
+
+        AuctionHouseData const* GetAuctionHouseData(uint32 HouseId);
 
     public:
 

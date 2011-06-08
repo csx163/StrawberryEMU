@@ -390,3 +390,120 @@ void Data::LoadAreaTriggerData()
         }
     }
 }
+
+void Data::LoadAttackAnimKitsData()
+{
+    sLog->outString("Loading AttackAnimKits Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* AttackAnimKitDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_ATTACKANIMKITS_DATA_DBC);
+        PreparedQueryResult AttackAnimKitDataResult = DataDB.Query(AttackAnimKitDataStatement);
+
+        if (!AttackAnimKitDataResult)
+        {
+            sLog->outError("Error while loading AttackAnimKits Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = AttackAnimKitDataResult->Fetch();
+                AttackAnimKitsData attackAnimKitsData;
+
+                attackAnimKitsData.Id          = TableFields[0].GetUInt32();
+                attackAnimKitsData.Duration    = TableFields[1].GetUInt32();
+                attackAnimKitsData.AnimKitStop = TableFields[2].GetUInt32();
+                attackAnimKitsData.AnimFlags   = TableFields[3].GetUInt32();
+
+                AttackAnimKitsDataTable[attackAnimKitsData.Id] = attackAnimKitsData;
+
+                ++count;
+            }
+            while (AttackAnimKitDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u attack anim kits %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadAuctionHouse()
+{
+    sLog->outString("Loading AuctionHouse Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* AuctionHouseDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC);
+        PreparedQueryResult AuctionHouseDataResult = DataDB.Query(AuctionHouseDataStatement);
+
+        if (!AuctionHouseDataResult)
+        {
+            sLog->outError("Error while loading AuctionHouse Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = AuctionHouseDataResult->Fetch();
+                AuctionHouseData auctionHouseData;
+
+                auctionHouseData.Id              = TableFields[0].GetUInt32();
+                auctionHouseData.FactionId       = TableFields[1].GetUInt32();
+                auctionHouseData.DepositRate     = TableFields[2].GetUInt32();
+                auctionHouseData.ConsignmentRate = TableFields[3].GetUInt32();
+                auctionHouseData.Name            = TableFields[4].GetString();
+                auctionHouseData.NameFlags       = TableFields[5].GetUInt32();
+
+                AuctionHouseDataTable[auctionHouseData.Id] = auctionHouseData;
+
+                ++count;
+            }
+            while (AuctionHouseDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u auction houses %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadAttackAnimTypes()
+{
+    sLog->outString("Loading AttackAnimTypes Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* AttackAnimTypesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC);
+        PreparedQueryResult AttackAnimTypesDataResult = DataDB.Query(AttackAnimTypesDataStatement);
+
+        if (!AttackAnimTypesDataResult)
+        {
+            sLog->outError("Error while loading AttackAnimTypes Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = AttackAnimTypesDataResult->Fetch();
+                AttackAnimTypesData attackAnimTypesData;
+
+                attackAnimTypesData.Id         = TableFields[0].GetUInt32();
+                attackAnimTypesData.AttackName = TableFields[1].GetString();
+
+                AttackAnimKitsDataTable[attackAnimTypesData.Id] = attackAnimTypesData;
+
+                ++count;
+            }
+            while (AttackAnimTypesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u attack anim types %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}

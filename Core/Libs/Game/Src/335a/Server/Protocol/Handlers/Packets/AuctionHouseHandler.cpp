@@ -62,13 +62,13 @@ void WorldSession::SendAuctionHello(uint64 guid, Creature* unit)
         return;
     }
 
-    AuctionHouseEntry const* ahEntry = AuctionHouseMgr::GetAuctionHouseEntry(unit->getFaction());
+    AuctionHouseData const* ahEntry = sAuctionMgr->GetAuctionHouseEntry(unit->getFaction());
     if (!ahEntry)
         return;
 
     WorldPacket data(MSG_AUCTION_HELLO, 12);
     data << uint64(guid);
-    data << uint32(ahEntry->houseId);
+    data << uint32(ahEntry->Id);
     data << uint8(1);                                       // 3.3.3: 1 - AH enabled, 0 - AH disabled
     SendPacket(&data);
 }
@@ -138,7 +138,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
         return;
     }
 
-    AuctionHouseEntry const* auctionHouseEntry = AuctionHouseMgr::GetAuctionHouseEntry(pCreature->getFaction());
+    AuctionHouseData const* auctionHouseEntry = sAuctionMgr->GetAuctionHouseEntry(pCreature->getFaction());
     if (!auctionHouseEntry)
     {
         sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: HandleAuctionSellItem - Unit (GUID: %u) has wrong faction.", uint32(GUID_LOPART(auctioneer)));
@@ -151,9 +151,9 @@ void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
     // client understand only 3 auction time
     switch(etime)
     {
-        case 1*MIN_AUCTION_TIME:
-        case 2*MIN_AUCTION_TIME:
-        case 4*MIN_AUCTION_TIME:
+        case 1 * MIN_AUCTION_TIME:
+        case 2 * MIN_AUCTION_TIME:
+        case 4 * MIN_AUCTION_TIME:
             break;
         default:
             return;
@@ -231,7 +231,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
     AH->buyout = buyout;
     AH->expire_time = time(NULL) + auction_time;
     AH->deposit = deposit;
-    AH->auctionHouseEntry = auctionHouseEntry;
+    AH->auctionHouseData = auctionHouseEntry;
 
     sLog->outDetail("selling item %u to auctioneer %u with initial bid %u with buyout %u and with time %u (in sec) in auctionhouse %u", GUID_LOPART(item), AH->auctioneer, bid, buyout, auction_time, AH->GetHouseId());
     sAuctionMgr->AddAItem(it);

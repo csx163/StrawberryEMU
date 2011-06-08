@@ -67,10 +67,6 @@ uint32 const* /*[MAX_TALENT_TABS]*/ GetTalentTabPages(uint8 cls);
 PvPDifficultyEntry const* GetBattlegroundBracketByLevel(uint32 mapid, uint32 level);
 PvPDifficultyEntry const* GetBattlegroundBracketById(uint32 mapid, BattlegroundBracketId id);
 
-extern DBCStorage <AuctionHouseEntry>            sAuctionHouseStore;
-extern DBCStorage <BankBagSlotPricesEntry>       sBankBagSlotPricesStore;
-extern DBCStorage <BarberShopStyleEntry>         sBarberShopStyleStore;
-extern DBCStorage <BattlemasterListEntry>        sBattlemasterListStore;
 extern DBCStorage <ChatChannelsEntry>            sChatChannelsStore;
 extern DBCStorage <CharStartOutfitEntry>         sCharStartOutfitStore;
 extern DBCStorage <CharTitlesEntry>              sCharTitlesStore;

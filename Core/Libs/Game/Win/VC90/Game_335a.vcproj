@@ -841,6 +841,50 @@
 					RelativePath="..\..\Src\335a\DataStores\Structs\AreaTrigger.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\AttackAnimKits.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\AttackAnimTypes.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\AuctionHouse.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\BankBagSlotPrices.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\BannedAddOns.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\BarberShopStyle.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\BattlemasterList.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CameraShakes.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\Cfg_Categories.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\Cfg_Configs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharacterFacialHairStyles.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

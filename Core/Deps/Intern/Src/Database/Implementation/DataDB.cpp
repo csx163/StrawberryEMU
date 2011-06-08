@@ -42,4 +42,10 @@ void DataDBConnection::DoPrepareStatements()
                                                     "AreaName, NameFlags, TeamId, LiquidTypeId, MinElevation, AmbientMultiplier FROM AreaTable", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_AREATRIGGER_DATA_DBC, "SELECT Id, MapId, X, Y, Z, Radius, BoxLength_X, BoxLength_Y, BoxLength_Z, BoxOrientation FROM AreaTrigger", CONNECTION_SYNCH);
+
+    PREPARE_STATEMENT(DATA_LOAD_ATTACKANIMKITS_DATA_DBC, "SELECT Id, Duration, AnimKitStop, AnimFlags FROM AttackAnimKits", CONNECTION_SYNCH);
+
+    PREPARE_STATEMENT(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC, "SELECT Id, Name FROM AttackAnimTypes", CONNECTION_SYNCH);
+
+    PREPARE_STATEMENT(DATA_LOAD_AUCTIONHOUSE_DATA_DBC, "SELECT Id, FactionId, DepositRate, ConsignmentRate, Name, NameFlags FROM AuctionHouse", CONNECTION_SYNCH);
 }

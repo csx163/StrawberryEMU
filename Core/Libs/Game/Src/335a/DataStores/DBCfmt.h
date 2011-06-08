@@ -21,10 +21,6 @@
 #ifndef STRAWBERRY_DBCSFRM_H
 #define STRAWBERRY_DBCSFRM_H
 
-const char AuctionHouseEntryfmt[]="niiixxxxxxxxxxxxxxxxx";
-const char BankBagSlotPricesEntryfmt[]="ni";
-const char BarberShopStyleEntryfmt[]="nixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxiii";
-const char BattlemasterListEntryfmt[]="niiiiiiiiixssssssssssssssssxiixx";
 const char CharStartOutfitEntryfmt[]="diiiiiiiiiiiiiiiiiiiiiiiiixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 const char CharTitlesEntryfmt[]="nxssssssssssssssssxxxxxxxxxxxxxxxxxxi";
 const char ChatChannelsEntryfmt[]="nixssssssssssssssssxxxxxxxxxxxxxxxxxx";
