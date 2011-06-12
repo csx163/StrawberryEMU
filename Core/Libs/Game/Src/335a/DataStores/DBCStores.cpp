@@ -262,10 +262,6 @@ void LoadDBCStores(const std::string& dataPath)
         }
     }
 
-    LoadDBC(availableDbcLocales, bad_dbc_files, sAuctionHouseStore,           dbcPath, "AuctionHouse.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sBankBagSlotPricesStore,      dbcPath, "BankBagSlotPrices.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sBattlemasterListStore,       dbcPath, "BattlemasterList.dbc");
-    LoadDBC(availableDbcLocales, bad_dbc_files, sBarberShopStyleStore,        dbcPath, "BarberShopStyle.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sCharStartOutfitStore,        dbcPath, "CharStartOutfit.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sCharTitlesStore,             dbcPath, "CharTitles.dbc");
     LoadDBC(availableDbcLocales, bad_dbc_files, sChatChannelsStore,           dbcPath, "ChatChannels.dbc");
@@ -722,9 +718,12 @@ ContentLevels GetContentLevelsForMapAndZone(uint32 mapid, uint32 zoneId)
 
     switch(mapEntry->Expansion())
     {
-        default: return CONTENT_1_60;
-        case 1:  return CONTENT_61_70;
-        case 2:  return CONTENT_71_80;
+        default:
+            return CONTENT_1_60;
+        case 1:
+            return CONTENT_61_70;
+        case 2:
+            return CONTENT_71_80;
     }
 }
 

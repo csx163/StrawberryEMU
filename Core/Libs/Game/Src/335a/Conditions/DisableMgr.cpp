@@ -146,7 +146,7 @@ void DisableMgr::LoadDisables()
                 break;
             }
             case DISABLE_TYPE_BATTLEGROUND:
-                if (!sBattlemasterListStore.LookupEntry(entry))
+                if (!sObjectMgr->GetBattleMasterListData(entry))
                 {
                     sLog->outErrorDb("Battleground entry %u from `disables` doesn't exist in dbc, skipped.", entry);
                     continue;

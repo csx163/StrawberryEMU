@@ -44,6 +44,7 @@
 #include "Util.h"
 #include "ScriptMgr.h"
 #include "Battleground.h"
+#include "BarberShopStyle.h"
 
 class LoginQueryHolder : public SQLQueryHolder
 {
@@ -1183,22 +1184,22 @@ void WorldSession::HandleAlterAppearance(WorldPacket & recv_data)
     uint32 Hair, Color, FacialHair, SkinColor;
     recv_data >> Hair >> Color >> FacialHair >> SkinColor;
 
-    BarberShopStyleEntry const* bs_hair = sBarberShopStyleStore.LookupEntry(Hair);
+    BarberShopStyleData const* bs_hair = sObjectMgr->GetBarberShopStyleData(Hair);
 
-    if (!bs_hair || bs_hair->type != 0 || bs_hair->race != _player->getRace() || bs_hair->gender != _player->getGender())
+    if (!bs_hair || bs_hair->Type != 0 || bs_hair->RaceId != _player->getRace() || bs_hair->GenderId != _player->getGender())
         return;
 
-    BarberShopStyleEntry const* bs_facialHair = sBarberShopStyleStore.LookupEntry(FacialHair);
+    BarberShopStyleData const* bs_facialHair = sObjectMgr->GetBarberShopStyleData(FacialHair);
 
-    if (!bs_facialHair || bs_facialHair->type != 2 || bs_facialHair->race != _player->getRace() || bs_facialHair->gender != _player->getGender())
+    if (!bs_facialHair || bs_facialHair->Type != 2 || bs_facialHair->RaceId != _player->getRace() || bs_facialHair->GenderId != _player->getGender())
         return;
 
-    BarberShopStyleEntry const* bs_skinColor = sBarberShopStyleStore.LookupEntry(SkinColor);
+    BarberShopStyleData const* bs_skinColor = sObjectMgr->GetBarberShopStyleData(SkinColor);
 
-    if (bs_skinColor && (bs_skinColor->type != 3 || bs_skinColor->race != _player->getRace() || bs_skinColor->gender != _player->getGender()))
+    if (bs_skinColor && (bs_skinColor->Type != 3 || bs_skinColor->RaceId != _player->getRace() || bs_skinColor->GenderId != _player->getGender()))
         return;
 
-    uint32 Cost = _player->GetBarberShopCost(bs_hair->hair_id, Color, bs_facialHair->hair_id, bs_skinColor);
+    uint32 Cost = _player->GetBarberShopCost(bs_hair->HairId, Color, bs_facialHair->HairId, bs_skinColor);
 
     // 0 - ok
     // 1, 3 - not enough money
@@ -1220,11 +1221,11 @@ void WorldSession::HandleAlterAppearance(WorldPacket & recv_data)
     _player->ModifyMoney(-int32(Cost));                     // it isn't free
     _player->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_GOLD_SPENT_AT_BARBER, Cost);
 
-    _player->SetByteValue(PLAYER_BYTES, 2, uint8(bs_hair->hair_id));
+    _player->SetByteValue(PLAYER_BYTES, 2, uint8(bs_hair->HairId));
     _player->SetByteValue(PLAYER_BYTES, 3, uint8(Color));
-    _player->SetByteValue(PLAYER_BYTES_2, 0, uint8(bs_facialHair->hair_id));
+    _player->SetByteValue(PLAYER_BYTES_2, 0, uint8(bs_facialHair->HairId));
     if (bs_skinColor)
-        _player->SetByteValue(PLAYER_BYTES, 0, uint8(bs_skinColor->hair_id));
+        _player->SetByteValue(PLAYER_BYTES, 0, uint8(bs_skinColor->HairId));
 
     _player->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_VISIT_BARBER_SHOP, 1);
 

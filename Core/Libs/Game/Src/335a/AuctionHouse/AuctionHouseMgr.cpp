@@ -472,7 +472,7 @@ AuctionHouseData const* AuctionHouseMgr::GetAuctionHouseEntry(uint32 factionTemp
         }
     }
 
-    return this->GetAuctionHouseData(houseid);
+    return sObjectMgr->GetAuctionHouseData(houseid);
 }
 
 void AuctionHouseObject::AddAuction(AuctionEntry *auction)
@@ -906,13 +906,4 @@ bool AuctionEntry::LoadFromFieldList(Field* fields)
     }
 
     return true;
-}
-
-AuctionHouseData const* AuctionHouseMgr::GetAuctionHouseData(uint32 HouseId)
-{
-    AuctionHouseDataContainer::const_iterator itr = sData->AuctionHouseDataTable.find(HouseId);
-    if (itr != sData->AuctionHouseDataTable.end())
-        return &(itr->second);
-
-    return NULL;
 }

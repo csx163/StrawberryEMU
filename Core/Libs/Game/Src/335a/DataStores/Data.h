@@ -36,6 +36,14 @@
 #include "AttackAnimTypes.h"
 
 #include "AuctionHouse.h"
+#include "BankBagSlotPrices.h"
+#include "BannedAddOns.h"
+#include "BarberShopStyle.h"
+#include "BattlemasterList.h"
+#include "CameraShakes.h"
+#include "Cfg_Categories.h"
+#include "Cfg_Configs.h"
+#include "CharacterFacialHairStyles.h"
 
 class Data
 {
@@ -52,9 +60,24 @@ class Data
         void LoadAreaTriggerData();
 
         void LoadAttackAnimKitsData();
-        void LoadAttackAnimTypes();
+        void LoadAttackAnimTypesData();
 
-        void LoadAuctionHouse();
+        void LoadAuctionHouseData();
+
+        void LoadBankBagSlotPricesData();
+
+        void LoadBannedAddOnsData();
+
+        void LoadBarberShopStyleData();
+
+        void LoadBattleMasterListData();
+
+        void LoadCameraShakesData();
+
+        void LoadCfg_CategoriesData();
+        void LoadCfg_ConfigsData();
+
+        void LoadCharacterFacialHairStylesData();
 
         AchievementDataContainer AchievementDataTable;
         AchievementCategoryDataContainer AchievementCategoryDataTable;
@@ -71,6 +94,22 @@ class Data
         AttackAnimTypesDataContainer AttackAnimTypesDataTable;
 
         AuctionHouseDataContainer AuctionHouseDataTable;
+
+
+        BankBagSlotPricesDataContainer BankBagSlotPricesDataTable;
+
+        BannedAddOnsDataContainer BannedAddOnsDataTable;
+
+        BarberShopStyleDataContainer BarberShopStyleDataTable;
+
+        BattleMasterListDataContainer BattleMasterListDataTable;
+
+        CameraShakesDataContainer CameraShakesDataTable;
+
+        Cfg_CategoriesDataContainer Cfg_CategoriesDataTable;
+        Cfg_ConfigsDataContainer Cfg_ConfigsDataTable;
+
+        CharacterFacialHairStylesDataContainer CharacterFacialHairStylesDataTable;
 };
 
 #define sData ACE_Singleton<Data, ACE_Null_Mutex>::instance()

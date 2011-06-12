@@ -29,6 +29,7 @@
 #include "GossipDef.h"
 #include "Player.h"
 #include "BattlegroundMgr.h"
+#include "BattlemasterList.h"
 
 bool GameEventMgr::CheckOneGameEvent(uint16 entry) const
 {
@@ -1482,11 +1483,11 @@ void GameEventMgr::UpdateWorldStates(uint16 event_id, bool Activate)
         BattlegroundTypeId bgTypeId = BattlegroundMgr::WeekendHolidayIdToBGType(event.holiday_id);
         if (bgTypeId != BATTLEGROUND_TYPE_NONE)
         {
-            BattlemasterListEntry const * bl = sBattlemasterListStore.LookupEntry(bgTypeId);
-            if (bl && bl->HolidayWorldStateId)
+            BattleMasterListData const * bl = sObjectMgr->GetBattleMasterListData(bgTypeId);
+            if (bl && bl->HolidayWorldState)
             {
                 WorldPacket data;
-                sBattlegroundMgr->BuildUpdateWorldStatePacket(&data, bl->HolidayWorldStateId, Activate ? 1 : 0);
+                sBattlegroundMgr->BuildUpdateWorldStatePacket(&data, bl->HolidayWorldState, Activate ? 1 : 0);
                 sWorld->SendGlobalMessage(&data);
             }
         }

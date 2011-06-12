@@ -877,7 +877,7 @@ void WorldSession::HandleBuyBankSlotOpcode(WorldPacket& recvPacket)
 
     sLog->outDetail("PLAYER: Buy bank bag slot, slot number = %u", slot);
 
-    BankBagSlotPricesEntry const* slotEntry = sBankBagSlotPricesStore.LookupEntry(slot);
+    BankBagSlotPricesData const* slotEntry = sObjectMgr->GetBankBagSlotPricesData(slot);
 
     WorldPacket data(SMSG_BUY_BANK_SLOT_RESULT, 4);
 
@@ -888,7 +888,7 @@ void WorldSession::HandleBuyBankSlotOpcode(WorldPacket& recvPacket)
         return;
     }
 
-    uint32 price = slotEntry->price;
+    uint32 price = slotEntry->Price;
 
     if (!_player->HasEnoughMoney(price))
     {

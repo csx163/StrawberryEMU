@@ -3139,7 +3139,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellEntry const* newAura, uint
             // update basepoints with new values - effect amount will be recalculated in ModStackAmount
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
             {
-                if (!foundAura->HasEffect[i])
+                if (!foundAura->HasEffect(i))
                     continue;
 
                 int bp;
@@ -3148,7 +3148,7 @@ Aura* Unit::_TryStackingOrRefreshingExistingAura(SpellEntry const* newAura, uint
                 else
                     bp = foundAura->GetSpellProto()->EffectBasePoints[i];
 
-                int32* oldBP = const_cast<int32*>(&(foundAura->GetEffect[i]->m_baseAmount));
+                int32* oldBP = const_cast<int32*>(&(foundAura->GetEffect(i)->m_baseAmount));
                 *oldBP = bp;
             }
 

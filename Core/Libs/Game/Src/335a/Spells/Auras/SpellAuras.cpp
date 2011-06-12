@@ -222,8 +222,6 @@ uint8 Aura::BuildEffectMaskForOwner(SpellEntry const* spellProto, uint8 avalible
 {
     ASSERT(spellProto);
     ASSERT(owner);
-    ASSERT(caster || casterGUID);
-    ASSERT(tryEffMask <= MAX_EFFECT_MASK);
     uint8 effMask = 0;
     switch(owner->GetTypeId())
     {
@@ -757,6 +755,17 @@ void Aura::SetCharges(uint8 charges)
     SetNeedClientUpdateForTargets();
 }
 
+uint8 Aura::CalcMaxCharges(Unit* caster) const
+{
+    uint8 maxProcCharges = m_spellProto->procCharges;
+
+    if (caster)
+        if (Player* modOwner = caster->GetSpellModOwner())
+            modOwner->ApplySpellMod(GetId(), SPELLMOD_CHARGES, maxProcCharges);
+    return maxProcCharges;
+}
+
+
 bool Aura::DropCharge()
 {
     if (m_procCharges) //auras without charges always have charge = 0
@@ -799,21 +808,18 @@ void Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode)
 {
     int32 stackAmount = m_stackAmount + num;
 
-    // limit the stack amount
-    if (stackAmount > int32(m_spellProto->StackAmount))
+    // limit the stack amount (only on stack increase, stack amount may be changed manually)
+    if ((num > 0) && (stackAmount > int32(m_spellProto->StackAmount)))
     {
         // not stackable aura - set stack amount to 1
-        if(!m_spellProto->StackAmount)
+        if (!m_spellProto->StackAmount)
             stackAmount = 1;
         else
             stackAmount = m_spellProto->StackAmount;
     }
     // we're out of stacks, remove
     else if (stackAmount <= 0)
-    {
         Remove(removeMode);
-        return;
-    }
 
     bool refresh = stackAmount >= GetStackAmount();
 

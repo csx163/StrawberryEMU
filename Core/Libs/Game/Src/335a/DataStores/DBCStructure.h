@@ -41,50 +41,6 @@
 #pragma pack(push, 1)
 #endif
 
-struct AuctionHouseEntry
-{
-    uint32    houseId;                                      // 0 index
-    uint32    faction;                                      // 1 id of faction.dbc for player factions associated with city
-    uint32    depositPercent;                               // 2 1/3 from real
-    uint32    cutPercent;                                   // 3
-    //char*     name[16];                                   // 4-19
-                                                            // 20 string flag, unused
-};
-
-struct BankBagSlotPricesEntry
-{
-    uint32  ID;
-    uint32  price;
-};
-
-struct BarberShopStyleEntry
-{
-    uint32  Id;                                             // 0
-    uint32  type;                                           // 1 value 0 -> hair, value 2 -> facialhair
-    //char*   name[16];                                     // 2-17 name of hair style
-    //uint32  name_flags;                                   // 18
-    //uint32  unk_name[16];                                 // 19-34, all empty
-    //uint32  unk_flags;                                    // 35
-    //float   CostMultiplier;                               // 36 values 1 and 0.75
-    uint32  race;                                           // 37 race
-    uint32  gender;                                         // 38 0 -> male, 1 -> female
-    uint32  hair_id;                                        // 39 real ID to hair/facial hair
-};
-
-struct BattlemasterListEntry
-{
-    uint32  id;                                             // 0
-    int32   mapid[8];                                       // 1-8 mapid
-    uint32  type;                                           // 9 (3 - BG, 4 - arena)
-    //uint32 canJoinAsGroup;                                // 10 (0 or 1)
-    char*   name[16];                                       // 11-26
-    //uint32 nameFlags                                      // 27 string flag, unused
-    uint32 maxGroupSize;                                    // 28 maxGroupSize, used for checking if queue as group
-    uint32 HolidayWorldStateId;                             // 29 new 3.1
-    //uint32 MinLevel;                                      // 30
-    //uint32 SomeLevel;                                     // 31, may be max level
-};
-
 #define MAX_OUTFIT_ITEMS 24
 
 struct CharStartOutfitEntry

@@ -158,6 +158,7 @@ class AuctionHouseMgr
         static AuctionHouseData const* GetAuctionHouseEntry(uint32 factionTemplateId);
 
         AuctionHouseData const* GetAuctionHouseData(uint32 HouseId);
+        static AuctionHouseData const* GetAuctionHouseData2(uint32 HouseId);
 
     public:
 

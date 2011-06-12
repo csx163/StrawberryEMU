@@ -657,6 +657,14 @@ class ObjectMgr
         AreaTableData const* GetAreaTableData(uint32 AreaId);
         AreaTriggerData const* GetAreaTriggerData(uint32 TriggerId);
 
+        AuctionHouseData const* GetAuctionHouseData(uint32 HouseId);
+
+        BankBagSlotPricesData const* GetBankBagSlotPricesData(uint32 SlotId);
+
+        BarberShopStyleData const* GetBarberShopStyleData(uint32 StyleId);
+
+        BattleMasterListData const* GetBattleMasterListData(uint32 MasterId);
+
         ItemSetNameEntry const* GetItemSetNameEntry(uint32 itemId)
         {
             ItemSetNameMap::iterator itr = mItemSetNameMap.find(itemId);

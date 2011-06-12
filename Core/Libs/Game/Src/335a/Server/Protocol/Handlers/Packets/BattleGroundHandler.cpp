@@ -87,7 +87,7 @@ void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket & recv_data)
     recv_data >> instanceId;                                // instance id, 0 if First Available selected
     recv_data >> joinAsGroup;                               // join as group
 
-    if (!sBattlemasterListStore.LookupEntry(bgTypeId_))
+    if (!sObjectMgr->GetBattleMasterListData(bgTypeId_))
     {
         sLog->outError("Battleground: invalid bgtype (%u) received. possible cheater? player guid %u", bgTypeId_, _player->GetGUIDLow());
         return;
@@ -342,7 +342,7 @@ void WorldSession::HandleBattlefieldListOpcode(WorldPacket &recv_data)
     uint8 unk1;
     recv_data >> unk1;                                       // Unknown 3.2.2
 
-    BattlemasterListEntry const* bl = sBattlemasterListStore.LookupEntry(bgTypeId);
+    BattleMasterListData const* bl = sObjectMgr->GetBattleMasterListData(bgTypeId);
     if (!bl)
     {
         sLog->outError("Battleground: invalid bgtype received.");
@@ -366,7 +366,7 @@ void WorldSession::HandleBattleFieldPortOpcode(WorldPacket &recv_data)
 
     recv_data >> type >> unk2 >> bgTypeId_ >> unk >> action;
 
-    if (!sBattlemasterListStore.LookupEntry(bgTypeId_))
+    if (!sObjectMgr->GetBattleMasterListData(bgTypeId_))
     {
         sLog->outError("BattlegroundHandler: invalid bgtype (%u) received.", bgTypeId_);
         return;

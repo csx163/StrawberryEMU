@@ -1263,6 +1263,26 @@ void World::SetInitialWorldSettings()
     sData->LoadAreaTableData();
     sData->LoadAreaTriggerData();
 
+    sData->LoadAttackAnimKitsData();
+    sData->LoadAttackAnimTypesData();
+
+    sData->LoadAuctionHouseData();
+
+    sData->LoadBankBagSlotPricesData();
+
+    sData->LoadBannedAddOnsData();
+
+    sData->LoadBarberShopStyleData();
+
+    sData->LoadBattleMasterListData();
+
+    sData->LoadCameraShakesData();
+
+    sData->LoadCfg_CategoriesData();
+    sData->LoadCfg_ConfigsData();
+
+    sData->LoadCharacterFacialHairStylesData();
+
     ///- Load the DBC files
     sLog->outString("Initialize data stores...");
     LoadDBCStores(m_dataPath);

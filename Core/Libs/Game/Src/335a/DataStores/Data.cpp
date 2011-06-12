@@ -430,7 +430,7 @@ void Data::LoadAttackAnimKitsData()
     }
 }
 
-void Data::LoadAuctionHouse()
+void Data::LoadAuctionHouseData()
 {
     sLog->outString("Loading AuctionHouse Data...");
     {
@@ -471,7 +471,7 @@ void Data::LoadAuctionHouse()
     }
 }
 
-void Data::LoadAttackAnimTypes()
+void Data::LoadAttackAnimTypesData()
 {
     sLog->outString("Loading AttackAnimTypes Data...");
     {
@@ -496,13 +496,357 @@ void Data::LoadAttackAnimTypes()
                 attackAnimTypesData.Id         = TableFields[0].GetUInt32();
                 attackAnimTypesData.AttackName = TableFields[1].GetString();
 
-                AttackAnimKitsDataTable[attackAnimTypesData.Id] = attackAnimTypesData;
+                AttackAnimTypesDataTable[attackAnimTypesData.Id] = attackAnimTypesData;
 
                 ++count;
             }
             while (AttackAnimTypesDataResult->NextRow());
 
             sLog->outString(">> Loaded %u attack anim types %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+
+
+///////////////////
+
+void Data::LoadBankBagSlotPricesData()
+{
+    sLog->outString("Loading BankBagSlotPrices Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* BankBagSlotPricesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_BANKBAGSLOTPRICES_DATA_DBC);
+        PreparedQueryResult BankBagSlotPricesDataResult = DataDB.Query(BankBagSlotPricesDataStatement);
+
+        if (!BankBagSlotPricesDataResult)
+        {
+            sLog->outError("Error while loading BankBagSlotPrices Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = BankBagSlotPricesDataResult->Fetch();
+                BankBagSlotPricesData bankBagSlotPricesData;
+
+                bankBagSlotPricesData.Id    = TableFields[0].GetUInt32();
+                bankBagSlotPricesData.Price = TableFields[1].GetUInt32();
+
+                BankBagSlotPricesDataTable[bankBagSlotPricesData.Id] = bankBagSlotPricesData;
+
+                ++count;
+            }
+            while (BankBagSlotPricesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u bankslot prices %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadBannedAddOnsData()
+{
+    sLog->outString("Loading BannedAddOns Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* BannedAddOnsDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_BANNEDADDONS_DATA_DBC);
+        PreparedQueryResult BannedAddOnsDataResult = DataDB.Query(BannedAddOnsDataStatement);
+
+        if (!BannedAddOnsDataResult)
+        {
+            sLog->outError("Error while loading BannedAddOns Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = BannedAddOnsDataResult->Fetch();
+                BannedAddOnsData bannedAddOnsData;
+
+                bannedAddOnsData.Id            = TableFields[0].GetUInt32();
+                bannedAddOnsData.Md5Name       = TableFields[1].GetFloat();
+                bannedAddOnsData.NameFlags     = TableFields[2].GetUInt32();
+                bannedAddOnsData.Md5Name2      = TableFields[3].GetFloat();
+                bannedAddOnsData.NameFlags2    = TableFields[4].GetUInt32();
+                bannedAddOnsData.Md5Version    = TableFields[5].GetFloat();
+                bannedAddOnsData.VersionFlags  = TableFields[6].GetUInt32();
+                bannedAddOnsData.Md5Version2   = TableFields[8].GetFloat();
+                bannedAddOnsData.VersionFlags2 = TableFields[9].GetUInt32();
+                bannedAddOnsData.LastModified  = TableFields[10].GetFloat();
+                bannedAddOnsData.ModFlags      = TableFields[11].GetUInt32();
+
+                BannedAddOnsDataTable[bannedAddOnsData.Id] = bannedAddOnsData;
+
+                ++count;
+            }
+            while (BannedAddOnsDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u banned addons %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadBarberShopStyleData()
+{
+    sLog->outString("Loading BarberShopStyleData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* BarberShopStyleDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_BARBERSHOPSTYLE_DATA_DBC);
+        PreparedQueryResult BarberShopStyleDataResult = DataDB.Query(BarberShopStyleDataStatement);
+
+        if (!BarberShopStyleDataResult)
+        {
+            sLog->outError("Error while loading BarberShopStyleData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = BarberShopStyleDataResult->Fetch();
+                BarberShopStyleData barberShopStyleData;
+
+                barberShopStyleData.Id               = TableFields[0].GetUInt32();
+                barberShopStyleData.Type             = TableFields[1].GetUInt32();
+                barberShopStyleData.Name             = TableFields[2].GetString();
+                barberShopStyleData.NameFlags        = TableFields[3].GetUInt32();
+                barberShopStyleData.Description      = TableFields[4].GetString();
+                barberShopStyleData.DescriptionFlags = TableFields[5].GetUInt32();
+                barberShopStyleData.CostMultiplier   = TableFields[6].GetFloat();
+                barberShopStyleData.RaceId           = TableFields[7].GetUInt32();
+                barberShopStyleData.GenderId         = TableFields[8].GetUInt32();
+                barberShopStyleData.HairId           = TableFields[9].GetUInt32();
+                
+                BarberShopStyleDataTable[barberShopStyleData.Id] = barberShopStyleData;
+
+                ++count;
+            }
+            while (BarberShopStyleDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u barbershop styles %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadBattleMasterListData()
+{
+    sLog->outString("Loading BattleMasterListData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* BattleMasterListDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_BATTLEMASTERLIST_DATA_DBC);
+        PreparedQueryResult BattleMasterListDataResult = DataDB.Query(BattleMasterListDataStatement);
+
+        if (!BattleMasterListDataResult)
+        {
+            sLog->outError("Error while loading BattleMasterListData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = BattleMasterListDataResult->Fetch();
+                BattleMasterListData battleMasterListData;
+
+                battleMasterListData.Id                = TableFields[0].GetUInt32();
+                
+                for (int i = 0; i < 8; i++)
+                    battleMasterListData.MapId[i] = TableFields[1 + i].GetUInt32();
+
+                battleMasterListData.InstanceTypeId    = TableFields[9].GetUInt32();
+                battleMasterListData.Groups            = TableFields[10].GetUInt32();
+                battleMasterListData.Name              = TableFields[11].GetString();
+                battleMasterListData.NameFlags         = TableFields[12].GetUInt32();
+                battleMasterListData.MaxGroupSize      = TableFields[13].GetUInt32();
+                battleMasterListData.HolidayWorldState = TableFields[14].GetUInt32();
+                battleMasterListData.MinLevel          = TableFields[15].GetUInt32();
+                battleMasterListData.MaxLevel          = TableFields[16].GetUInt32();
+
+                BattleMasterListDataTable[battleMasterListData.Id] = battleMasterListData;
+
+                ++count;
+            }
+            while (BattleMasterListDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u battle masters %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCameraShakesData()
+{
+    sLog->outString("Loading CameraShakesData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CameraShakesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CAMERASHAKES_DATA_DBC);
+        PreparedQueryResult CameraShakesDataResult = DataDB.Query(CameraShakesDataStatement);
+
+        if (!CameraShakesDataResult)
+        {
+            sLog->outError("Error while loading CameraShakesData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CameraShakesDataResult->Fetch();
+                CameraShakesData cameraShakesData;
+
+                cameraShakesData.Id          = TableFields[0].GetUInt32();
+                cameraShakesData.ShakeType   = TableFields[1].GetUInt32();
+                cameraShakesData.Direction   = TableFields[2].GetUInt32();
+                cameraShakesData.Amplitude   = TableFields[3].GetFloat();
+                cameraShakesData.Frequency   = TableFields[4].GetFloat();
+                cameraShakesData.Duration    = TableFields[5].GetFloat();
+                cameraShakesData.Phase       = TableFields[6].GetFloat();
+                cameraShakesData.Coefficient = TableFields[7].GetFloat();
+
+                CameraShakesDataTable[cameraShakesData.Id] = cameraShakesData;
+
+                ++count;
+            }
+            while (CameraShakesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u camera shakes %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCfg_CategoriesData()
+{
+    sLog->outString("Loading Cfg_CategoriesData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* Cfg_CategoriesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CFG_CATEGORIES_DATA_DBC);
+        PreparedQueryResult Cfg_CategoriesDataResult = DataDB.Query(Cfg_CategoriesDataStatement);
+
+        if (!Cfg_CategoriesDataResult)
+        {
+            sLog->outError("Error while loading Cfg_CategoriesData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = Cfg_CategoriesDataResult->Fetch();
+                Cfg_CategoriesData cfg_CategoriesData;
+
+                cfg_CategoriesData.Id          = TableFields[0].GetUInt32();
+                cfg_CategoriesData.LocaleMask  = TableFields[1].GetUInt32();
+                cfg_CategoriesData.CharSetMask = TableFields[2].GetUInt32();
+                cfg_CategoriesData.Flags       = TableFields[3].GetUInt32();
+                cfg_CategoriesData.Name        = TableFields[4].GetString();
+                cfg_CategoriesData.NameFlags   = TableFields[5].GetUInt32();
+
+                Cfg_CategoriesDataTable[cfg_CategoriesData.Id] = cfg_CategoriesData;
+
+                ++count;
+            }
+            while (Cfg_CategoriesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u cfg categories %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCfg_ConfigsData()
+{
+    sLog->outString("Loading Cfg_ConfigsData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* Cfg_ConfigsDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CFG_CONFIGS_DATA_DBC);
+        PreparedQueryResult Cfg_ConfigsDataResult = DataDB.Query(Cfg_ConfigsDataStatement);
+
+        if (!Cfg_ConfigsDataResult)
+        {
+            sLog->outError("Error while loading Cfg_ConfigsData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = Cfg_ConfigsDataResult->Fetch();
+                Cfg_ConfigsData cfg_ConfigsData;
+
+                cfg_ConfigsData.Id       = TableFields[0].GetUInt32();
+                cfg_ConfigsData.GenId    = TableFields[1].GetUInt32();
+                cfg_ConfigsData.PvP      = TableFields[2].GetUInt32();
+                cfg_ConfigsData.RolePlay = TableFields[3].GetUInt32();
+
+                Cfg_ConfigsDataTable[cfg_ConfigsData.Id] = cfg_ConfigsData;
+
+                ++count;
+            }
+            while (Cfg_ConfigsDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u cfg configs %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharacterFacialHairStylesData()
+{
+    sLog->outString("Loading CharacterFacialHairStylesData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharacterFacialHairStylesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC);
+        PreparedQueryResult CharacterFacialHairStylesDataResult = DataDB.Query(CharacterFacialHairStylesDataStatement);
+
+        if (!CharacterFacialHairStylesDataResult)
+        {
+            sLog->outError("Error while loading CharacterFacialHairStylesData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharacterFacialHairStylesDataResult->Fetch();
+                CharacterFacialHairStylesData characterFacialHairStylesData;
+
+                characterFacialHairStylesData.GenId       = TableFields[0].GetUInt32();
+                characterFacialHairStylesData.RaceId      = TableFields[1].GetUInt32();
+                characterFacialHairStylesData.VariationId = TableFields[2].GetUInt32();
+
+                for (int i = 0; i < 5; i++)
+                    characterFacialHairStylesData.GeoSet[i] = TableFields[1 + i].GetInt32();
+
+                CharacterFacialHairStylesDataTable[characterFacialHairStylesData.GenId] = characterFacialHairStylesData;
+
+                ++count;
+            }
+            while (CharacterFacialHairStylesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u character facial hairstyles %u ms", count, GetMSTimeDiffToNow(oldMSTime));
             sLog->outString();
         }
     }

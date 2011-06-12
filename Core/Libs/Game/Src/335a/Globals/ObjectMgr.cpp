@@ -5550,7 +5550,7 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
     }
     while (result->NextRow());
 
-    sLog->outString(">> Loaded %u mails in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+    sLog->outString(">> Loaded %u mails in %u ms", deletedCount, GetMSTimeDiffToNow(oldMSTime));
     sLog->outString();
 }
 
@@ -9134,6 +9134,42 @@ AreaTriggerData const* ObjectMgr::GetAreaTriggerData(uint32 TriggerId)
 {
     AreaTriggerDataContainer::const_iterator itr = sData->AreaTriggerDataTable.find(TriggerId);
     if (itr != sData->AreaTriggerDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+AuctionHouseData const* ObjectMgr::GetAuctionHouseData(uint32 HouseId)
+{
+    AuctionHouseDataContainer::const_iterator itr = sData->AuctionHouseDataTable.find(HouseId);
+    if (itr != sData->AuctionHouseDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+BankBagSlotPricesData const* ObjectMgr::GetBankBagSlotPricesData(uint32 SlotId)
+{
+    BankBagSlotPricesDataContainer::const_iterator itr = sData->BankBagSlotPricesDataTable.find(SlotId);
+    if (itr != sData->BankBagSlotPricesDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+BarberShopStyleData const* ObjectMgr::GetBarberShopStyleData(uint32 StyleId)
+{
+    BarberShopStyleDataContainer::const_iterator itr = sData->BarberShopStyleDataTable.find(StyleId);
+    if (itr != sData->BarberShopStyleDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+BattleMasterListData const* ObjectMgr::GetBattleMasterListData(uint32 MasterId)
+{
+    BattleMasterListDataContainer::const_iterator itr = sData->BattleMasterListDataTable.find(MasterId);
+    if (itr != sData->BattleMasterListDataTable.end())
         return &(itr->second);
 
     return NULL;
