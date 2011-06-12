@@ -45,11 +45,11 @@ void DataDBConnection::DoPrepareStatements()
 
     PREPARE_STATEMENT(DATA_LOAD_ATTACKANIMKITS_DATA_DBC, "SELECT Id, Duration, AnimKitStop, AnimFlags FROM AttackAnimKits", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC, "SELECT Id, Name FROM AttackAnimTypes", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC, "SELECT Id, AttackName FROM AttackAnimTypes", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_AUCTIONHOUSE_DATA_DBC, "SELECT Id, FactionId, DepositRate, ConsignmentRate, Name, NameFlags FROM AuctionHouse", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_BANKBAGSLOTPRICES_DATA_DBC, "SELECT Id, Price FROM BangBagSlotPrices", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_BANKBAGSLOTPRICES_DATA_DBC, "SELECT Id, Price FROM BankBagSlotPrices", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_BANNEDADDONS_DATA_DBC, "SELECT Id, Md5Name, NameFlags, Md5Name2, NameFlags2, Md5Version, VersionFlags, Md5Version2, VersionFlags2, LastModified, "
                                                        "ModFlags FROM BannedAddOns", CONNECTION_SYNCH);
@@ -58,12 +58,12 @@ void DataDBConnection::DoPrepareStatements()
                                                           "FROM BarberShopStyle", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_BATTLEMASTERLIST_DATA_DBC, "SELECT Id, MapId, MapId1, MapId2, MapId3, MapId4, MapId5, MapId6, MapId7, InstanceTypeId, Groups, Name, "
-                                                           "NameFlags, MaxGroupSize, HolidayWorldState, MinLevel, MaxLevel", CONNECTION_SYNCH);
+                                                           "NameFlags, MaxGroupSize, HolidayWorldState, MinLevel, MaxLevel FROM BattleMasterList", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_CAMERASHAKES_DATA_DBC, "SELECT Id, ShakeType, Direction, Amplitude, Frequency, Duration, Phase, Coefficient FROM CameraShakes", CONNECTION_SYNCH);
 
     PREPARE_STATEMENT(DATA_LOAD_CFG_CATEGORIES_DATA_DBC, "SELECT Id, LocaleMask, CharSetMask, Flags, Name, NameFlags FROM Cfg_Categories", CONNECTION_SYNCH);
-    PREPARE_STATEMENT(DATA_LOAD_CFG_CONFIGS_DATA_DBC, "SELECT Id, GenId, PvP, RolePlay", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CFG_CONFIGS_DATA_DBC, "SELECT Id, GenId, PvP, RolePlay FROM Cfg_Configs", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC, "SELECT GenId, RaceId, VariationId, GeoSet, GeoSet1, GeoSet2, GeoSet3, GeoSet4", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC, "SELECT GenId, RaceId, VariationId, GeoSet, GeoSet1, GeoSet2, GeoSet3, GeoSet4 FROM CharacterFacialHairStyles", CONNECTION_SYNCH);
 }

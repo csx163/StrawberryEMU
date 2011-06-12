@@ -436,7 +436,7 @@ void Data::LoadAuctionHouseData()
     {
         uint32 oldMSTime = getMSTime();
 
-        PreparedStatement* AuctionHouseDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_ATTACKANIMTYPES_DATA_DBC);
+        PreparedStatement* AuctionHouseDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_AUCTIONHOUSE_DATA_DBC);
         PreparedQueryResult AuctionHouseDataResult = DataDB.Query(AuctionHouseDataStatement);
 
         if (!AuctionHouseDataResult)
@@ -578,10 +578,10 @@ void Data::LoadBannedAddOnsData()
                 bannedAddOnsData.NameFlags2    = TableFields[4].GetUInt32();
                 bannedAddOnsData.Md5Version    = TableFields[5].GetFloat();
                 bannedAddOnsData.VersionFlags  = TableFields[6].GetUInt32();
-                bannedAddOnsData.Md5Version2   = TableFields[8].GetFloat();
-                bannedAddOnsData.VersionFlags2 = TableFields[9].GetUInt32();
-                bannedAddOnsData.LastModified  = TableFields[10].GetFloat();
-                bannedAddOnsData.ModFlags      = TableFields[11].GetUInt32();
+                bannedAddOnsData.Md5Version2   = TableFields[7].GetFloat();
+                bannedAddOnsData.VersionFlags2 = TableFields[8].GetUInt32();
+                bannedAddOnsData.LastModified  = TableFields[9].GetFloat();
+                bannedAddOnsData.ModFlags      = TableFields[10].GetUInt32();
 
                 BannedAddOnsDataTable[bannedAddOnsData.Id] = bannedAddOnsData;
 
