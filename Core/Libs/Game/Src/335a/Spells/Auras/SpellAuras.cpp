@@ -43,7 +43,7 @@ m_effectsToApply(effMask), m_removeMode(AURA_REMOVE_NONE), m_needClientUpdate(fa
 {
     ASSERT(GetTarget() && GetBase());
 
-    if (GetBase()->IsVisible())
+    if (GetBase()->CanBeSentToClient())
     {
         // Try find slot for aura
         uint8 slot = MAX_AURAS;
@@ -176,20 +176,14 @@ void AuraApplication::_HandleEffect(uint8 effIndex, bool apply)
     SetNeedClientUpdate();
 }
 
-void AuraApplication::ClientUpdate(bool remove)
+void AuraApplication::BuildUpdatePacket(ByteBuffer& data, bool remove) const
 {
-    m_needClientUpdate = false;
-
-    WorldPacket data(SMSG_AURA_UPDATE);
-    data.append(GetTarget()->GetPackGUID());
     data << uint8(m_slot);
 
     if (remove)
     {
         ASSERT(!m_target->GetVisibleAura(m_slot));
         data << uint32(0);
-        sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "Aura %u removed slot %u", GetBase()->GetId(), m_slot);
-        m_target->SendMessageToSet(&data, true);
         return;
     }
     ASSERT(m_target->GetVisibleAura(m_slot));
@@ -211,6 +205,15 @@ void AuraApplication::ClientUpdate(bool remove)
         data << uint32(aura->GetMaxDuration());
         data << uint32(aura->GetDuration());
     }
+}
+
+void AuraApplication::ClientUpdate(bool remove)
+{
+    m_needClientUpdate = false;
+
+    WorldPacket data(SMSG_AURA_UPDATE);
+    data.append(GetTarget()->GetPackGUID());
+    BuildUpdatePacket(data, remove);
 
     m_target->SendMessageToSet(&data, true);
 }
@@ -736,6 +739,16 @@ void Aura::RefreshDuration()
         m_timeCla = 1 * IN_MILLISECONDS;
 }
 
+void Aura::RefreshTimers()
+{
+    m_maxDuration = CalcMaxDuration();
+    RefreshDuration();
+    Unit * caster = GetCaster();
+    for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
+        if (HasEffect(i))
+            GetEffect(i)->CalculatePeriodic(caster, false, false);
+}
+
 void Aura::SetCharges(uint8 charges)
 {
     if (m_procCharges == charges)
@@ -763,9 +776,22 @@ void Aura::SetStackAmount(uint8 stackAmount)
 {
     m_stackAmount = stackAmount;
     Unit * caster = GetCaster();
+
+    std::list<AuraApplication*> applications;
+    GetApplicationList(applications);
+
+    for (std::list<AuraApplication*>::const_iterator apptItr = applications.begin(); apptItr != applications.end(); ++apptItr)
+        if (!(*apptItr)->GetRemoveMode())
+            HandleAuraSpecificMods(*apptItr, caster, false, true);
+
     for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
         if (HasEffect(i))
             m_effects[i]->ChangeAmount(m_effects[i]->CalculateAmount(caster), false, true);
+
+    for (std::list<AuraApplication*>::const_iterator apptItr = applications.begin(); apptItr != applications.end(); ++apptItr)
+        if (!(*apptItr)->GetRemoveMode())
+            HandleAuraSpecificMods(*apptItr, caster, true, true);
+
     SetNeedClientUpdateForTargets();
 }
 
@@ -795,7 +821,12 @@ void Aura::ModStackAmount(int32 num, AuraRemoveMode removeMode)
     SetStackAmount(stackAmount);
 
     if (refresh)
-        RefreshDuration();
+    {
+        RefreshTimers();
+
+        // reset charges
+        SetCharges(CalcMaxCharges());
+    }
     SetNeedClientUpdateForTargets();
 }
 
@@ -834,7 +865,7 @@ bool Aura::CanBeSaved() const
     return true;
 }
 
-bool Aura::IsVisible() const
+bool Aura::CanBeSentToClient() const
 {
     return !IsPassive() || HasAreaAuraEffect(GetSpellProto()) || HasEffectType(SPELL_AURA_ABILITY_IGNORE_AURASTATE);
 }
@@ -863,7 +894,7 @@ void Aura::SetLoadedState(int32 maxduration, int32 duration, int32 charges, uint
         {
             m_effects[i]->SetAmount(amount[i]);
             m_effects[i]->SetCanBeRecalculated(recalculateMask & (1<<i));
-            m_effects[i]->CalculatePeriodic(caster);
+            m_effects[i]->CalculatePeriodic(caster, false, true);
             m_effects[i]->CalculateSpellMod();
             m_effects[i]->RecalculateAmount(caster);
         }
@@ -896,6 +927,15 @@ void Aura::HandleAllEffects(AuraApplication * aurApp, uint8 mode, bool apply)
             m_effects[i]->HandleEffect(aurApp, mode, apply);
 }
 
+void Aura::GetApplicationList(std::list<AuraApplication*> & applicationList) const
+{
+    for (Aura::ApplicationMap::const_iterator appIter = m_applications.begin(); appIter != m_applications.end(); ++appIter)
+    {
+        if (appIter->second->GetEffectMask())
+            applicationList.push_back(appIter->second);
+    }
+}
+
 void Aura::SetNeedClientUpdateForTargets() const
 {
     for (ApplicationMap::const_iterator appIter = m_applications.begin(); appIter != m_applications.end(); ++appIter)
@@ -903,7 +943,7 @@ void Aura::SetNeedClientUpdateForTargets() const
 }
 
 // trigger effects on real aura apply/remove
-void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster, bool apply)
+void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster, bool apply, bool onReapply)
 {
     Unit * target = aurApp->GetTarget();
     AuraRemoveMode removeMode = aurApp->GetRemoveMode();
@@ -1149,7 +1189,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
     else
     {
         // Remove Linked Auras
-        if (removeMode != AURA_REMOVE_BY_DEATH)
+        if (!onReapply && removeMode != AURA_REMOVE_BY_DEATH)
         {
             if (uint32 customAttr = sSpellMgr->GetSpellCustomAttr(GetId()))
             {
@@ -1289,7 +1329,11 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 switch(GetId())
                 {
                    case 48018: // Demonic Circle
-                        target->RemoveGameObject(GetId(), true);
+                        // Do not remove GO when aura is removed by stack
+                        // to prevent remove GO added by new spell
+                        // old one is already removed
+                        if (!onReapply)
+                            target->RemoveGameObject(GetId(), true);
                         target->RemoveAura(62388);
                     break;
                 }

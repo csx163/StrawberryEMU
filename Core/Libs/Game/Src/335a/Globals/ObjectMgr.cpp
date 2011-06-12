@@ -1576,12 +1576,6 @@ void ObjectMgr::LoadCreatures()
             data.phaseMask = 1;
         }
 
-        if (data.npcflag & UNIT_NPC_FLAG_SPELLCLICK)
-        {
-            sLog->outErrorDb("Table `creature` have creature (GUID: %u Entry: %u) with npcflag UNIT_NPC_FLAG_SPELLCLICK (%u) set, it is expected to be set by code handling `npc_spellclick_spells` content.", guid, data.id, UNIT_NPC_FLAG_SPELLCLICK);
-            data.npcflag &= ~UNIT_NPC_FLAG_SPELLCLICK;
-        }
-
         // Add to grid if not managed by the game event or pool system
         if (gameEvent == 0 && PoolId == 0)
             AddCreatureToGrid(guid, &data);
@@ -5451,12 +5445,29 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
     PreparedQueryResult result = CharDB.Query(stmt);
     if (!result)
     {
-        sLog->outString(">> No expired mails found or DB table `mail` is empty.");
+        sLog->outString(">> No expired mails found.");
         sLog->outString();
         return;                                             // any mails need to be returned or deleted
     }
 
-    uint32 count = 0;
+    std::map<uint32 /*messageId*/, MailItemInfoVec> itemsCache;
+    stmt = CharDB.GetPreparedStatement(CHAR_GET_EXPIRED_MAIL_ITEMS);
+    stmt->setUInt64(0, basetime);
+    if (PreparedQueryResult items = CharDB.Query(stmt))
+    {
+        MailItemInfo item;
+        do
+        {
+            Field* fields = items->Fetch();
+            item.item_guid = fields[0].GetUInt32();
+            item.item_template = fields[1].GetUInt32();
+            uint32 mailId = fields[2].GetUInt32();
+            itemsCache[mailId].push_back(item);
+        } while (items->NextRow());
+    }
+
+    uint32 deletedCount = 0;
+    uint32 returnedCount = 0;
     do
     {
 
@@ -5487,21 +5498,9 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
         // Delete or return mail
         if (has_items)
         {
-            stmt = CharDB.GetPreparedStatement(CHAR_GET_MAIL_ITEM_LITE);
-            stmt->setUInt32(0, m->messageID);
-            if (PreparedQueryResult resultItems = CharDB.Query(stmt))
-            {
-                do
-                {
-                    Field *fields2 = resultItems->Fetch();
+            // read items from cache
+            m->items.swap(itemsCache[m->messageID]);
 
-                    uint32 item_guid_low = fields2[0].GetUInt32();
-                    uint32 item_template = fields2[1].GetUInt32();
-
-                    m->AddItem(item_guid_low, item_template);
-                }
-                while (resultItems->NextRow());
-            }
             // if it is mail from non-player, or if it's already return mail, it shouldn't be returned, but deleted
             if (m->messageType != MAIL_NORMAL || (m->checked & (MAIL_CHECK_MASK_COD_PAYMENT | MAIL_CHECK_MASK_RETURNED)))
             {
@@ -5538,6 +5537,7 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
                     CharDB.Execute(stmt);
                 }
                 delete m;
+                ++returnedCount;
                 continue;
             }
         }
@@ -5546,7 +5546,7 @@ void ObjectMgr::ReturnOrDeleteOldMails(bool serverUp)
         stmt->setUInt32(0, m->messageID);
         CharDB.Execute(stmt);
         delete m;
-        ++count;
+        ++deletedCount;
     }
     while (result->NextRow());
 

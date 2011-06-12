@@ -76,6 +76,7 @@ class AuraApplication
 
         void SetNeedClientUpdate() { m_needClientUpdate = true;}
         bool IsNeedClientUpdate() const { return m_needClientUpdate;}
+        void BuildUpdatePacket(ByteBuffer& data, bool remove) const;
         void ClientUpdate(bool remove = false);
 };
 
@@ -128,6 +129,7 @@ class Aura
         int32 GetDuration() const { return m_duration; }
         void SetDuration(int32 duration, bool withMods = false);
         void RefreshDuration();
+        void RefreshTimers();
         bool IsExpired() const { return !GetDuration();}
         bool IsPermanent() const { return GetMaxDuration() == -1; }
 
@@ -146,7 +148,8 @@ class Aura
         bool IsRemovedOnShapeLost(Unit * target) const { return (GetCasterGUID() == target->GetGUID() && m_spellProto->Stances && !(m_spellProto->AttributesEx2 & SPELL_ATTR2_NOT_NEED_SHAPESHIFT) && !(m_spellProto->Attributes & SPELL_ATTR0_NOT_SHAPESHIFT)); }
         bool CanBeSaved() const;
         bool IsRemoved() const { return m_isRemoved; }
-        bool IsVisible() const;
+        bool CanBeSentToClient() const;
+
         // Single cast aura helpers
         bool IsSingleTarget() const {return m_isSingleTarget;}
         void SetIsSingleTarget(bool val) { m_isSingleTarget = val;}
@@ -164,12 +167,13 @@ class Aura
 
         // Helpers for targets
         ApplicationMap const & GetApplicationMap() {return m_applications;}
+        void GetApplicationList(std::list<AuraApplication*> & applicationList) const;
         const AuraApplication * GetApplicationOfTarget (uint64 const & guid) const { ApplicationMap::const_iterator itr = m_applications.find(guid); if (itr != m_applications.end()) return itr->second; return NULL; }
         AuraApplication * GetApplicationOfTarget (uint64 const & guid) { ApplicationMap::iterator itr = m_applications.find(guid); if (itr != m_applications.end()) return itr->second; return NULL; }
         bool IsAppliedOnTarget(uint64 const & guid) const { return m_applications.find(guid) != m_applications.end(); }
 
         void SetNeedClientUpdateForTargets() const;
-        void HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster, bool apply);
+        void HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster, bool apply, bool onReapply);
         bool CanBeAppliedOn(Unit *target);
         bool CheckAreaTarget(Unit *target);
 

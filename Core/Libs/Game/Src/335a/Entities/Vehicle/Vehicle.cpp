@@ -79,9 +79,6 @@ void Vehicle::Install()
                     if (!spellInfo)
                         continue;
 
-                    if (spellInfo->powerType == POWER_MANA)
-                        break;
-
                     if (spellInfo->powerType == POWER_ENERGY)
                     {
                         me->setPowerType(POWER_ENERGY);
