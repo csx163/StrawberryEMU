@@ -45,6 +45,7 @@
 #include "ConditionMgr.h"
 #include <functional>
 #include "Data.h"
+#include "CharTitles.h"
 
 class Item;
 
@@ -664,6 +665,9 @@ class ObjectMgr
         BarberShopStyleData const* GetBarberShopStyleData(uint32 StyleId);
 
         BattleMasterListData const* GetBattleMasterListData(uint32 MasterId);
+
+        CharStartOutfitData const* GetCharStartOutfitData(uint32 OutfitId);
+        CharTitlesData const* GetCharTitlesData(uint32 TitleId);
 
         ItemSetNameEntry const* GetItemSetNameEntry(uint32 itemId)
         {

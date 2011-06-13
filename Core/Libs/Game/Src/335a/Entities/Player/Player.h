@@ -2424,8 +2424,8 @@ class Player : public Unit, public GridObject<Player>
         void CompletedAchievement(AchievementData const* entry, bool ignoreGMAllowAchievementConfig = false);
 
         bool HasTitle(uint32 bitIndex);
-        bool HasTitle(CharTitlesEntry const* title) { return HasTitle(title->bit_index); }
-        void SetTitle(CharTitlesEntry const* title, bool lost = false);
+        bool HasTitle(CharTitlesData const* title) { return HasTitle(title->MaskIndex); }
+        void SetTitle(CharTitlesData const* title, bool lost = false);
 
         //bool isActiveObject() const { return true; }
         bool canSeeSpellClickOn(Creature const* creature) const;

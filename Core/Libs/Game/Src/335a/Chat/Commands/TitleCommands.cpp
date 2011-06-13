@@ -83,7 +83,7 @@ public:
         if (handler->HasLowerSecurity(target, 0))
             return false;
 
-        CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(id);
+        CharTitlesData const* titleInfo = sObjectMgr->GetCharTitlesData(id);
         if (!titleInfo)
         {
             handler->PSendSysMessage(LANG_INVALID_TITLE_ID, id);
@@ -94,9 +94,9 @@ public:
         std::string tNameLink = handler->GetNameLink(target);
 
         target->SetTitle(titleInfo);                            // to be sure that title now known
-        target->SetUInt32Value(PLAYER_CHOSEN_TITLE, titleInfo->bit_index);
+        target->SetUInt32Value(PLAYER_CHOSEN_TITLE, titleInfo->MaskIndex);
 
-        handler->PSendSysMessage(LANG_TITLE_CURRENT_RES, id, titleInfo->name[handler->GetSessionDbcLocale()], tNameLink.c_str());
+        handler->PSendSysMessage(LANG_TITLE_CURRENT_RES, id, titleInfo->Title.c_str(), tNameLink.c_str());
 
         return true;
     }
@@ -128,7 +128,7 @@ public:
         if (handler->HasLowerSecurity(target, 0))
             return false;
 
-        CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(id);
+        CharTitlesData const* titleInfo = sObjectMgr->GetCharTitlesData(id);
         if (!titleInfo)
         {
             handler->PSendSysMessage(LANG_INVALID_TITLE_ID, id);
@@ -140,7 +140,7 @@ public:
 
         char const* targetName = target->GetName();
         char titleNameStr[80];
-        snprintf(titleNameStr, 80, titleInfo->name[handler->GetSessionDbcLocale()], targetName);
+        snprintf(titleNameStr, 80, titleInfo->Title.c_str(), targetName);
 
         target->SetTitle(titleInfo);
         handler->PSendSysMessage(LANG_TITLE_ADD_RES, id, titleNameStr, tNameLink.c_str());
@@ -175,7 +175,7 @@ public:
         if (handler->HasLowerSecurity(target, 0))
             return false;
 
-        CharTitlesEntry const* titleInfo = sCharTitlesStore.LookupEntry(id);
+        CharTitlesData const* titleInfo = sObjectMgr->GetCharTitlesData(id);
         if (!titleInfo)
         {
             handler->PSendSysMessage(LANG_INVALID_TITLE_ID, id);
@@ -189,7 +189,7 @@ public:
 
         char const* targetName = target->GetName();
         char titleNameStr[80];
-        snprintf(titleNameStr, 80, titleInfo->name[handler->GetSessionDbcLocale()], targetName);
+        snprintf(titleNameStr, 80, titleInfo->Title.c_str(), targetName);
 
         handler->PSendSysMessage(LANG_TITLE_REMOVE_RES, id, titleNameStr, tNameLink.c_str());
 
@@ -226,9 +226,9 @@ public:
 
         uint64 titles2 = titles;
 
-        for (uint32 i = 1; i < sCharTitlesStore.GetNumRows(); ++i)
-            if (CharTitlesEntry const* tEntry = sCharTitlesStore.LookupEntry(i))
-                titles2 &= ~(uint64(1) << tEntry->bit_index);
+        for (uint32 i = 1; i < (uint32)sObjectMgr->GetCharTitlesData(i); ++i)
+            if (CharTitlesData const* tEntry = sObjectMgr->GetCharTitlesData(i))
+                titles2 &= ~(uint64(1) << tEntry->MaskIndex);
 
         titles &= ~titles2;                                     // remove not existed titles
 

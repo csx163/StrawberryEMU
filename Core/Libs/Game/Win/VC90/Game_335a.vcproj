@@ -885,6 +885,34 @@
 					RelativePath="..\..\Src\335a\DataStores\Structs\CharacterFacialHairStyles.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharBaseInfo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharHairGeosets.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharHairTextures.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharSections.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharStartOutfit.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharTitles.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\DataStores\Structs\CharVariations.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

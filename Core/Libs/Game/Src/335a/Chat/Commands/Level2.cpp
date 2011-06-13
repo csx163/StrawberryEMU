@@ -962,13 +962,13 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
     uint32 maxResults = sWorld->getIntConfig(CONFIG_MAX_RESULTS_LOOKUP_COMMANDS);
 
     // Search in CharTitles.dbc
-    for (uint32 id = 0; id < sCharTitlesStore.GetNumRows(); id++)
+    for (uint32 id = 0; id < (uint32)sObjectMgr->GetCharTitlesData(id); id++)
     {
-        CharTitlesEntry const *titleInfo = sCharTitlesStore.LookupEntry(id);
+        CharTitlesData const *titleInfo = sObjectMgr->GetCharTitlesData(id);
         if (titleInfo)
         {
             int loc = GetSessionDbcLocale();
-            std::string name = titleInfo->name[loc];
+            std::string name = titleInfo->Title;
             if (name.empty())
                 continue;
 
@@ -980,7 +980,7 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
                     if (loc == GetSessionDbcLocale())
                         continue;
 
-                    name = titleInfo->name[loc];
+                    name = titleInfo->Title;
                     if (name.empty())
                         continue;
 
@@ -999,7 +999,7 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
 
                 char const* knownStr = target && target->HasTitle(titleInfo) ? GetString(LANG_KNOWN) : "";
 
-                char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->bit_index
+                char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->MaskIndex
                     ? GetString(LANG_ACTIVE)
                     : "";
 
@@ -1008,9 +1008,9 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
 
                 // send title in "id (idx:idx) - [namedlink locale]" format
                 if (m_session)
-                    PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->bit_index, id, titleNameStr, localeNames[loc], knownStr, activeStr);
+                    PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->MaskIndex, id, titleNameStr, localeNames[loc], knownStr, activeStr);
                 else
-                    PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->bit_index, titleNameStr, localeNames[loc], knownStr, activeStr);
+                    PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->MaskIndex, titleNameStr, localeNames[loc], knownStr, activeStr);
 
                 ++counter;
             }
@@ -1035,16 +1035,16 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
     char const* knownStr = GetString(LANG_KNOWN);
 
     // Search in CharTitles.dbc
-    for (uint32 id = 0; id < sCharTitlesStore.GetNumRows(); id++)
+    for (uint32 id = 0; id < (uint32)sObjectMgr->GetCharTitlesData(id); id++)
     {
-        CharTitlesEntry const *titleInfo = sCharTitlesStore.LookupEntry(id);
+        CharTitlesData const *titleInfo = sObjectMgr->GetCharTitlesData(id);
         if (titleInfo && target->HasTitle(titleInfo))
         {
-            std::string name = titleInfo->name[loc];
+            std::string name = titleInfo->Title;
             if (name.empty())
                 continue;
 
-            char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->bit_index
+            char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE) == titleInfo->MaskIndex
                 ? GetString(LANG_ACTIVE)
                 : "";
 
@@ -1053,9 +1053,9 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
 
             // send title in "id (idx:idx) - [namedlink locale]" format
             if (m_session)
-                PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->bit_index, id, titleNameStr, localeNames[loc], knownStr, activeStr);
+                PSendSysMessage(LANG_TITLE_LIST_CHAT, id, titleInfo->MaskIndex, id, titleNameStr, localeNames[loc], knownStr, activeStr);
             else
-                PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->bit_index, name.c_str(), localeNames[loc], knownStr, activeStr);
+                PSendSysMessage(LANG_TITLE_LIST_CONSOLE, id, titleInfo->MaskIndex, name.c_str(), localeNames[loc], knownStr, activeStr);
         }
     }
     return true;

@@ -1283,6 +1283,13 @@ void World::SetInitialWorldSettings()
 
     sData->LoadCharacterFacialHairStylesData();
 
+    sData->LoadCharBaseInfoData();
+    sData->LoadCharHairGeosetsData();
+    sData->LoadCharHairTexturesData();
+    sData->LoadCharSectionsData();
+    sData->LoadCharStartOutfitData();
+    sData->LoadCharTitlesData();
+
     ///- Load the DBC files
     sLog->outString("Initialize data stores...");
     LoadDBCStores(m_dataPath);

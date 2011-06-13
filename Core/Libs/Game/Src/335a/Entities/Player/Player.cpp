@@ -76,6 +76,7 @@
 #include "InstanceScript.h"
 #include <cmath>
 #include "BarberShopStyle.h"
+#include "CharStartOutfit.h"
 
 #define ZONE_UPDATE_INTERVAL (1*IN_MILLISECONDS)
 
@@ -1093,12 +1094,12 @@ bool Player::Create(uint32 guidlow, const std::string& name, uint8 race, uint8 c
         addActionButton(action_itr->button, action_itr->action, action_itr->type);
 
     // original items
-    CharStartOutfitEntry const* oEntry = NULL;
-    for (uint32 i = 1; i < sCharStartOutfitStore.GetNumRows(); ++i)
+    CharStartOutfitData const* oEntry = NULL;
+    for (uint32 i = 1; i < (uint32)sObjectMgr->GetCharStartOutfitData(i); ++i)
     {
-        if (CharStartOutfitEntry const* entry = sCharStartOutfitStore.LookupEntry(i))
+        if (CharStartOutfitData const* entry = sObjectMgr->GetCharStartOutfitData(i))
         {
-            if (entry->RaceClassGender == RaceClassGender)
+            if ((entry->RaceId && entry->ClassId && entry->GenderId) == RaceClassGender)
             {
                 oEntry = entry;
                 break;
@@ -1108,7 +1109,7 @@ bool Player::Create(uint32 guidlow, const std::string& name, uint8 race, uint8 c
 
     if (oEntry)
     {
-        for (int j = 0; j < MAX_OUTFIT_ITEMS; ++j)
+        for (int j = 0; j < MAX_ITEMS; ++j)
         {
             if (oEntry->ItemId[j] <= 0)
                 continue;
@@ -14936,7 +14937,7 @@ void Player::RewardQuest(Quest const *pQuest, uint32 reward, Object* questGiver,
     // title reward
     if (pQuest->GetCharTitleId())
     {
-        if (CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(pQuest->GetCharTitleId()))
+        if (CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(pQuest->GetCharTitleId()))
             SetTitle(titleEntry);
     }
 
@@ -17639,7 +17640,7 @@ void Player::_LoadQuestStatusRewarded(PreparedQueryResult result)
                 // set rewarded title if any
                 if (pQuest->GetCharTitleId())
                 {
-                    if (CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(pQuest->GetCharTitleId()))
+                    if (CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(pQuest->GetCharTitleId()))
                         SetTitle(titleEntry);
                 }
 
@@ -22814,10 +22815,10 @@ bool Player::HasTitle(uint32 bitIndex)
     return HasFlag(PLAYER__FIELD_KNOWN_TITLES + fieldIndexOffset, flag);
 }
 
-void Player::SetTitle(CharTitlesEntry const* title, bool lost)
+void Player::SetTitle(CharTitlesData const* title, bool lost)
 {
-    uint32 fieldIndexOffset = title->bit_index / 32;
-    uint32 flag = 1 << (title->bit_index % 32);
+    uint32 fieldIndexOffset = title->MaskIndex / 32;
+    uint32 flag = 1 << (title->MaskIndex % 32);
 
     if (lost)
     {
@@ -22835,7 +22836,7 @@ void Player::SetTitle(CharTitlesEntry const* title, bool lost)
     }
 
     WorldPacket data(SMSG_TITLE_EARNED, 4 + 4);
-    data << uint32(title->bit_index);
+    data << uint32(title->MaskIndex);
     data << uint32(lost ? 0 : 1);                           // 1 - earned, 0 - lost
     GetSession()->SendPacket(&data);
 }

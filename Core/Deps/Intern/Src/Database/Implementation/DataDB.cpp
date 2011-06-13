@@ -65,5 +65,22 @@ void DataDBConnection::DoPrepareStatements()
     PREPARE_STATEMENT(DATA_LOAD_CFG_CATEGORIES_DATA_DBC, "SELECT Id, LocaleMask, CharSetMask, Flags, Name, NameFlags FROM Cfg_Categories", CONNECTION_SYNCH);
     PREPARE_STATEMENT(DATA_LOAD_CFG_CONFIGS_DATA_DBC, "SELECT Id, GenId, PvP, RolePlay FROM Cfg_Configs", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC, "SELECT GenId, RaceId, VariationId, GeoSet, GeoSet1, GeoSet2, GeoSet3, GeoSet4 FROM CharacterFacialHairStyles", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC, "SELECT GenId, RaceId, VariationId, GeoSet, GeoSet1, GeoSet2, GeoSet3, GeoSet4 FROM "
+                                                                    "CharacterFacialHairStyles", CONNECTION_SYNCH);
+
+    PREPARE_STATEMENT(DATA_LOAD_CHARBASEINFO_DATA_DBC, "SELECT Id, RaceId, ClassId FROM CharBaseInfo", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARHAIRGEOSETS_DATA_DBC, "SELECT Id, RaceId, GenderId, VariationId, Geoset, ShowScalp FROM CharHairGeosets", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARHAIRTEXTURES_DATA_DBC, "SELECT Id, RaceId, GenderId, Unknown, Unknown1, Value, Value1 FROM CharHairTextures", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARSECTIONS_DATA_DBC, "SELECT Id, RaceId, GenderId, BaseSection, TextureName, NameFlags, VariationIndex, ColorIndex FROM CharSections", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARSTARTOUTFIT_DATA_DBC, "SELECT Id, RaceId, ClassId, GenderId, SomeValues, ItemId, ItemId1, ItemId2, ItemId3, ItemId4, ItemId5, ItemId6, ItemId7, "
+                                                          "ItemId8, ItemId9, ItemId10, ItemId11, ItemId12, ItemId13, ItemId14, ItemId15, ItemId16, ItemId17, ItemId18, ItemId19, "
+                                                          "ItemId20, ItemId21, ItemId22, ItemId23, DisplayId, DisplayId1, DisplayId2, DisplayId3, DisplayId4, DisplayId5, DisplayId6, "
+                                                          "DisplayId7, DisplayId8, DisplayId9, DisplayId10, DisplayId11, DisplayId12, DisplayId13, DisplayId14, DisplayId15, DisplayId16, "
+                                                          "DisplayId17, DisplayId18, DisplayId19, DisplayId20, DisplayId21, DisplayId22, DisplayId23, InventoryType, InventoryType1, "
+                                                          "InventoryType2, InventoryType3, InventoryType4, InventoryType5, InventoryType6, InventoryType7, InventoryType8, InventoryType9, "
+                                                          "InventoryType10, InventoryType11, InventoryType12, InventoryType13, InventoryType14, InventoryType15, InventoryType16, "
+                                                          "InventoryType17, InventoryType18, InventoryType19, InventoryType20, InventoryType21, InventoryType22, InventoryType23 "
+                                                          "FROM CharStartOutfit", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARTITLES_DATA_DBC, "SELECT Id, ConditionId, Title, TitleFlags, SubTitle, SubTitleFlags, MaskIndex FROM CharTitles", CONNECTION_SYNCH);
+    //PREPARE_STATEMENT(DATA_LOAD_CHARVARIATIONS_DATA_DBC, "SELECT FROM CharVariations", CONNECTION_SYNCH);
 }

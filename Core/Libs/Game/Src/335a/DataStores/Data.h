@@ -36,14 +36,29 @@
 #include "AttackAnimTypes.h"
 
 #include "AuctionHouse.h"
+
 #include "BankBagSlotPrices.h"
+
 #include "BannedAddOns.h"
+
 #include "BarberShopStyle.h"
+
 #include "BattlemasterList.h"
+
 #include "CameraShakes.h"
+
 #include "Cfg_Categories.h"
 #include "Cfg_Configs.h"
+
 #include "CharacterFacialHairStyles.h"
+
+#include "CharBaseInfo.h"
+#include "CharHairGeosets.h"
+#include "CharHairTextures.h"
+#include "CharSections.h"
+#include "CharStartOutfit.h"
+#include "CharTitles.h"
+#include "CharVariations.h"
 
 class Data
 {
@@ -79,6 +94,14 @@ class Data
 
         void LoadCharacterFacialHairStylesData();
 
+        void LoadCharBaseInfoData();
+        void LoadCharHairGeosetsData();
+        void LoadCharHairTexturesData();
+        void LoadCharSectionsData();
+        void LoadCharStartOutfitData();
+        void LoadCharTitlesData();
+        void LoadCharVariationsData();
+
         AchievementDataContainer AchievementDataTable;
         AchievementCategoryDataContainer AchievementCategoryDataTable;
         AchievementCriteriaDataContainer AchievementCriteriaDataTable;
@@ -95,7 +118,6 @@ class Data
 
         AuctionHouseDataContainer AuctionHouseDataTable;
 
-
         BankBagSlotPricesDataContainer BankBagSlotPricesDataTable;
 
         BannedAddOnsDataContainer BannedAddOnsDataTable;
@@ -110,6 +132,14 @@ class Data
         Cfg_ConfigsDataContainer Cfg_ConfigsDataTable;
 
         CharacterFacialHairStylesDataContainer CharacterFacialHairStylesDataTable;
+
+        CharBaseInfoDataContainer CharBaseInfoDataTable;
+        CharHairGeosetsDataContainer CharHairGeosetsDataTable;
+        CharHairTexturesDataContainer CharHairTexturesDataTable;
+        CharSectionsDataContainer CharSectionsDataTable;
+        CharStartOutfitDataContainer CharStartOutfitDataTable;
+        CharTitlesDataContainer CharTitlesDataTable;
+        CharVariationsDataContainer CharVariationsDataTable;
 };
 
 #define sData ACE_Singleton<Data, ACE_Null_Mutex>::instance()

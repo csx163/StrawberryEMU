@@ -851,3 +851,291 @@ void Data::LoadCharacterFacialHairStylesData()
         }
     }
 }
+
+void Data::LoadCharBaseInfoData()
+{
+    sLog->outString("Loading CharBaseInfoData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharBaseInfoDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARBASEINFO_DATA_DBC);
+        PreparedQueryResult CharBaseInfoDataDataResult = DataDB.Query(CharBaseInfoDataStatement);
+
+        if (!CharBaseInfoDataDataResult)
+        {
+            sLog->outError("Error while loading CharBaseInfoData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharBaseInfoDataDataResult->Fetch();
+                CharBaseInfoData charBaseInfoData;
+
+                charBaseInfoData.Id      = TableFields[0].GetUInt32();
+                charBaseInfoData.RaceId  = TableFields[1].GetUInt32();
+                charBaseInfoData.ClassId = TableFields[2].GetUInt32();
+
+                CharBaseInfoDataTable[charBaseInfoData.Id] = charBaseInfoData;
+
+                ++count;
+            }
+            while (CharBaseInfoDataDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u charbase infos %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharHairGeosetsData()
+{
+    sLog->outString("Loading CharHairGeosetsData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharHairGeosetsDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARHAIRGEOSETS_DATA_DBC);
+        PreparedQueryResult CharHairGeosetsDataResult = DataDB.Query(CharHairGeosetsDataStatement);
+
+        if (!CharHairGeosetsDataResult)
+        {
+            sLog->outError("Error while loading CharHairGeosetsData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharHairGeosetsDataResult->Fetch();
+                CharHairGeosetsData charHairGeosetsData;
+
+                charHairGeosetsData.Id          = TableFields[0].GetUInt32();
+                charHairGeosetsData.RaceId      = TableFields[1].GetUInt32();
+                charHairGeosetsData.GenderId    = TableFields[2].GetUInt32();
+                charHairGeosetsData.VariationId = TableFields[3].GetUInt32();
+                charHairGeosetsData.Geoset      = TableFields[4].GetUInt32();
+                charHairGeosetsData.ShowScalp   = TableFields[5].GetUInt32();
+
+                CharHairGeosetsDataTable[charHairGeosetsData.Id] = charHairGeosetsData;
+
+                ++count;
+            }
+            while (CharHairGeosetsDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u charhair geosets %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharHairTexturesData()
+{
+    sLog->outString("Loading CharHairTexturesData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharHairTexturesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARHAIRTEXTURES_DATA_DBC);
+        PreparedQueryResult CharHairTexturesDataResult = DataDB.Query(CharHairTexturesDataStatement);
+
+        if (!CharHairTexturesDataResult)
+        {
+            sLog->outError("Error while loading CharHairTexturesData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharHairTexturesDataResult->Fetch();
+                CharHairTexturesData charHairTexturesData;
+
+                charHairTexturesData.Id       = TableFields[0].GetUInt32();
+                charHairTexturesData.RaceId   = TableFields[1].GetUInt32();
+                charHairTexturesData.GenderId = TableFields[2].GetUInt32();
+                charHairTexturesData.Unknown  = TableFields[3].GetUInt32();
+                charHairTexturesData.Unknown1 = TableFields[4].GetUInt32();
+                charHairTexturesData.Value    = TableFields[5].GetInt32();
+                charHairTexturesData.Value1   = TableFields[6].GetInt32();
+
+                CharHairTexturesDataTable[charHairTexturesData.Id] = charHairTexturesData;
+
+                ++count;
+            }
+            while (CharHairTexturesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u charhair textures %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharSectionsData()
+{
+    sLog->outString("Loading CharSectionsData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharSectionsDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARSECTIONS_DATA_DBC);
+        PreparedQueryResult CharSectionsDataResult = DataDB.Query(CharSectionsDataStatement);
+
+        if (!CharSectionsDataResult)
+        {
+            sLog->outError("Error while loading CharSectionsData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharSectionsDataResult->Fetch();
+                CharSectionsData charSectionsData;
+
+                charSectionsData.Id             = TableFields[0].GetUInt32();
+                charSectionsData.RaceId         = TableFields[1].GetUInt32();
+                charSectionsData.GenderId       = TableFields[2].GetUInt32();
+                charSectionsData.BaseSection    = TableFields[3].GetUInt32();
+                charSectionsData.TextureName    = TableFields[4].GetString();
+                charSectionsData.NameFlags      = TableFields[5].GetUInt32();
+                charSectionsData.VariationIndex = TableFields[6].GetUInt32();
+                charSectionsData.ColorIndex     = TableFields[7].GetUInt32();
+
+                CharSectionsDataTable[charSectionsData.Id] = charSectionsData;
+
+                ++count;
+            }
+            while (CharSectionsDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u char sections %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharStartOutfitData()
+{
+    sLog->outString("Loading CharStartOutfitData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharStartOutfitDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARSTARTOUTFIT_DATA_DBC);
+        PreparedQueryResult CharStartOutfitDataResult = DataDB.Query(CharStartOutfitDataStatement);
+
+        if (!CharStartOutfitDataResult)
+        {
+            sLog->outError("Error while loading CharStartOutfitData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharStartOutfitDataResult->Fetch();
+                CharStartOutfitData charStartOutfitData;
+
+                charStartOutfitData.Id         = TableFields[0].GetUInt32();
+                charStartOutfitData.RaceId     = TableFields[1].GetUInt8();
+                charStartOutfitData.ClassId    = TableFields[2].GetUInt8();
+                charStartOutfitData.GenderId   = TableFields[3].GetUInt8();
+                charStartOutfitData.SomeValues = TableFields[4].GetUInt8();
+
+                for (int i = 0; i < MAX_ITEMS; i++)
+                {
+                    charStartOutfitData.ItemId[i]        = TableFields[5 + i].GetUInt32();
+                    charStartOutfitData.DisplayId[i]     = TableFields[29 + i].GetUInt32();
+                    charStartOutfitData.InventoryType[i] = TableFields[53 + i].GetUInt32();
+                }
+
+                CharStartOutfitDataTable[charStartOutfitData.Id] = charStartOutfitData;
+
+                ++count;
+            }
+            while (CharStartOutfitDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u char startoutfits %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+void Data::LoadCharTitlesData()
+{
+    sLog->outString("Loading CharTitlesData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharTitlesDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARTITLES_DATA_DBC);
+        PreparedQueryResult CharTitlesDataResult = DataDB.Query(CharTitlesDataStatement);
+
+        if (!CharTitlesDataResult)
+        {
+            sLog->outError("Error while loading CharTitlesData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharTitlesDataResult->Fetch();
+                CharTitlesData charTitlesData;
+
+                charTitlesData.Id            = TableFields[0].GetUInt32();
+                charTitlesData.ConditionId   = TableFields[1].GetUInt32();
+                charTitlesData.Title         = TableFields[2].GetString();
+                charTitlesData.TitleFlags    = TableFields[3].GetUInt32();
+                charTitlesData.SubTitle      = TableFields[4].GetString();
+                charTitlesData.SubTitleFlags = TableFields[5].GetUInt32();
+                charTitlesData.MaskIndex     = TableFields[6].GetUInt32();
+
+                CharTitlesDataTable[charTitlesData.Id] = charTitlesData;
+
+                ++count;
+            }
+            while (CharTitlesDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u char titles %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }
+}
+
+
+void Data::LoadCharVariationsData()
+{
+    /*sLog->outString("Loading CharVariationsData Data...");
+    {
+        uint32 oldMSTime = getMSTime();
+
+        PreparedStatement* CharVariationsDataStatement = DataDB.GetPreparedStatement(DATA_LOAD_CHARVARIATIONS_DATA_DBC);
+        PreparedQueryResult CharVariationsDataResult = DataDB.Query(CharVariationsDataStatement);
+
+        if (!CharVariationsDataResult)
+        {
+            sLog->outError("Error while loading CharVariationsData Data");
+            sLog->outString();
+        } 
+        else
+        {
+            uint32 count = 0;
+            do
+            {
+                Field* TableFields = CharVariationsDataResult->Fetch();
+                CharVariationsData charVariationsData;
+
+                CharVariationsDataTable[charVariationsData.Id] = charVariationsData;
+
+                ++count;
+            }
+            while (CharVariationsDataResult->NextRow());
+
+            sLog->outString(">> Loaded %u char variations %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+            sLog->outString();
+        }
+    }*/
+}

@@ -594,7 +594,7 @@ void AchievementMgr::LoadFromDB(PreparedQueryResult achievementResult, PreparedQ
             // title achievement rewards are retroactive
             if (AchievementReward const* reward = sAchievementMgr->GetAchievementReward(achievement))
                 if (uint32 titleId = reward->titleId[GetPlayer()->GetTeam() == ALLIANCE ? 0 : 1])
-                    if (CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(titleId))
+                    if (CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(titleId))
                         if (!GetPlayer()->HasTitle(titleEntry))
                             GetPlayer()->SetTitle(titleEntry);
 
@@ -2042,7 +2042,7 @@ void AchievementMgr::CompletedAchievement(AchievementData const* achievement, bo
 
     // titles
     if (uint32 titleId = reward->titleId[GetPlayer()->GetTeam() == ALLIANCE ? 0 : 1])
-        if (CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(titleId))
+        if (CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(titleId))
             GetPlayer()->SetTitle(titleEntry);
 
     // mail
@@ -2467,7 +2467,7 @@ void AchievementGlobalMgr::LoadRewards()
 
         if (reward.titleId[0])
         {
-            CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(reward.titleId[0]);
+            CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(reward.titleId[0]);
             if (!titleEntry)
             {
                 sLog->outErrorDb("Table `achievement_reward` (Entry: %u) has invalid title id (%u) in `title_A`, set to 0", entry, reward.titleId[0]);
@@ -2477,7 +2477,7 @@ void AchievementGlobalMgr::LoadRewards()
 
         if (reward.titleId[1])
         {
-            CharTitlesEntry const* titleEntry = sCharTitlesStore.LookupEntry(reward.titleId[1]);
+            CharTitlesData const* titleEntry = sObjectMgr->GetCharTitlesData(reward.titleId[1]);
             if (!titleEntry)
             {
                 sLog->outErrorDb("Table `achievement_reward` (Entry: %u) has invalid title id (%u) in `title_H`, set to 0", entry, reward.titleId[1]);

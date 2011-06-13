@@ -2696,13 +2696,13 @@ void ObjectMgr::LoadItemTemplates()
 
     // Check if item templates for DBC referenced character start outfit are present
     std::set<uint32> notFoundOutfit;
-    for (uint32 i = 1; i < sCharStartOutfitStore.GetNumRows(); ++i)
+    for (uint32 i = 1; i < (uint32)sObjectMgr->GetCharStartOutfitData(i); ++i)
     {
-        CharStartOutfitEntry const* entry = sCharStartOutfitStore.LookupEntry(i);
+        CharStartOutfitData const* entry = sObjectMgr->GetCharStartOutfitData(i);
         if (!entry)
             continue;
 
-        for (int j = 0; j < MAX_OUTFIT_ITEMS; ++j)
+        for (int j = 0; j < MAX_ITEMS; ++j)
         {
             if (entry->ItemId[j] <= 0)
                 continue;
@@ -3100,19 +3100,19 @@ void ObjectMgr::PlayerCreateInfoAddItemHelper(uint32 race_, uint32 class_, uint3
 
         uint32 RaceClass = (race_) | (class_ << 8);
         bool doneOne = false;
-        for (uint32 i = 1; i < sCharStartOutfitStore.GetNumRows(); ++i)
+        for (uint32 i = 1; i < (uint32)sObjectMgr->GetCharStartOutfitData(i); ++i)
         {
-            if (CharStartOutfitEntry const* entry = sCharStartOutfitStore.LookupEntry(i))
+            if (CharStartOutfitData const* entry = sObjectMgr->GetCharStartOutfitData(i))
             {
-                if (entry->RaceClassGender == RaceClass || entry->RaceClassGender == (RaceClass | (1 << 16)))
+                if ((entry->RaceId && entry->ClassId) == RaceClass || (entry->RaceId && entry->ClassId) == (RaceClass | (1 << 16)))
                 {
                     bool found = false;
-                    for (uint8 x = 0; x < MAX_OUTFIT_ITEMS; ++x)
+                    for (uint8 x = 0; x < MAX_ITEMS; ++x)
                     {
                         if (entry->ItemId[x] > 0 && uint32(entry->ItemId[x]) == itemId)
                         {
                             found = true;
-                            const_cast<CharStartOutfitEntry*>(entry)->ItemId[x] = 0;
+                            const_cast<CharStartOutfitData*>(entry)->ItemId[x] = 0;
                             break;
                         }
                     }
@@ -4038,7 +4038,7 @@ void ObjectMgr::LoadQuests()
             // warning
         }
 
-        if (qinfo->CharTitleId && !sCharTitlesStore.LookupEntry(qinfo->CharTitleId))
+        if (qinfo->CharTitleId && !sObjectMgr->GetCharTitlesData(qinfo->CharTitleId))
         {
             sLog->outErrorDb("Quest %u has `CharTitleId` = %u but CharTitle Id %u does not exist, quest can't be rewarded with title.",
                 qinfo->GetQuestId(), qinfo->GetCharTitleId(), qinfo->GetCharTitleId());
@@ -9170,6 +9170,24 @@ BattleMasterListData const* ObjectMgr::GetBattleMasterListData(uint32 MasterId)
 {
     BattleMasterListDataContainer::const_iterator itr = sData->BattleMasterListDataTable.find(MasterId);
     if (itr != sData->BattleMasterListDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+CharStartOutfitData const* ObjectMgr::GetCharStartOutfitData(uint32 OutfitId)
+{
+    CharStartOutfitDataContainer::const_iterator itr = sData->CharStartOutfitDataTable.find(OutfitId);
+    if (itr != sData->CharStartOutfitDataTable.end())
+        return &(itr->second);
+
+    return NULL;
+}
+
+CharTitlesData const* ObjectMgr::GetCharTitlesData(uint32 TitleId)
+{
+    CharTitlesDataContainer::const_iterator itr = sData->CharTitlesDataTable.find(TitleId);
+    if (itr != sData->CharTitlesDataTable.end())
         return &(itr->second);
 
     return NULL;
