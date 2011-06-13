@@ -259,6 +259,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                             sScriptMgr->OnPacketReceive(m_Socket, WorldPacket(*packet));
                             (this->*clientOpHandle.handler)(*packet);
                             (this->*clientServerOpHandle.handler)(*packet);
+                            (this->*serverOpHandle.handler)(*packet);
                             if (sLog->IsOutDebug() && packet->rpos() > packet->wpos())
                                 LogUnprocessedTail(packet);
                         }
@@ -272,7 +273,9 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         {
                             // not expected _player or must checked in packet handler
                             sScriptMgr->OnPacketReceive(m_Socket, WorldPacket(*packet));
+                            (this->*clientOpHandle.handler)(*packet);
                             (this->*clientServerOpHandle.handler)(*packet);
+                            (this->*serverOpHandle.handler)(*packet);
                             if (sLog->IsOutDebug() && packet->rpos() > packet->wpos())
                                 LogUnprocessedTail(packet);
                         }
@@ -285,7 +288,9 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         else
                         {
                             sScriptMgr->OnPacketReceive(m_Socket, WorldPacket(*packet));
+                            (this->*clientOpHandle.handler)(*packet);
                             (this->*clientServerOpHandle.handler)(*packet);
+                            (this->*serverOpHandle.handler)(*packet);
                             if (sLog->IsOutDebug() && packet->rpos() > packet->wpos())
                                 LogUnprocessedTail(packet);
                         }
@@ -305,6 +310,8 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
 
                         sScriptMgr->OnPacketReceive(m_Socket, WorldPacket(*packet));
                         (this->*clientOpHandle.handler)(*packet);
+                        (this->*clientServerOpHandle.handler)(*packet);
+                        (this->*serverOpHandle.handler)(*packet);
                         if (sLog->IsOutDebug() && packet->rpos() > packet->wpos())
                             LogUnprocessedTail(packet);
                         break;
