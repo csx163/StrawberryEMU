@@ -68,7 +68,7 @@ void DataDBConnection::DoPrepareStatements()
     PREPARE_STATEMENT(DATA_LOAD_CHARACTERFACIALHAIRSTYLES_DATA_DBC, "SELECT GenId, RaceId, VariationId, GeoSet, GeoSet1, GeoSet2, GeoSet3, GeoSet4 FROM "
                                                                     "CharacterFacialHairStyles", CONNECTION_SYNCH);
 
-    PREPARE_STATEMENT(DATA_LOAD_CHARBASEINFO_DATA_DBC, "SELECT Id, RaceId, ClassId FROM CharBaseInfo", CONNECTION_SYNCH);
+    PREPARE_STATEMENT(DATA_LOAD_CHARBASEINFO_DATA_DBC, "SELECT RaceId, ClassId FROM CharBaseInfo", CONNECTION_SYNCH);
     PREPARE_STATEMENT(DATA_LOAD_CHARHAIRGEOSETS_DATA_DBC, "SELECT Id, RaceId, GenderId, VariationId, Geoset, ShowScalp FROM CharHairGeosets", CONNECTION_SYNCH);
     PREPARE_STATEMENT(DATA_LOAD_CHARHAIRTEXTURES_DATA_DBC, "SELECT Id, RaceId, GenderId, Unknown, Unknown1, Value, Value1 FROM CharHairTextures", CONNECTION_SYNCH);
     PREPARE_STATEMENT(DATA_LOAD_CHARSECTIONS_DATA_DBC, "SELECT Id, RaceId, GenderId, BaseSection, TextureName, NameFlags, VariationIndex, ColorIndex FROM CharSections", CONNECTION_SYNCH);
