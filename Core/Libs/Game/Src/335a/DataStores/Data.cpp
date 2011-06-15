@@ -1045,11 +1045,13 @@ void Data::LoadCharStartOutfitData()
                 charStartOutfitData.SomeValues = TableFields[4].GetUInt8();
 
                 for (int i = 0; i < MAX_ITEMS; i++)
-                {
-                    charStartOutfitData.ItemId[i]        = TableFields[5 + i].GetUInt32();
-                    charStartOutfitData.DisplayId[i]     = TableFields[29 + i].GetUInt32();
+                    charStartOutfitData.ItemId[i] = TableFields[5 + i].GetUInt32();
+
+                for (int i = 0; i < MAX_ITEMS; i++)
+                    charStartOutfitData.DisplayId[i] = TableFields[29 + i].GetUInt32();
+
+                for (int i = 0; i < MAX_ITEMS; i++)
                     charStartOutfitData.InventoryType[i] = TableFields[53 + i].GetUInt32();
-                }
 
                 CharStartOutfitDataTable[charStartOutfitData.Id] = charStartOutfitData;
 
