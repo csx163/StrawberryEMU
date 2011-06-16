@@ -1099,7 +1099,7 @@ bool Player::Create(uint32 guidlow, const std::string& name, uint8 race, uint8 c
     {
         if (CharStartOutfitData const* entry = sObjectMgr->GetCharStartOutfitData(i))
         {
-            if ((entry->RaceId && entry->ClassId && entry->GenderId) == RaceClassGender)
+            if (entry->RaceId == RaceClassGender || entry->ClassId == RaceClassGender || entry->GenderId == RaceClassGender)
             {
                 oEntry = entry;
                 break;

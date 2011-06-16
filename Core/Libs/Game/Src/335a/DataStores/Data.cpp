@@ -874,11 +874,11 @@ void Data::LoadCharBaseInfoData()
                 Field* TableFields = CharBaseInfoDataDataResult->Fetch();
                 CharBaseInfoData charBaseInfoData;
 
-                charBaseInfoData.Id      = TableFields[0].GetUInt32();
-                charBaseInfoData.RaceId  = TableFields[1].GetUInt32();
-                charBaseInfoData.ClassId = TableFields[2].GetUInt32();
+                charBaseInfoData.RaceId  = TableFields[0].GetUInt32();
+                charBaseInfoData.ClassId = TableFields[0].GetUInt32();
 
-                CharBaseInfoDataTable[charBaseInfoData.Id] = charBaseInfoData;
+                CharBaseInfoDataTable[charBaseInfoData.RaceId] = charBaseInfoData;
+                CharBaseInfoDataTable[charBaseInfoData.ClassId] = charBaseInfoData;
 
                 ++count;
             }

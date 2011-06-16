@@ -2710,7 +2710,11 @@ void ObjectMgr::LoadItemTemplates()
             uint32 item_id = entry->ItemId[j];
 
             if (!sObjectMgr->GetItemTemplate(item_id))
+            {
+                //item_id = 0;
+                sLog->outErrorDb("Not found: ", item_id);    // For debugging
                 notFoundOutfit.insert(item_id);
+            }
         }
     }
 
@@ -3104,7 +3108,7 @@ void ObjectMgr::PlayerCreateInfoAddItemHelper(uint32 race_, uint32 class_, uint3
         {
             if (CharStartOutfitData const* entry = sObjectMgr->GetCharStartOutfitData(i))
             {
-                if ((entry->RaceId && entry->ClassId) == RaceClass || (entry->RaceId && entry->ClassId) == (RaceClass | (1 << 16)))
+                if (entry->RaceId == RaceClass || entry->ClassId == RaceClass || entry->RaceId == (RaceClass | (1 << 16)) && entry->ClassId == (RaceClass | (1 << 16)))
                 {
                     bool found = false;
                     for (uint8 x = 0; x < MAX_ITEMS; ++x)

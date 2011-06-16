@@ -22,7 +22,6 @@
 
 struct CharBaseInfoData
 {
-    uint32 Id;
     uint32 RaceId;
     uint32 ClassId;
 };
