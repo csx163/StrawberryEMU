@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -15,10 +15,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/// \addtogroup Trinityd
-/// @{
-/// \file
 
 #include "Common.h"
 #include "ObjectMgr.h"
@@ -41,7 +37,7 @@
 
 char * command_finder(const char* text, int state)
 {
-    static int idx,len;
+    static int idx, len;
     const char* ret;
     ChatCommand *cmd = ChatHandler::getCommandTable();
 
@@ -76,9 +72,9 @@ char ** cli_completion(const char * text, int start, int /*end*/)
     matches = (char**)NULL;
 
     if (start == 0)
-        matches = rl_completion_matches((char*)text,&command_finder);
+        matches = rl_completion_matches((char*)text, &command_finder);
     else
-        rl_bind_key('\t',rl_abort);
+        rl_bind_key('\t', rl_abort);
     return (matches);
 }
 
@@ -96,11 +92,11 @@ void utf8print(void* /*arg*/, const char* str)
 #if PLATFORM == PLATFORM_WINDOWS
     wchar_t wtemp_buf[6000];
     size_t wtemp_len = 6000-1;
-    if (!Utf8toWStr(str,strlen(str),wtemp_buf,wtemp_len))
+    if (!Utf8toWStr(str, strlen(str), wtemp_buf, wtemp_len))
         return;
 
     char temp_buf[6000];
-    CharToOemBuffW(&wtemp_buf[0],&temp_buf[0],wtemp_len+1);
+    CharToOemBuffW(&wtemp_buf[0], &temp_buf[0], wtemp_len+1);
     printf(temp_buf);
 #else
 {
@@ -191,7 +187,7 @@ std::string ChatHandler::GenerateDeletedCharacterGUIDsWhereStr(DeletedInfoList::
 
         DeletedInfoList::const_iterator itr2 = itr;
         if (++itr2 != itr_end)
-            wherestr << "','";
+            wherestr << "', '";
     }
     wherestr << "')";
     return wherestr.str();
@@ -436,7 +432,7 @@ bool ChatHandler::HandleCharacterEraseCommand(const char* args){
     if (!*args)
         return false;
 
-    char *character_name_str = strtok((char*)args," ");
+    char *character_name_str = strtok((char*)args, " ");
     if (!character_name_str)
         return false;
 
@@ -447,7 +443,7 @@ bool ChatHandler::HandleCharacterEraseCommand(const char* args){
     uint64 character_guid;
     uint32 account_id;
 
-    Player *player = sObjectMgr->GetPlayer(character_name.c_str());
+    Player* player = sObjectMgr->GetPlayer(character_name.c_str());
     if (player)
     {
         character_guid = player->GetGUID();
@@ -459,7 +455,7 @@ bool ChatHandler::HandleCharacterEraseCommand(const char* args){
         character_guid = sObjectMgr->GetPlayerGUIDByName(character_name);
         if (!character_guid)
         {
-            PSendSysMessage(LANG_NO_PLAYER,character_name.c_str());
+            PSendSysMessage(LANG_NO_PLAYER, character_name.c_str());
             SetSentErrorMessage(true);
             return false;
         }
@@ -468,10 +464,10 @@ bool ChatHandler::HandleCharacterEraseCommand(const char* args){
     }
 
     std::string account_name;
-    sAccountMgr->GetName (account_id,account_name);
+    sAccountMgr->GetName (account_id, account_name);
 
     Player::DeleteFromDB(character_guid, account_id, true, true);
-    PSendSysMessage(LANG_CHARACTER_DELETED,character_name.c_str(),GUID_LOPART(character_guid),account_name.c_str(), account_id);
+    PSendSysMessage(LANG_CHARACTER_DELETED, character_name.c_str(), GUID_LOPART(character_guid), account_name.c_str(), account_id);
     return true;
 }
 
@@ -580,14 +576,14 @@ void CliRunnable::run()
     {
         fflush(stdout);
 
-        char *command_str ;             // = fgets(commandbuf,sizeof(commandbuf),stdin);
+        char *command_str ;             // = fgets(commandbuf, sizeof(commandbuf), stdin);
 
         #if PLATFORM == PLATFORM_WINDOWS
         char commandbuf[256];
         command_str = fgets(commandbuf, sizeof(commandbuf), stdin);
         #else
         command_str = readline("TC>");
-        rl_bind_key('\t',rl_complete);
+        rl_bind_key('\t', rl_complete);
         #endif
         if (command_str != NULL)
         {

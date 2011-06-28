@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -30,9 +30,9 @@
 
 #ifdef _WIN32
 #include "ServiceWin32.h"
-char serviceName[] = "worldserver";
-char serviceLongName[] = "StrawberryCore world service";
-char serviceDescription[] = "StrawberryCore World of Warcraft emulator world service";
+char serviceName[] = "WorldServer";
+char serviceLongName[] = "Strawberry-Pr0jcts WorldServer";
+char serviceDescription[] = "Strawberry-Pr0jcts World of Warcraft emulator world service";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -43,9 +43,8 @@ int m_ServiceStatus = -1;
 #endif
 
 WorldDBWorkerPool WorldDB;                      ///< Accessor to the world database
-CharDBWorkerPool CharDB;                        ///< Accessor to the character database
+CharDBWorkerPool CharDB;              ///< Accessor to the character database
 RealmDBWorkerPool RealmDB;                      ///< Accessor to the realm/login database
-DataDBWorkerPool DataDB;                        ///< Accessor to the data database
 
 uint32 realmID;                                             ///< Id of the realm
 
@@ -60,10 +59,10 @@ void usage(const char *prog)
         "    -s install               install service\n\r"
         "    -s uninstall             uninstall service\n\r"
         #endif
-        ,prog);
+        , prog);
 }
 
-/// Launch the StrawberryCore server
+/// Launch the Strawberry-Pr0jcts server
 extern int main(int argc, char **argv)
 {
     ///- Command line parsing to get the configuration file name
@@ -126,7 +125,7 @@ extern int main(int argc, char **argv)
     if (!sConfig->SetSource(cfg_file))
     {
         sLog->outError("Invalid or missing configuration file : %s", cfg_file);
-        sLog->outError("Verify that the file exists and has \'[worldserver]' written in the top of the file!");
+        sLog->outError("Verify that the file exists and has \'[WorldServer]' written in the top of the file!");
         return 1;
     }
     sLog->outString("Using configuration file %s.", cfg_file);
@@ -135,13 +134,15 @@ extern int main(int argc, char **argv)
     sLog->outDetail("Using ACE: %s", ACE_VERSION);
 
     ///- and run the 'Master'
-    /// \todo Why do we need this 'Master'? Can't all of this be in the Main as for Realmd?
+    /// \todo Why do we need this 'Master'? Can't all of this be in the Main as for RealmServer?
     int ret = sMaster->Run();
 
     // at sMaster return function exist with codes
     // 0 - normal shutdown
     // 1 - shutdown at error
-    // 2 - restart command used, this code can be used by restarter for restart Trinityd
+    // 2 - restart command used, this code can be used by restarter for restart WorldServer
 
     return ret;
 }
+
+/// @}

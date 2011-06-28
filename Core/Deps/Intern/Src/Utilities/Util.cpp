@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
- * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -417,7 +415,7 @@ std::wstring GetMainPartOfName(std::wstring wname, uint32 declension)
         { &ie_End[1], &i_End[1],    NULL,         NULL,        NULL,         NULL,         NULL,       NULL }
     };
 
-    for (wchar_t const * const* itr = &dropEnds[declension][0]; *itr; ++itr)
+    for (wchar_t const* const* itr = &dropEnds[declension][0]; *itr; ++itr)
     {
         size_t len = size_t((*itr)[-1]);                    // get length from string size field
 

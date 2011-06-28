@@ -581,14 +581,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\Src\Database\Implementation\DataDB.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\Database\Implementation\DataDB.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\Src\Database\Implementation\RealmDB.cpp"
 					>
 				</File>

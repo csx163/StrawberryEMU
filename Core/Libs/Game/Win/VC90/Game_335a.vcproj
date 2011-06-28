@@ -779,14 +779,6 @@
 			Name="DataStores"
 			>
 			<File
-				RelativePath="..\..\Src\335a\DataStores\Data.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Src\335a\DataStores\Data.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\Src\335a\DataStores\DBCEnums.h"
 				>
 			</File>
@@ -806,114 +798,6 @@
 				RelativePath="..\..\Src\335a\DataStores\DBCStructure.h"
 				>
 			</File>
-			<Filter
-				Name="Structs"
-				>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\Achievement.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\Achievement_Category.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\Achievement_Criteria.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AnimationData.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AreaGroup.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AreaPOI.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AreaTable.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AreaTrigger.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AttackAnimKits.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AttackAnimTypes.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\AuctionHouse.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\BankBagSlotPrices.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\BannedAddOns.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\BarberShopStyle.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\BattlemasterList.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CameraShakes.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\Cfg_Categories.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\Cfg_Configs.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharacterFacialHairStyles.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharBaseInfo.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharHairGeosets.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharHairTextures.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharSections.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharStartOutfit.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharTitles.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Src\335a\DataStores\Structs\CharVariations.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="DungeonFinding"
@@ -1903,6 +1787,10 @@
 				</File>
 				<File
 					RelativePath="..\..\Src\335a\Server\Sockets\WorldSocket.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\335a\Server\Sockets\WorldSocketAcceptor.h"
 					>
 				</File>
 				<File

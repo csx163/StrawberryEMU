@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
- * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -52,7 +50,7 @@ void Transaction::Append(PreparedStatement* stmt)
 void Transaction::Cleanup()
 {
     // This might be called by explicit calls to Cleanup or by the auto-destructor
-    if (_cleanedUp) 
+    if (_cleanedUp)
         return;
 
     while (!m_queries.empty())

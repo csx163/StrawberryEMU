@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
+ * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -95,7 +95,7 @@ public:
                 w_loops = World::m_worldLoopCounter;
             }
             // possible freeze
-            else if (getMSTimeDiff(w_lastchange,curtime) > _delaytime)
+            else if (getMSTimeDiff(w_lastchange, curtime) > _delaytime)
             {
                 sLog->outError("World Thread hangs, kicking out server!");
                 ASSERT(false);
@@ -122,23 +122,6 @@ int Master::Run()
     sLog->outString("%s (worldserver-daemon)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
 
-    sLog->outString( "http://strawberry-pr0jcts.com____________________________________" );
-    sLog->outString( "http://easy-emu.de_______________________________________________" );
-    sLog->outString( "      __                                                         " );
-    sLog->outString( "    /    )                           /                           " );
-    sLog->outString( "----\\------_/_---)__----__----------/__----__---)__---)__-------" );
-    sLog->outString( "     \\     /    /   ) /   )| /| /  /   ) /___) /   ) /   ) /   /" );
-    sLog->outString( "_(____/___(_ __/_____(___(_|/_|/__(___/_(___ _/_____/_____(___/_ " );
-    sLog->outString( "                                                             /   " );
-    sLog->outString( "                                                         (_ /    " );
-    sLog->outString( "____________________________" );
-    sLog->outString( "      __                    " );
-    sLog->outString( "    /    )                  " );
-    sLog->outString( "---/---------__---)__----__-" );
-    sLog->outString( "  /        /   ) /   ) /___)" );
-    sLog->outString( "_(____/___(___/_/_____(___ _" );
-    sLog->outString( "" );
-
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
     sLog->outString("SFMT has been enabled as the random number generator, if worldserver");
@@ -164,7 +147,7 @@ int Master::Run()
     if (!_StartDB())
         return 1;
 
-    // Set server offline (not connectable)
+    // set server offline (not connectable)
     RealmDB.DirectPExecute("UPDATE realmlist SET color = (color & ~%u) | %u WHERE id = '%d'", REALM_FLAG_OFFLINE, REALM_FLAG_INVALID, realmID);
 
     ///- Initialize the World
@@ -176,7 +159,7 @@ int Master::Run()
     WorldServerSignalHandler SignalBREAK;
     #endif /* _WIN32 */
 
-    // Register WorldServer signal handlers
+    // Register worldserver's signal handlers
     ACE_Sig_Handler Handler;
     Handler.register_handler(SIGINT, &SignalINT);
     Handler.register_handler(SIGTERM, &SignalTERM);
@@ -250,7 +233,7 @@ int Master::Run()
 
     if (sConfig->GetBoolDefault("SOAP.Enabled", false))
     {
-        TCSoapRunnable *runnable = new TCSoapRunnable();
+        SoapRunnable *runnable = new SoapRunnable();
         runnable->setListenArguments(sConfig->GetStringDefault("SOAP.IP", "127.0.0.1"), sConfig->GetIntDefault("SOAP.Port", 7878));
         soap_thread = new ACE_Based::Thread(runnable);
     }
@@ -450,30 +433,6 @@ bool Master::_StartDB()
     }
     sLog->outString("Realm running as realm ID %d", realmID);
 
-    // DataDB
-    dbstring = sConfig->GetStringDefault("DataDBInfo", "");
-    if (dbstring.empty())
-    {
-        sLog->outError("Data database not specified in configuration file");
-        return false;
-    }
-
-    async_threads = sConfig->GetIntDefault("DataDB.WorkerThreads", 1);
-    if (async_threads < 1 || async_threads > 32)
-    {
-        sLog->outError("Data database: invalid number of worker threads specified. "
-            "Please pick a value between 1 and 32.");
-        return false;
-    }
-
-    synch_threads = sConfig->GetIntDefault("DataDB.SynchThreads", 1);
-    ///- Initialize the data database
-    if (!DataDB.Open(dbstring, async_threads, synch_threads))
-    {
-        sLog->outError("Cannot connect to data database %s", dbstring.c_str());
-        return false;
-    }
-
     ///- Initialize the DB logging system
     sLog->SetLogDBLater(sConfig->GetBoolDefault("EnableLogDB", false)); // set var to enable DB logging once startup finished.
     sLog->SetLogDB(false);
@@ -483,7 +442,7 @@ bool Master::_StartDB()
     clearOnlineAccounts();
 
     ///- Insert version info into DB
-    WorldDB.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, REVISION_NR);
+    //WorldDB.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", _FULLVERSION, _HASH);
 
     sWorld->LoadDBVersion();
 
@@ -497,7 +456,6 @@ void Master::_StopDB()
     CharDB.Close();
     WorldDB.Close();
     RealmDB.Close();
-    DataDB.Close();
 
     MySQL::Library_End();
 }

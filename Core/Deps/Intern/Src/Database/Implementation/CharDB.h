@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
- * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -49,6 +47,9 @@ enum CharDBStatements
     CHAR_DEL_NONEXISTENT_GUILD_BANK_ITEM,
     CHAR_DEL_EXPIRED_BANS,
     CHAR_GET_GUID_BY_NAME,
+    CHAR_GET_CHECK_NAME,
+    CHAR_GET_SUM_CHARS,
+    CHAR_GET_CHAR_CREATE_INFO,
     CHAR_ADD_BAN,
     CHAR_SET_NOT_BANNED,
     CHAR_GET_BANINFO,

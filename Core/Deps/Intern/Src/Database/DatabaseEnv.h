@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2010-2011 Strawberry-Pr0jcts <http://www.strawberry-pr0jcts.com>
- * 
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -36,16 +34,13 @@
 #define _CONCAT3_(A, B, C) "CONCAT( " A " , " B " , " C " )"
 #define _OFFSET_         "LIMIT %d, 1"
 
-#include "Implementation/CharDB.h"
-#include "Implementation/DataDB.h"
 #include "Implementation/RealmDB.h"
+#include "Implementation/CharDB.h"
 #include "Implementation/WorldDB.h"
 
-
-extern CharDBWorkerPool CharDB;
-extern DataDBWorkerPool DataDB;
-extern RealmDBWorkerPool RealmDB;
 extern WorldDBWorkerPool WorldDB;
+extern CharDBWorkerPool CharDB;
+extern RealmDBWorkerPool RealmDB;
 
 #endif
 
