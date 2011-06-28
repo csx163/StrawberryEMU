@@ -34,6 +34,9 @@ void ClientServerOpcodeTable()
     for(uint32 i = 0; i < NUM_MSG_TYPES; ++i)
         DefineServerClientOpcode(i, "UNKNOWN", STATUS_NEVER, PROCESS_INPLACE, &WorldSession::HandleNULL);
 
+    // Auth
+    SERVERCLIENTOPCODE(MSG_CHECK_CONNECTION,      STATUS_NEVER, PROCESS_INPLACE, &WorldSession::HandleEarlyProccess);
+
     /********************************************/
     /************* CHANNEL OPCODES **************/
     /********************************************/

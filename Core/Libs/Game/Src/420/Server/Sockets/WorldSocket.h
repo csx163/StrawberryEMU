@@ -119,6 +119,8 @@ class WorldSocket : public WorldHandler
         /// things called by ACE framework.
 
         /// Called on open , the void* is the acceptor.
+        int SendAuthConnection();
+        int HandleAuthConnection(WorldPacket& recvPacket);
         virtual int open (void *);
 
         /// Called on failures inside of the acceptor, don't call from your code.

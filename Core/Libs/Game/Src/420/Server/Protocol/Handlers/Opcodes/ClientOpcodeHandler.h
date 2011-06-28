@@ -47,11 +47,11 @@ enum ClientOpcodes
     /***********************************************************/
     /***************** AUTHENTICATION OPCODES ******************/
     /***********************************************************/
-    CMSG_AUTH_SESSION                                    = 0x1ED,
-    CMSG_REALM_SPLIT                                     = 0x38C,
+    CMSG_AUTH_SESSION                                    = 0x29A0,    // 4.2.0.14333
+    CMSG_REALM_SPLIT                                     = 0xB6E2,    // 4.2.0.14333
     CMSG_REDIRECTION_FAILED                              = 0x50E,
     CMSG_UNKNOWN_1296                                    = 0x510,
-    CMSG_REDIRECTION_AUTH_PROOF                          = 0x512,
+    CMSG_REDIRECTION_AUTH_PROOF                          = 0x2120,    // 4.2.0.14333
 
     // SRP6
     CMSG_AUTH_SRP6_BEGIN                                 = 0x033,
@@ -97,9 +97,9 @@ enum ClientOpcodes
     /******************** CHARACTER OPCODES ********************/
     /***********************************************************/
     CMSG_MOVE_CHARACTER_CHEAT                            = 0x00D,
-    CMSG_CHAR_CREATE                                     = 0x036,
+    CMSG_CHAR_CREATE                                     = 0x2A22,    // 4.2.0.14333
     CMSG_CHAR_ENUM                                       = 0x037,
-    CMSG_CHAR_DELETE                                     = 0x038,
+    CMSG_CHAR_DELETE                                     = 0x6E32,    // 4.2.0.14333
     CMSG_CHARACTER_POINT_CHEAT                           = 0x223,
     CMSG_CHAR_RENAME                                     = 0x2C7,
     CMSG_CHAR_CUSTOMIZE                                  = 0x473,
@@ -716,9 +716,9 @@ enum ClientOpcodes
     CMSG_PLAYED_TIME                                     = 0x1CC,
     CMSG_QUERY_TIME                                      = 0x1CE,
     CMSG_TIME_SYNC_RESP                                  = 0x391,
-    CMSG_KEEP_ALIVE                                      = 0x407,
+    CMSG_KEEP_ALIVE                                      = 0x1091,    // 4.2.0.14333
     CMSG_WORLD_STATE_UI_TIMER_UPDATE                     = 0x4F6,
-    CMSG_READY_FOR_ACCOUNT_DATA_TIMES                    = 0x4FF,
+    CMSG_READY_FOR_ACCOUNT_DATA_TIMES                    = 0xF226,    // 4.2.0.14333
 
     // Speed
     CMSG_GAMESPEED_SET                                   = 0x046,
@@ -749,7 +749,7 @@ enum ClientOpcodes
     CMSG_BUY_BANK_SLOT                                   = 0x1B9,
     CMSG_BUG                                             = 0x1CA,
     CMSG_SET_SKILL_CHEAT                                 = 0x1D8,
-    CMSG_PING                                            = 0x1DC,
+    CMSG_PING                                            = 0x2920,    // 4.2.0.14333
     CMSG_SETSHEATHED                                     = 0x1E0,
     CMSG_ZONEUPDATE                                      = 0x1F4,
     CMSG_UNLEARN_SKILL                                   = 0x202,

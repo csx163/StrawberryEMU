@@ -53,10 +53,10 @@ enum ServerOpcodes
     /***************** AUTHENTICATION OPCODES ******************/
     /***********************************************************/
     SMSG_AUTH_SRP6_RESPONSE                              = 0x039,
-    SMSG_AUTH_CHALLENGE                                  = 0x1EC,
-    SMSG_AUTH_RESPONSE                                   = 0x1EE,
+    SMSG_AUTH_CHALLENGE                                  = 0x8C10,    // 4.2.0.14333
+    SMSG_AUTH_RESPONSE                                   = 0xBEFB,    // 4.2.0.14333
     SMSG_REALM_SPLIT                                     = 0x38B,
-    SMSG_REDIRECT_CLIENT                                 = 0x50D,
+    SMSG_REDIRECT_CLIENT                                 = 0x0410,    // 4.2.0.14333
 
     /***********************************************************/
     /******************* BATTLEFIELD OPCODES *******************/
@@ -112,7 +112,7 @@ enum ServerOpcodes
     /******************** CHARACTER OPCODES ********************/
     /***********************************************************/
     SMSG_CHAR_CREATE                                     = 0x03A,
-    SMSG_CHAR_ENUM                                       = 0x03B,
+    SMSG_CHAR_ENUM                                       = 0xB2E3,    // 4.2.0.14333
     SMSG_CHAR_DELETE                                     = 0x03C,
     SMSG_CHARACTER_LOGIN_FAILED                          = 0x041,
     SMSG_CHAR_RENAME                                     = 0x2C8,
