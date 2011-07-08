@@ -287,13 +287,15 @@ void Player::UpdateAttackPowerAndDamage(bool ranged)
     UnitMods unitMod = ranged ? UNIT_MOD_ATTACK_POWER_RANGED : UNIT_MOD_ATTACK_POWER;
 
     uint16 index = UNIT_FIELD_ATTACK_POWER;
-    uint16 index_mod = UNIT_FIELD_ATTACK_POWER_MODS;
+    // Positive AttackPowerMod
+    uint16 index_mod = UNIT_FIELD_ATTACK_POWER_MOD_POS;
     uint16 index_mult = UNIT_FIELD_ATTACK_POWER_MULTIPLIER;
 
     if (ranged)
     {
         index = UNIT_FIELD_RANGED_ATTACK_POWER;
-        index_mod = UNIT_FIELD_RANGED_ATTACK_POWER_MODS;
+        // Positive RangedAttackPowerMod
+        index_mod = UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS;
         index_mult = UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER;
 
         switch (getClass())
@@ -867,13 +869,15 @@ void Creature::UpdateAttackPowerAndDamage(bool ranged)
     UnitMods unitMod = ranged ? UNIT_MOD_ATTACK_POWER_RANGED : UNIT_MOD_ATTACK_POWER;
 
     uint16 index = UNIT_FIELD_ATTACK_POWER;
-    uint16 index_mod = UNIT_FIELD_ATTACK_POWER_MODS;
+    // Positive AttackPowerMod
+    uint16 index_mod = UNIT_FIELD_ATTACK_POWER_MOD_POS;
     uint16 index_mult = UNIT_FIELD_ATTACK_POWER_MULTIPLIER;
 
     if (ranged)
     {
         index = UNIT_FIELD_RANGED_ATTACK_POWER;
-        index_mod = UNIT_FIELD_RANGED_ATTACK_POWER_MODS;
+        // Positive RangedAttackPowerMod
+        index_mod = UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS;
         index_mult = UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER;
     }
 
@@ -1233,11 +1237,12 @@ void Guardian::UpdateAttackPowerAndDamage(bool ranged)
     float attPowerMod = GetModifierValue(unitMod, TOTAL_VALUE);
     float attPowerMultiplier = GetModifierValue(unitMod, TOTAL_PCT) - 1.0f;
 
-    //UNIT_FIELD_(RANGED)_ATTACK_POWER field
+    // UNIT_FIELD_(RANGED)_ATTACK_POWER field
     SetInt32Value(UNIT_FIELD_ATTACK_POWER, (int32)base_attPower);
-    //UNIT_FIELD_(RANGED)_ATTACK_POWER_MODS field
-    SetInt32Value(UNIT_FIELD_ATTACK_POWER_MODS, (int32)attPowerMod);
-    //UNIT_FIELD_(RANGED)_ATTACK_POWER_MULTIPLIER field
+    // UNIT_FIELD_(RANGED)_ATTACK_POWER_MODS field
+    // Positive AttackPowerMod
+    SetInt32Value(UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS, (int32)attPowerMod);
+    // UNIT_FIELD_(RANGED)_ATTACK_POWER_MULTIPLIER field
     SetFloatValue(UNIT_FIELD_ATTACK_POWER_MULTIPLIER, attPowerMultiplier);
 
     //automatically update weapon damage after attack power modification

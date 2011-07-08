@@ -54,9 +54,9 @@ enum ClientOpcodes
     CMSG_REDIRECTION_AUTH_PROOF                          = 0x2120,    // 4.2.0.14333
 
     // SRP6
-    CMSG_AUTH_SRP6_BEGIN                                 = 0x033,
-    CMSG_AUTH_SRP6_PROOF                                 = 0x034,
-    CMSG_AUTH_SRP6_RECODE                                = 0x035,
+    CMSG_AUTH_SRP6_BEGIN                                 = 0x033,    // 4.2.0.14333
+    CMSG_AUTH_SRP6_PROOF                                 = 0x034,    // 4.2.0.14333
+    CMSG_AUTH_SRP6_RECODE                                = 0x035,    // 4.2.0.14333
 
     /***********************************************************/
     /******************* BATTLEFIELD OPCODES *******************/
@@ -98,7 +98,7 @@ enum ClientOpcodes
     /***********************************************************/
     CMSG_MOVE_CHARACTER_CHEAT                            = 0x00D,
     CMSG_CHAR_CREATE                                     = 0x2A22,    // 4.2.0.14333
-    CMSG_CHAR_ENUM                                       = 0x037,
+    CMSG_CHAR_ENUM                                       = 0x1091,    // 4.2.0.14333
     CMSG_CHAR_DELETE                                     = 0x6E32,    // 4.2.0.14333
     CMSG_CHARACTER_POINT_CHEAT                           = 0x223,
     CMSG_CHAR_RENAME                                     = 0x2C7,
@@ -226,7 +226,7 @@ enum ClientOpcodes
     /***********************************************************/
     CMSG_GOSSIP_HELLO                                    = 0x17B,
     CMSG_GOSSIP_SELECT_OPTION                            = 0x17C,
-    CMSG_NPC_TEXT_QUERY                                  = 0x17F,
+    CMSG_NPC_TEXT_QUERY                                  = 0x3AEF,    // 4.2.0.14333
     CMSG_BATTLEMASTER_JOIN                               = 0x2EE,
 
     // Gossip Questgiver
@@ -301,7 +301,7 @@ enum ClientOpcodes
     CMSG_PETITION_SIGN                                   = 0x1C0,
     CMSG_OFFER_PETITION                                  = 0x1C3,
     CMSG_TURN_IN_PETITION                                = 0x1C4,
-    CMSG_PETITION_QUERY                                  = 0x1C6,
+    CMSG_PETITION_QUERY                                  = 0x7E36,    // 4.2.0.14333
 
     // Guild Party
     CMSG_REQUEST_PARTY_MEMBER_STATS                      = 0x27F,
@@ -520,7 +520,7 @@ enum ClientOpcodes
     CMSG_LOAD_DANCES                                     = 0x44D,
     CMSG_STOP_DANCE                                      = 0x44E,
     CMSG_SYNC_DANCE                                      = 0x450,
-    CMSG_DANCE_QUERY                                     = 0x451,
+    CMSG_DANCE_QUERY                                     = 0xA6BF,    // 4.2.0.14333
     CMSG_DELETE_DANCE                                    = 0x454,
     CMSG_LEARN_DANCE_MOVE                                = 0x456,
     CMSG_UNLEARN_DANCE_MOVE                              = 0x457,
@@ -555,7 +555,7 @@ enum ClientOpcodes
 
     // Player Arena
     CMSG_ARENA_TEAM_CREATE                               = 0x348,
-    CMSG_ARENA_TEAM_QUERY                                = 0x34B,
+    CMSG_ARENA_TEAM_QUERY                                = 0xF62E,    // 4.2.0.14333
     CMSG_ARENA_TEAM_ROSTER                               = 0x34D,
     CMSG_ARENA_TEAM_INVITE                               = 0x34F,
     CMSG_ARENA_TEAM_ACCEPT                               = 0x351,
@@ -629,17 +629,17 @@ enum ClientOpcodes
     /***********************************************************/
     /********************* QUERY OPCODES ***********************/
     /***********************************************************/
-    CMSG_NAME_QUERY                                      = 0x050,
-    CMSG_PET_NAME_QUERY                                  = 0x052,
-    CMSG_GUILD_QUERY                                     = 0x054,
+    CMSG_NAME_QUERY                                      = 0x7266,    // 4.2.0.14333
+    CMSG_PET_NAME_QUERY                                  = 0xBE3E,    // 4.2.0.14333
+    CMSG_GUILD_QUERY                                     = 0xA26A,    // 4.2.0.14333
     CMSG_ITEM_QUERY_SINGLE                               = 0x056,
     CMSG_ITEM_QUERY_MULTIPLE                             = 0x057,
-    CMSG_PAGE_TEXT_QUERY                                 = 0x05A,
-    CMSG_QUEST_QUERY                                     = 0x05C,
-    CMSG_GAMEOBJECT_QUERY                                = 0x05E,
-    CMSG_CREATURE_QUERY                                  = 0x060,
+    CMSG_PAGE_TEXT_QUERY                                 = 0xF2FF,    // 4.2.0.14333
+    CMSG_QUEST_QUERY                                     = 0x2AFE,    // 4.2.0.14333
+    CMSG_GAMEOBJECT_QUERY                                = 0x3AFE,    // 4.2.0.14333
+    CMSG_CREATURE_QUERY                                  = 0xA662,    // 4.2.0.14333
     CMSG_ITEM_TEXT_QUERY                                 = 0x243,
-    CMSG_ITEM_NAME_QUERY                                 = 0x2C4,
+    CMSG_ITEM_NAME_QUERY                                 = 0x7EF7,    // 4.2.0.14333
     CMSG_CORPSE_MAP_POSITION_QUERY                       = 0x4B6,
 
     /***********************************************************/
@@ -824,7 +824,7 @@ enum ClientOpcodes
     // World Teleport
     CMSG_WORLD_TELEPORT                                  = 0x008,
     CMSG_TELEPORT_TO_UNIT                                = 0x009,
-    CMSG_REQUEST_ACCOUNT_DATA                            = 0x20A,
+    CMSG_REQUEST_ACCOUNT_DATA                            = 0x7E3B,    // 4.2.0.14333
     CMSG_UPDATE_ACCOUNT_DATA                             = 0x20B
 };
 

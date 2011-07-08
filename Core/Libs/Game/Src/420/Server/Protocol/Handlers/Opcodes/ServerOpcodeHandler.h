@@ -55,7 +55,7 @@ enum ServerOpcodes
     SMSG_AUTH_SRP6_RESPONSE                              = 0x039,
     SMSG_AUTH_CHALLENGE                                  = 0x8C10,    // 4.2.0.14333
     SMSG_AUTH_RESPONSE                                   = 0xBEFB,    // 4.2.0.14333
-    SMSG_REALM_SPLIT                                     = 0x38B,
+    SMSG_REALM_SPLIT                                     = 0xA266,    // 4.2.0.14333
     SMSG_REDIRECT_CLIENT                                 = 0x0410,    // 4.2.0.14333
 
     /***********************************************************/
@@ -112,7 +112,7 @@ enum ServerOpcodes
     /******************** CHARACTER OPCODES ********************/
     /***********************************************************/
     SMSG_CHAR_CREATE                                     = 0x03A,
-    SMSG_CHAR_ENUM                                       = 0xB2E3,    // 4.2.0.14333
+    SMSG_CHAR_ENUM                                       = 0xC727,    // 4.2.0.14333
     SMSG_CHAR_DELETE                                     = 0x03C,
     SMSG_CHARACTER_LOGIN_FAILED                          = 0x041,
     SMSG_CHAR_RENAME                                     = 0x2C8,
@@ -354,9 +354,9 @@ enum ServerOpcodes
     /***********************************************************/
     // Login
     // Logout
-    SMSG_LOGOUT_RESPONSE                                 = 0x04C,
-    SMSG_LOGOUT_COMPLETE                                 = 0x04D,
-    SMSG_LOGOUT_CANCEL_ACK                               = 0x04F,
+    SMSG_LOGOUT_RESPONSE                                 = 0xB2E3,    // 4.2.0.14333
+    SMSG_LOGOUT_COMPLETE                                 = 0xA27F,    // 4.2.0.14333
+    SMSG_LOGOUT_CANCEL_ACK                               = 0xAA37,    // 4.2.0.14333
 
     /***********************************************************/
     /********************** LOOT OPCODES ***********************/
@@ -489,7 +489,7 @@ enum ServerOpcodes
     /***********************************************************/
     SMSG_PLAYER_DIFFICULTY_CHANGE                        = 0x20E,
     SMSG_PLAYER_SKINNED                                  = 0x2BC,
-    SMSG_ADDON_INFO                                      = 0x2EF,
+    SMSG_ADDON_INFO                                      = 0x6AAE,    // 4.2.0.14333
     SMSG_GHOSTEE_GONE                                    = 0x326,
     SMSG_TITLE_EARNED                                    = 0x373,
     SMSG_UPDATE_COMBO_POINTS                             = 0x39D,
@@ -699,7 +699,7 @@ enum ServerOpcodes
     SMSG_TIME_SYNC_REQ                                   = 0x390,
     SMSG_ITEM_TIME_UPDATE                                = 0x1EA,
     SMSG_ITEM_ENCHANT_TIME_UPDATE                        = 0x1EB,
-    SMSG_ACCOUNT_DATA_TIMES                              = 0x209,
+    SMSG_ACCOUNT_DATA_TIMES                              = 0x2E3E,    // 4.2.0.14333
     SMSG_PLAY_TIME_WARNING                               = 0x2F5,
     SMSG_GAMETIMEBIAS_SET                                = 0x314,
 
@@ -727,7 +727,7 @@ enum ServerOpcodes
     SMSG_CONTACT_LIST                                    = 0x067,
     SMSG_FRIEND_STATUS                                   = 0x068,
     SMSG_MONSTER_MOVE                                    = 0x0DD,
-    SMSG_TUTORIAL_FLAGS                                  = 0x0FD,
+    SMSG_TUTORIAL_FLAGS                                  = 0x7E72,    // 4.2.0.14333
     SMSG_EMOTE                                           = 0x103,
     SMSG_TEXT_EMOTE                                      = 0x105,
     SMSG_SET_PROFICIENCY                                 = 0x127,
@@ -745,7 +745,7 @@ enum ServerOpcodes
     SMSG_PONG                                            = 0x1DD,
     SMSG_INVALID_PROMOTION_CODE                          = 0x1E7,
     SMSG_RWHOIS                                          = 0x1FE,
-    SMSG_UPDATE_ACCOUNT_DATA                             = 0x20C,
+    SMSG_UPDATE_ACCOUNT_DATA                             = 0xAA66,    // 4.2.0.14333
     SMSG_CLEAR_FAR_SIGHT_IMMEDIATE                       = 0x20D,
     SMSG_SPIRIT_HEALER_CONFIRM                           = 0x222,
     SMSG_ZONE_UNDER_ATTACK                               = 0x254,
@@ -782,7 +782,7 @@ enum ServerOpcodes
     SMSG_PROPOSE_LEVEL_GRANT                             = 0x41F,
     SMSG_UPDATE_ACCOUNT_DATA_COMPLETE                    = 0x463,
     SMSG_SERVER_BUCK_DATA_START                          = 0x4A3,
-    SMSG_CLIENTCACHE_VERSION                             = 0x4AB,
+    SMSG_CLIENTCACHE_VERSION                             = 0xA237,    // 4.2.0.14333
     SMSG_SET_PROJECTILE_POSITION                         = 0x4BF,
     SMSG_UNKNOWN_1240                                    = 0x4D8,
     SMSG_TOGGLE_XP_GAIN                                  = 0x4ED,
