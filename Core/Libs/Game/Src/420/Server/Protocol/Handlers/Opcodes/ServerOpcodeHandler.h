@@ -823,7 +823,7 @@ enum ServerOpcodes
     /***********************************************************/
     /********************** WORLD OPCODES **********************/
     /***********************************************************/
-    SMSG_NEW_WORLD                                       = 0x03E,
+    SMSG_NEW_WORLD                                       = 0x0F01,    // 4.2.0.14333, 420 struct
     SMSG_UPDATE_OBJECT                                   = 0x0A9,
     SMSG_DESTROY_OBJECT                                  = 0x0AA,
     SMSG_COMPRESSED_UPDATE_OBJECT                        = 0x1F6,
