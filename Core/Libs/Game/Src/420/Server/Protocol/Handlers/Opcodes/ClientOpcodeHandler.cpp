@@ -57,8 +57,6 @@ void ClientOpcodeTable()
     /***********************************************************/
     CLIENTOPCODE(CMSG_AUTH_SESSION,           STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleEarlyProccess   );
     CLIENTOPCODE(CMSG_REALM_SPLIT,            STATUS_AUTHED, PROCESS_THREADUNSAFE, &WorldSession::HandleRealmSplitOpcode);
-    CLIENTOPCODE(CMSG_REDIRECTION_FAILED,     STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleNULL            );
-    CLIENTOPCODE(CMSG_UNKNOWN_1296,           STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleNULL            );
     CLIENTOPCODE(CMSG_REDIRECTION_AUTH_PROOF, STATUS_NEVER,  PROCESS_INPLACE,      &WorldSession::HandleNULL            );
 
     // SRP6

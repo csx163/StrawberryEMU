@@ -30,44 +30,42 @@ enum ClientOpcodes
     /***********************************************************/
     /********************* ATTACK OPCODES **********************/
     /***********************************************************/
-    CMSG_ATTACKSWING                                     = 0x141,
-    CMSG_ATTACKSTOP                                      = 0x142,
+    CMSG_ATTACKSWING                                     = 0x663B,    // 4.2.0.14333, struct 420
+    CMSG_ATTACKSTOP                                      = 0x6EAB,    // 4.2.0.14333, struct 420
 
     /***********************************************************/
     /******************** AUCTION OPCODES **********************/
     /***********************************************************/
-    CMSG_AUCTION_SELL_ITEM                               = 0x256,
-    CMSG_AUCTION_REMOVE_ITEM                             = 0x257,
-    CMSG_AUCTION_LIST_ITEMS                              = 0x258,
-    CMSG_AUCTION_LIST_OWNER_ITEMS                        = 0x259,
-    CMSG_AUCTION_PLACE_BID                               = 0x25A,
-    CMSG_AUCTION_LIST_BIDDER_ITEMS                       = 0x264,
-    CMSG_AUCTION_LIST_PENDING_SALES                      = 0x48F,
+    CMSG_AUCTION_SELL_ITEM                               = 0x6A6B,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_REMOVE_ITEM                             = 0xB62A,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_LIST_ITEMS                              = 0x6E77,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_LIST_OWNER_ITEMS                        = 0x2AAB,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_PLACE_BID                               = 0x227B,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_LIST_BIDDER_ITEMS                       = 0xBAF6,    // 4.2.0.14333, struct 420
+    CMSG_AUCTION_LIST_PENDING_SALES                      = 0x3EE7,    // 4.2.0.14333, struct 420
 
     /***********************************************************/
     /***************** AUTHENTICATION OPCODES ******************/
     /***********************************************************/
-    CMSG_AUTH_SESSION                                    = 0x29A0,    // 4.2.0.14333
-    CMSG_REALM_SPLIT                                     = 0xB6E2,    // 4.2.0.14333
-    CMSG_REDIRECTION_FAILED                              = 0x50E,
-    CMSG_UNKNOWN_1296                                    = 0x510,
-    CMSG_REDIRECTION_AUTH_PROOF                          = 0x2120,    // 4.2.0.14333
+    CMSG_AUTH_SESSION                                    = 0x29A0,    // 4.2.0.14333, struct 420
+    CMSG_REALM_SPLIT                                     = 0xB6E2,    // 4.2.0.14333, struct 420
+    CMSG_REDIRECTION_AUTH_PROOF                          = 0x2120,    // 4.2.0.14333, struct 420
 
     // SRP6
-    CMSG_AUTH_SRP6_BEGIN                                 = 0x033,    // 4.2.0.14333
-    CMSG_AUTH_SRP6_PROOF                                 = 0x034,    // 4.2.0.14333
-    CMSG_AUTH_SRP6_RECODE                                = 0x035,    // 4.2.0.14333
+    CMSG_AUTH_SRP6_BEGIN                                 = 0x0033,    // 4.2.0.14333, struct 420
+    CMSG_AUTH_SRP6_PROOF                                 = 0x0034,    // 4.2.0.14333, struct 420
+    CMSG_AUTH_SRP6_RECODE                                = 0x0035,    // 4.2.0.14333, struct 420
 
     /***********************************************************/
     /******************* BATTLEFIELD OPCODES *******************/
     /***********************************************************/
-    CMSG_BATTLEFIELD_LIST                                = 0x23C,
-    CMSG_BATTLEFIELD_JOIN                                = 0x23E,
-    CMSG_BATTLEFIELD_STATUS                              = 0x2D3,
+    CMSG_BATTLEFIELD_LIST                                = 0x23C,    // 3.3.5.12340, struct 335a
+    CMSG_BATTLEFIELD_JOIN                                = 0x23E,    // 3.3.5.12340, struct 335a
+    CMSG_BATTLEFIELD_STATUS                              = 0x3620,    // 4.2.0.14333, struct 420
     CMSG_BATTLEFIELD_PORT                                = 0x2D5,
     CMSG_BATTLEMASTER_HELLO                              = 0x2D7,
-    CMSG_LEAVE_BATTLEFIELD                               = 0x2E1,
-    CMSG_BATTLEMASTER_JOIN_ARENA                         = 0x358,
+    CMSG_LEAVE_BATTLEFIELD                               = 0x6EF2,    // 4.2.0.14333, struct 420
+    CMSG_BATTLEMASTER_JOIN_ARENA                         = 0x086A,    // 4.2.0.14333, struct 420
     CMSG_BATTLEFIELD_MGR_ENTRY_INVITE_RESPONSE           = 0x4DF,
     CMSG_BATTLEFIELD_MGR_QUEUE_INVITE_RESPONSE           = 0x4E2,
     CMSG_BATTLEFIELD_MGR_QUEUE_REQUEST                   = 0x4E3,
@@ -107,7 +105,7 @@ enum ClientOpcodes
     CMSG_CHAR_RACE_CHANGE                                = 0x4F8,
 
     // Character World Login / Logout
-    CMSG_PLAYER_LOGIN                                    = 0x03D,
+    CMSG_PLAYER_LOGIN                                    = 0x10D1,
     CMSG_PLAYER_LOGOUT                                   = 0x04A,
     CMSG_LOGOUT_REQUEST                                  = 0x04B,
     CMSG_LOGOUT_CANCEL                                   = 0x04E,

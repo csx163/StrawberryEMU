@@ -114,19 +114,19 @@ void WorldSession::SendAuctionOwnerNotification(AuctionEntry* auction)
 //this void creates new auction and adds auction to some auctionhouse
 void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
 {
-    uint64 auctioneer, item;
-    uint32 etime, bid, buyout, count;
+    uint64 auctioneer, item, startBid, buyout;
+    uint32 etime, count;
     recv_data >> auctioneer;
     recv_data.read_skip<uint32>();                          // const 1?
     recv_data >> item;
     recv_data >> count;                                     // 3.2.2, number of items being auctioned
-    recv_data >> bid;
-    recv_data >> buyout;
+    recv_data >> startBid;                                  // 420, uint64
+    recv_data >> buyout;                                    // 420, uint64
     recv_data >> etime;
 
     Player *pl = GetPlayer();
 
-    if (!item || !bid || !etime)
+    if (!item || !startBid || !etime)
         return;                                             //check for cheaters
 
     Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(auctioneer, UNIT_NPC_FLAG_AUCTIONEER);
@@ -149,9 +149,9 @@ void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
     // client understand only 3 auction time
     switch(etime)
     {
-        case 1*MIN_AUCTION_TIME:
-        case 2*MIN_AUCTION_TIME:
-        case 4*MIN_AUCTION_TIME:
+        case 1 * MIN_AUCTION_TIME:
+        case 2 * MIN_AUCTION_TIME:
+        case 4 * MIN_AUCTION_TIME:
             break;
         default:
             return;
@@ -223,7 +223,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket & recv_data)
     AH->item_guidlow = GUID_LOPART(item);
     AH->item_template = it->GetEntry();
     AH->owner = pl->GetGUIDLow();
-    AH->startbid = bid;
+    AH->startbid = startBid;
     AH->bidder = 0;
     AH->bid = 0;
     AH->buyout = buyout;
@@ -254,12 +254,13 @@ void WorldSession::HandleAuctionPlaceBid(WorldPacket & recv_data)
 {
     uint64 auctioneer;
     uint32 auctionId;
-    uint32 price;
+    uint64 bid;
     recv_data >> auctioneer;
-    recv_data >> auctionId >> price;
+    recv_data >> auctionId;
+    recv_data >> bid;
 
-    if (!auctionId || !price)
-        return;                                             //check for cheaters
+    if (!auctionId || !bid)
+        return;                                             // check for cheaters
 
     Creature *pCreature = GetPlayer()->GetNPCIfCanInteractWith(auctioneer, UNIT_NPC_FLAG_AUCTIONEER);
     if (!pCreature)
@@ -294,45 +295,45 @@ void WorldSession::HandleAuctionPlaceBid(WorldPacket & recv_data)
     }
 
     // cheating
-    if (price <= auction->bid || price < auction->startbid)
+    if (bid <= auction->bid || bid < auction->startbid)
         return;
 
     // price too low for next bid if not buyout
-    if ((price < auction->buyout || auction->buyout == 0) &&
-        price < auction->bid + auction->GetAuctionOutBid())
+    if ((bid < auction->buyout || auction->buyout == 0) &&
+        bid < auction->bid + auction->GetAuctionOutBid())
     {
         //auction has already higher bid, client tests it!
         return;
     }
 
-    if (!pl->HasEnoughMoney(price))
+    if (!pl->HasEnoughMoney(bid))
     {
-        //you don't have enought money!, client tests!
-        //SendAuctionCommandResult(auction->auctionId, AUCTION_PLACE_BID, ???);
+        // you don't have enough money!, client tests!
+        // SendAuctionCommandResult(auction->auctionId, AUCTION_PLACE_BID, ???);
         return;
     }
 
     SQLTransaction trans = CharDB.BeginTransaction();
 
-    if (price < auction->buyout || auction->buyout == 0)
+    if (bid < auction->buyout || auction->buyout == 0)
     {
         if (auction->bidder > 0)
         {
             if (auction->bidder == pl->GetGUIDLow())
-                pl->ModifyMoney(-int32(price - auction->bid));
+                pl->ModifyMoney(-int32(bid - auction->bid));
             else
             {
                 // mail to last bidder and return money
-                sAuctionMgr->SendAuctionOutbiddedMail(auction, price, GetPlayer(), trans);
-                pl->ModifyMoney(-int32(price));
+                sAuctionMgr->SendAuctionOutbiddedMail(auction, bid, GetPlayer(), trans);
+                pl->ModifyMoney(-int32(bid));
             }
         }
         else
-            pl->ModifyMoney(-int32(price));
+            pl->ModifyMoney(-int32(bid));
 
         auction->bidder = pl->GetGUIDLow();
-        auction->bid = price;
-        GetPlayer()->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_HIGHEST_AUCTION_BID, price);
+        auction->bid = bid;
+        GetPlayer()->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_HIGHEST_AUCTION_BID, bid);
 
         trans->PAppend("UPDATE auctionhouse SET buyguid = '%u', lastbid = '%u' WHERE id = '%u'", auction->bidder, auction->bid, auction->Id);
 
@@ -553,6 +554,7 @@ void WorldSession::HandleAuctionListItems(WorldPacket & recv_data)
     recv_data >> auctionSlotID >> auctionMainCategory >> auctionSubCategory;
     recv_data >> quality >> usable;
 
+    recv_data.read_skip<uint8>();                           // 420, Unknown
     recv_data.read_skip<uint8>();                           // unk
 
     // this block looks like it uses some lame byte packing or similar...
